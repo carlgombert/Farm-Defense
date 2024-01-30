@@ -35,6 +35,30 @@ public class TileManager {
 		tile [1] = new Tile();
 		tile [1].image = Game.addImage(48, 48, "resources/tiles/water.png");
 		
+		tile [2] = new Tile();
+		tile [2].image = Game.addImage(48, 48, "resources/tiles/bottom_left_water.png");
+		
+		tile [3] = new Tile();
+		tile [3].image = Game.addImage(48, 48, "resources/tiles/bottom_right_water.png");
+		
+		tile [4] = new Tile();
+		tile [4].image = Game.addImage(48, 48, "resources/tiles/bottom_water.png");
+		
+		tile [5] = new Tile();
+		tile [5].image = Game.addImage(48, 48, "resources/tiles/left_water.png");
+		
+		tile [6] = new Tile();
+		tile [6].image = Game.addImage(48, 48, "resources/tiles/right_water.png");
+		
+		tile [7] = new Tile();
+		tile [7].image = Game.addImage(48, 48, "resources/tiles/top_left_water.png");
+		
+		tile [8] = new Tile();
+		tile [8].image = Game.addImage(48, 48, "resources/tiles/top_right_water.png");
+		
+		tile [9] = new Tile();
+		tile [9].image = Game.addImage(48, 48, "resources/tiles/top_water.png");
+		
 	}
 	
 	//loads in map as txt files and reads in numbers as their specified tile type
