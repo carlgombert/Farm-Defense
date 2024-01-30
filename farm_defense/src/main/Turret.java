@@ -85,5 +85,10 @@ public class Turret extends GameObject{
 	public void setBullets(int bullets) {
 		this.bullets = bullets;
 	}
+
+	public Rectangle getSize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

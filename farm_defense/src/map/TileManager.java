@@ -14,8 +14,8 @@ import util.ImageUtil;
 
 // the games map is built as a grid of a bunch of different tiles.
 public class TileManager {
-	Tile [] tile;
-	int mapTileNum[][];
+	public static Tile[] tile;
+	public static int mapTileNum[][];
 	
 	public TileManager () {
 		
@@ -35,36 +35,47 @@ public class TileManager {
 		
 		tile [1] = new Tile();
 		tile [1].image = ImageUtil.addImage(48, 48, "resources/tiles/water.png");
+		tile [1].collision = true;
 		
 		tile [2] = new Tile();
 		tile [2].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_left_water.png");
+		tile [2].collision = true;
 		
 		tile [3] = new Tile();
 		tile [3].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_right_water.png");
+		tile [3].collision = true;
 		
 		tile [4] = new Tile();
 		tile [4].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_water.png");
+		tile [4].collision = true;
 		
 		tile [5] = new Tile();
 		tile [5].image = ImageUtil.addImage(48, 48, "resources/tiles/left_water.png");
+		tile [5].collision = true;
 		
 		tile [6] = new Tile();
 		tile [6].image = ImageUtil.addImage(48, 48, "resources/tiles/right_water.png");
+		tile [6].collision = true;
 		
 		tile [7] = new Tile();
 		tile [7].image = ImageUtil.addImage(48, 48, "resources/tiles/top_left_water.png");
+		tile [7].collision = true;
 		
 		tile [8] = new Tile();
 		tile [8].image = ImageUtil.addImage(48, 48, "resources/tiles/top_right_water.png");
+		tile [8].collision = true;
 		
 		tile [9] = new Tile();
 		tile [9].image = ImageUtil.addImage(48, 48, "resources/tiles/top_water.png");
+		tile [9].collision = true;
 		
 		tile [10] = new Tile();
 		tile [10].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_left_corner_water.png");
+		tile [10].collision = true;
 		
 		tile [11] = new Tile();
 		tile [11].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_right_corner_water.png");
+		tile [11].collision = true;
 		
 	}
 	
