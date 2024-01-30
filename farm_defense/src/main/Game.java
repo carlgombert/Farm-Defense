@@ -113,20 +113,11 @@ public class Game extends Canvas implements Runnable{
 		
 		//rendering the tilemanager renders the background map
 		tileManager.render(g);
+		
+		//rendering handler renders all gameobjects
 		handler.render(g);
 		
 		g.dispose();
 		bs.show();
-	}
-	
-	public static BufferedImage addImage(int width, int height, String file) {
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(file));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-		return image;
 	}
 }

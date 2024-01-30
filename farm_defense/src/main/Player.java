@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import util.ImageUtil;
+
 public class Player extends GameObject{
 	
 	HashMap<Integer, BufferedImage[]> playerImages = new HashMap<Integer, BufferedImage[]>();
@@ -18,10 +20,10 @@ public class Player extends GameObject{
 	public Player(ID id) {
 		super(400, 200, id);
 		
-		BufferedImage[] front = {Game.addImage(75, 75, "resources/player/front_right.png"), Game.addImage(75, 75, "resources/player/front_left.png")};
-		BufferedImage[] back = {Game.addImage(75, 75, "resources/player/back_right.png"), Game.addImage(75, 75, "resources/player/back_left.png")};
-		BufferedImage[] left = {Game.addImage(75, 75, "resources/player/left_right.png"), Game.addImage(75, 75, "resources/player/left_left.png")};
-		BufferedImage[] right = {Game.addImage(75, 75, "resources/player/right_right.png"), Game.addImage(75, 75, "resources/player/right_left.png")};
+		BufferedImage[] front = {ImageUtil.addImage(75, 75, "resources/player/front_right.png"), ImageUtil.addImage(75, 75, "resources/player/front_left.png")};
+		BufferedImage[] back = {ImageUtil.addImage(75, 75, "resources/player/back_right.png"), ImageUtil.addImage(75, 75, "resources/player/back_left.png")};
+		BufferedImage[] left = {ImageUtil.addImage(75, 75, "resources/player/left_right.png"), ImageUtil.addImage(75, 75, "resources/player/left_left.png")};
+		BufferedImage[] right = {ImageUtil.addImage(75, 75, "resources/player/right_right.png"), ImageUtil.addImage(75, 75, "resources/player/right_left.png")};
 		
 		playerImages.put(0, front);
 		playerImages.put(1, back);

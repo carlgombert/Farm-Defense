@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import util.ImageUtil;
+
 public class Zombie extends GameObject{
 	
 	HashMap<Integer, BufferedImage[]> zombieImages = new HashMap<Integer, BufferedImage[]>();
@@ -20,10 +22,10 @@ public class Zombie extends GameObject{
 	public Zombie(int x, int y, ID id) {
 		super(x, y, id);
 		
-		BufferedImage[] front = {Game.addImage(75, 75, "res/baby/front_right.png"), Game.addImage(75, 75, "res/baby/front_left.png")};
-		BufferedImage[] back = {Game.addImage(75, 75, "res/baby/back_right.png"), Game.addImage(75, 75, "res/baby/back_left.png")};
-		BufferedImage[] left = {Game.addImage(75, 75, "res/baby/left_right.png"), Game.addImage(75, 75, "res/baby/left_left.png")};
-		BufferedImage[] right = {Game.addImage(75, 75, "res/baby/right_right.png"), Game.addImage(75, 75, "res/baby/right_left.png")};
+		BufferedImage[] front = {ImageUtil.addImage(75, 75, "res/baby/front_right.png"), ImageUtil.addImage(75, 75, "res/baby/front_left.png")};
+		BufferedImage[] back = {ImageUtil.addImage(75, 75, "res/baby/back_right.png"), ImageUtil.addImage(75, 75, "res/baby/back_left.png")};
+		BufferedImage[] left = {ImageUtil.addImage(75, 75, "res/baby/left_right.png"), ImageUtil.addImage(75, 75, "res/baby/left_left.png")};
+		BufferedImage[] right = {ImageUtil.addImage(75, 75, "res/baby/right_right.png"), ImageUtil.addImage(75, 75, "res/baby/right_left.png")};
 		
 		
 		zombieImages.put(0, front);
