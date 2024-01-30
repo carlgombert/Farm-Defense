@@ -18,7 +18,7 @@ public class TileManager {
 	
 	public TileManager () {
 		
-		tile = new Tile [10];
+		tile = new Tile [20];
 		
 		mapTileNum = new int[Game.mapCol][Game.mapRow];
 		loadMap();
@@ -58,6 +58,12 @@ public class TileManager {
 		
 		tile [9] = new Tile();
 		tile [9].image = Game.addImage(48, 48, "resources/tiles/top_water.png");
+		
+		tile [10] = new Tile();
+		tile [10].image = Game.addImage(48, 48, "resources/tiles/bottom_left_corner_water.png");
+		
+		tile [11] = new Tile();
+		tile [11].image = Game.addImage(48, 48, "resources/tiles/bottom_right_corner_water.png");
 		
 	}
 	
