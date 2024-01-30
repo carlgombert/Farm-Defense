@@ -15,13 +15,10 @@ public class Turret extends GameObject{
 	
 	private double angle;
 	
-	private Handler handler;
-	
 	private boolean targeted = false;
 	
-	public Turret(int x, int y, ID id, Handler handler) {
+	public Turret(int x, int y, ID id) {
 		super(x, y, id);
-		this.handler = handler;
 	}
 
 	public void tick() {
@@ -51,8 +48,8 @@ public class Turret extends GameObject{
 
 	// chooseTarget looks for any zombies within range
 	public Zombie chooseTarget() {
-		for(int i =0; i < handler.object.size(); i++) {
-			GameObject tempObject = handler.object.get(i);
+		for(int i =0; i < Game.handler.object.size(); i++) {
+			GameObject tempObject = Game.handler.object.get(i);
 			
 			if(tempObject.getId() == ID.Zombie) {
 				// if the distance between position and zombie is within range
