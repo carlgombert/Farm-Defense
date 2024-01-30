@@ -11,6 +11,8 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import map.TileManager;
+
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -5505267217615912489L;
@@ -21,7 +23,14 @@ public class Game extends Canvas implements Runnable{
 	
 	private Handler handler;
 	
+	public static int tileSize = 48;
+	
+	public static int mapCol = 40;
+	public static int mapRow = 40;
+	
 	public static Player player;
+	
+	public static TileManager tileManager;
 	
 	public Game() {
 		handler = new Handler();
@@ -31,6 +40,8 @@ public class Game extends Canvas implements Runnable{
 		
 		this.addKeyListener(new KeyInput(player));
 		this.addMouseListener(new KeyInput(player));
+		
+		tileManager = new TileManager();
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}
@@ -100,6 +111,8 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
+		//rendering the tilemanager renders the background map
+		tileManager.render(g);
 		handler.render(g);
 		
 		g.dispose();

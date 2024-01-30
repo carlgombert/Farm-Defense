@@ -33,8 +33,8 @@ public class Player extends GameObject{
 		setScreenX((Game.WIDTH / 2) - (75/2));
 		setScreenY((Game.HEIGHT / 2) - (75/2));
 		
-		worldX = 66*48;
-		worldY = 36*48;
+		worldX = 20*48;
+		worldY = 20*48;
 	}
 	
 	public void render(Graphics g) {
@@ -43,8 +43,8 @@ public class Player extends GameObject{
 	}
 	
 	public void tick() {
-		worldX+= speedX;
-		worldY+= speedY;
+		worldX += speedX;
+		worldY += speedY;
 		currImage = playerImages.get(super.getDirection())[step];
 		if(speedX != 0 || speedY != 0) {
 			stepTimer++;
