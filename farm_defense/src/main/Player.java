@@ -89,7 +89,7 @@ public class Player extends GameObject{
 	}
 
 	public Rectangle getSize() {
-		return new Rectangle(20, 20, 60, 60);
+		return new Rectangle(10, 10, 50, 60);
 	}
 }
 	

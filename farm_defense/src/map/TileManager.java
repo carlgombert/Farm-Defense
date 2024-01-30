@@ -77,6 +77,10 @@ public class TileManager {
 		tile [11].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_right_corner_water.png");
 		tile [11].collision = true;
 		
+		tile [12] = new Tile();
+		tile [12].image = ImageUtil.addImage(48, 48, "resources/tiles/brick.png");
+		tile [12].collision = true;
+		
 	}
 	
 	//loads in map as txt files and reads in numbers as their specified tile type
