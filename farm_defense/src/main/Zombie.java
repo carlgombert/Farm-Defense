@@ -42,11 +42,20 @@ public class Zombie extends GameObject{
 		
 	}
 
-	@Override
 	public void render(Graphics g) {
 		// TODO add to method so image is only drawn if the zombie is on the players screen
 		g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 		
+	}
+	
+	private void collision() {
+		for(int i = 0; i < Game.handler.object.size(); i++) {
+			GameObject tempObject = Game.handler.object.get(i);
+			
+			if(getBounds().intersects(tempObject.getBounds())){
+				
+			}
+		}
 	}
 
 	@Override

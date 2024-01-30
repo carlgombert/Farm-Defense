@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	public static final int WIDTH = 16 * 48, HEIGHT = 12 * 48;
 	
-	private Handler handler;
+	public static Handler handler;
 	
 	public static int tileSize = 48;
 	

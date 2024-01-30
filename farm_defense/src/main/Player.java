@@ -66,6 +66,18 @@ public class Player extends GameObject{
 		}
 	}
 	
+	private void collision() {
+		for(int i = 0; i < Game.handler.object.size(); i++) {
+			GameObject tempObject = Game.handler.object.get(i);
+			
+			if(getBounds().intersects(tempObject.getBounds())){
+				if(tempObject.getId() == ID.Zombie) {
+					// Zombie collision
+				}
+			}
+		}
+	}
+	
 	public Rectangle getBounds() {
 		return new Rectangle(20 + getScreenX(), 20 + getScreenY(), 60, 60);
 	}
