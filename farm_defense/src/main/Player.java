@@ -6,7 +6,9 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import map.TileManager;
 import util.ImageUtil;
+import util.TileUtil;
 
 public class Player extends GameObject{
 	
@@ -45,10 +47,14 @@ public class Player extends GameObject{
 	}
 	
 	public void tick() {
-		worldX += speedX;
-		worldY += speedY;
+		tileCollision = false;
+		TileUtil.checkTileCollision(this);
+		if(!tileCollision) {
+			worldX += speedX;
+			worldY += speedY;
+        }
 		currImage = playerImages.get(super.getDirection())[step];
-		if(speedX != 0 || speedY != 0) {
+		if((speedX != 0 || speedY != 0) && !tileCollision) {
 			stepTimer++;
 			if(stepTimer > 10) {
 				if(step == 0) {
@@ -80,6 +86,10 @@ public class Player extends GameObject{
 	
 	public Rectangle getBounds() {
 		return new Rectangle(20 + getScreenX(), 20 + getScreenY(), 60, 60);
+	}
+
+	public Rectangle getSize() {
+		return new Rectangle(10, 10, 50, 60);
 	}
 }
 	
