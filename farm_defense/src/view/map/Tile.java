@@ -1,4 +1,4 @@
-package map;
+package view.map;
 
 import java.awt.image.BufferedImage;
 

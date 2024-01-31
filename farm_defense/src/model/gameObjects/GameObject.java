@@ -1,7 +1,9 @@
-package main;
+package model.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import controller.objectHandling.ID;
 
 // superclass of all in game objects
 public abstract class GameObject {
