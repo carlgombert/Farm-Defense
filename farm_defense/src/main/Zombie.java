@@ -65,7 +65,7 @@ public class Zombie extends GameObject{
 
 	@Override
 	public Rectangle getSize() {
-		return new Rectangle(20, 20, 60, 60);
+		return new Rectangle(10, 10, 50, 60);
 	}
 
 }

@@ -114,6 +114,9 @@ public class Game extends Canvas implements Runnable{
 		//rendering the tilemanager renders the background map
 		tileManager.render(g);
 		
+		//tileManager.renderNightFade(g);
+		//tileManager.renderNightConstant(g);
+		
 		//rendering handler renders all gameobjects
 		handler.render(g);
 		
