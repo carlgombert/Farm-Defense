@@ -158,13 +158,19 @@ public class TileManager {
 					worldX < Game.player.getWorldX() + Game.WIDTH &&
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
 					worldY < Game.player.getWorldY() + Game.HEIGHT) {
+				// set color to yellow with %50 opacity. this will create a warm glow around the player
 				Color color = new Color(225, 202, 0, 127);
 				g.setColor(color);
+				// overlay the yellow over the current tile
 				g.fillRect(screenX, screenY, 48, 48);
+				//create opacity for the dark brown tile that will get stronger the greater the distance the tile is
+				//from the player
 				int alpha = (int) MathUtil.Distance(worldX, worldY, Game.player.getWorldX(), Game.player.getWorldY()); 
+				//make sure alpha doesn't exceed limit
 				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 253);
 				color = new Color(27, 5, 0, alpha);
 				g.setColor(color);
+				//overlay dark brown over current tile
 				g.fillRect(screenX, screenY, 48, 48);
 			}
 			
@@ -195,8 +201,11 @@ public class TileManager {
 					worldX < Game.player.getWorldX() + Game.WIDTH &&
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
 					worldY < Game.player.getWorldY() + Game.HEIGHT) {
+				
+				//set color to a dark brown with an opacity of %50
 				Color color = new Color(27, 5, 0, 127);
 				g.setColor(color);
+				//pverlay the current tile with the color
 				g.fillRect(screenX, screenY, 48, 48);
 			}
 			
