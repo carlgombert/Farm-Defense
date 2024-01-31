@@ -1,4 +1,4 @@
-package main;
+package model.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -6,7 +6,10 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import controller.Game;
+import controller.objectHandling.ID;
 import util.ImageUtil;
+
 
 public class Zombie extends GameObject{
 	

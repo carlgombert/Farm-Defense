@@ -1,4 +1,4 @@
-package map;
+package view.map;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import main.Game;
+import controller.Game;
 import util.ImageUtil;
 import util.MathUtil;
 

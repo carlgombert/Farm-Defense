@@ -1,4 +1,4 @@
-package main;
+package model.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -6,7 +6,9 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import map.TileManager;
+import controller.Game;
+import controller.objectHandling.ID;
+import view.map.TileManager;
 import util.ImageUtil;
 import util.TileUtil;
 

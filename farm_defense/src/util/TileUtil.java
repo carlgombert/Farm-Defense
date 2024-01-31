@@ -1,8 +1,8 @@
 package util;
 
-import main.Game;
-import main.GameObject;
-import map.TileManager;
+import view.map.TileManager;
+import controller.Game;
+import model.gameObjects.GameObject;
 
 public class TileUtil {
 	

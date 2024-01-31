@@ -1,4 +1,4 @@
-package main;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.UIManager;
+
+import controller.Game;
 
 public class Window {
 	
