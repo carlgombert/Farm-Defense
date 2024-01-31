@@ -1,5 +1,6 @@
 package map;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,6 +11,7 @@ import java.io.InputStreamReader;
 
 import main.Game;
 import util.ImageUtil;
+import util.MathUtil;
 
 
 // the games map is built as a grid of a bunch of different tiles.
@@ -127,6 +129,75 @@ public class TileManager {
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
 					worldY < Game.player.getWorldY() + Game.HEIGHT) {
 				g.drawImage(tile[tileNum].image, screenX, screenY, 48, 48, null);
+			}
+			
+			col++;
+			
+			if (col == Game.mapCol) {
+				col = 0;
+				row++;
+			}
+		}
+	}
+	
+	// filter to put over map. the map gets darker further from the player
+	public void renderNightFade (Graphics g) {
+		int col = 0;
+		int row = 0;
+		while (col < Game.mapCol && row < Game.mapRow) {
+			int tileNum = mapTileNum[col][row];
+			
+			int worldX = col * 48;
+			int worldY = row * 48;
+			
+			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
+			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
+			
+			// if the tile is outside of the players view, do not render.
+			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
+					worldX < Game.player.getWorldX() + Game.WIDTH &&
+					worldY > Game.player.getWorldY() - Game.HEIGHT &&
+					worldY < Game.player.getWorldY() + Game.HEIGHT) {
+				Color color = new Color(225, 202, 0, 127);
+				g.setColor(color);
+				g.fillRect(screenX, screenY, 48, 48);
+				int alpha = (int) MathUtil.Distance(worldX, worldY, Game.player.getWorldX(), Game.player.getWorldY()); 
+				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 253);
+				color = new Color(27, 5, 0, alpha);
+				g.setColor(color);
+				g.fillRect(screenX, screenY, 48, 48);
+			}
+			
+			col++;
+			
+			if (col == Game.mapCol) {
+				col = 0;
+				row++;
+			}
+		}
+	}
+	
+	// filter to put over map. the map is darker than normal
+	public void renderNightConstant (Graphics g) {
+		int col = 0;
+		int row = 0;
+		while (col < Game.mapCol && row < Game.mapRow) {
+			int tileNum = mapTileNum[col][row];
+			
+			int worldX = col * 48;
+			int worldY = row * 48;
+			
+			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
+			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
+			
+			// if the tile is outside of the players view, do not render.
+			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
+					worldX < Game.player.getWorldX() + Game.WIDTH &&
+					worldY > Game.player.getWorldY() - Game.HEIGHT &&
+					worldY < Game.player.getWorldY() + Game.HEIGHT) {
+				Color color = new Color(27, 5, 0, 127);
+				g.setColor(color);
+				g.fillRect(screenX, screenY, 48, 48);
 			}
 			
 			col++;
