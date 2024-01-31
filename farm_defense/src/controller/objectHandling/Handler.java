@@ -3,7 +3,7 @@ package controller.objectHandling;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-import model.gameObjects.GameObject;
+import model.GameObject;
 
 // handler handles adding, removing, rendering and updating all in game objects. this becomes important
 // when many in game objects are constantly being added, removed and moving at once.
