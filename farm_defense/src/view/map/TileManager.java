@@ -1,5 +1,6 @@
-package map;
+package view.map;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,8 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import main.Game;
+import controller.Game;
 import util.ImageUtil;
+import util.MathUtil;
 
 
 // the games map is built as a grid of a bunch of different tiles.
@@ -127,6 +129,84 @@ public class TileManager {
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
 					worldY < Game.player.getWorldY() + Game.HEIGHT) {
 				g.drawImage(tile[tileNum].image, screenX, screenY, 48, 48, null);
+			}
+			
+			col++;
+			
+			if (col == Game.mapCol) {
+				col = 0;
+				row++;
+			}
+		}
+	}
+	
+	// filter to put over map. the map gets darker further from the player
+	public void renderNightFade (Graphics g) {
+		int col = 0;
+		int row = 0;
+		while (col < Game.mapCol && row < Game.mapRow) {
+			int tileNum = mapTileNum[col][row];
+			
+			int worldX = col * 48;
+			int worldY = row * 48;
+			
+			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
+			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
+			
+			// if the tile is outside of the players view, do not render.
+			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
+					worldX < Game.player.getWorldX() + Game.WIDTH &&
+					worldY > Game.player.getWorldY() - Game.HEIGHT &&
+					worldY < Game.player.getWorldY() + Game.HEIGHT) {
+				// set color to yellow with %50 opacity. this will create a warm glow around the player
+				Color color = new Color(225, 202, 0, 127);
+				g.setColor(color);
+				// overlay the yellow over the current tile
+				g.fillRect(screenX, screenY, 48, 48);
+				//create opacity for the dark brown tile that will get stronger the greater the distance the tile is
+				//from the player
+				int alpha = (int) MathUtil.Distance(worldX, worldY, Game.player.getWorldX(), Game.player.getWorldY()); 
+				//make sure alpha doesn't exceed limit
+				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 253);
+				color = new Color(27, 5, 0, alpha);
+				g.setColor(color);
+				//overlay dark brown over current tile
+				g.fillRect(screenX, screenY, 48, 48);
+			}
+			
+			col++;
+			
+			if (col == Game.mapCol) {
+				col = 0;
+				row++;
+			}
+		}
+	}
+	
+	// filter to put over map. the map is darker than normal
+	public void renderNightConstant (Graphics g) {
+		int col = 0;
+		int row = 0;
+		while (col < Game.mapCol && row < Game.mapRow) {
+			int tileNum = mapTileNum[col][row];
+			
+			int worldX = col * 48;
+			int worldY = row * 48;
+			
+			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
+			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
+			
+			// if the tile is outside of the players view, do not render.
+			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
+					worldX < Game.player.getWorldX() + Game.WIDTH &&
+					worldY > Game.player.getWorldY() - Game.HEIGHT &&
+					worldY < Game.player.getWorldY() + Game.HEIGHT) {
+				
+				//set color to a dark brown with an opacity of %50
+				Color color = new Color(27, 5, 0, 127);
+				g.setColor(color);
+				//pverlay the current tile with the color
+				g.fillRect(screenX, screenY, 48, 48);
 			}
 			
 			col++;

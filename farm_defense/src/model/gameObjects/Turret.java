@@ -1,8 +1,11 @@
-package main;
+package model.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import controller.Game;
+import controller.objectHandling.ID;
+import model.GameObject;
 import util.MathUtil;
 
 public class Turret extends GameObject{

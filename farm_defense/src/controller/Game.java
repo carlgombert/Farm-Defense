@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -11,7 +11,12 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import map.TileManager;
+import controller.objectHandling.Handler;
+import controller.objectHandling.ID;
+import model.gameObjects.Zombie;
+import model.gameObjects.Player;
+import view.Window;
+import view.map.TileManager;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -116,6 +121,9 @@ public class Game extends Canvas implements Runnable{
 		
 		//rendering the tilemanager renders the background map
 		tileManager.render(g);
+		
+		//tileManager.renderNightFade(g);
+		//tileManager.renderNightConstant(g);
 		
 		//rendering handler renders all gameobjects
 		handler.render(g);

@@ -1,4 +1,4 @@
-package main;
+package model.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -6,7 +6,10 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import map.TileManager;
+import controller.Game;
+import controller.objectHandling.ID;
+import model.GameObject;
+import view.map.TileManager;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
@@ -91,7 +94,6 @@ public class Player extends GameObject{
 			else if(speedX < 0) {super.setDirection(2);}
 			else if(speedX > 0) {super.setDirection(3);}
 		}
-		
 	}
 	
 	private void collision() {
@@ -99,8 +101,7 @@ public class Player extends GameObject{
 			GameObject tempObject = Game.handler.object.get(i);
 			
 			if(getBounds().intersects(tempObject.getBounds())){
-				if(tempObject.getId() == ID.Zombie) 
-				{
+				if(tempObject.getId() == ID.Zombie) {
 					// Zombie collision
 				}
 			}

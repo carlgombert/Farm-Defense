@@ -1,4 +1,4 @@
-package main;
+package model.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -6,8 +6,12 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import controller.Game;
+import controller.objectHandling.ID;
+import model.GameObject;
 import util.ImageUtil;
 import util.MathUtil;
+
 
 public class Zombie extends GameObject{
 	
@@ -43,8 +47,6 @@ public class Zombie extends GameObject{
 	}
 
 	public void tick() {
-		// TODO add zombie functionality
-		
 		// if the zombie is in the same x plane as the character, the angle between
 		// points function will try to divide by zero
 		if (this.getWorldX() == Game.player.getWorldX() && !tileCollision)
@@ -123,7 +125,7 @@ public class Zombie extends GameObject{
 
 	@Override
 	public Rectangle getSize() {
-		return new Rectangle(20, 20, 60, 60);
+		return new Rectangle(10, 10, 50, 60);
 	}
 
 }
