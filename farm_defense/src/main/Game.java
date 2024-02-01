@@ -38,6 +38,9 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(ID.Player);
 		handler.addObject(player);
 		
+		Zombie zombie = new Zombie(24*48, 24*48, ID.Zombie);
+		handler.addObject(zombie);
+		
 		this.addKeyListener(new KeyInput(player));
 		this.addMouseListener(new KeyInput(player));
 		

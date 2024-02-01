@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import map.TileManager;
 import util.ImageUtil;
+import util.MathUtil;
 import util.TileUtil;
 
 public class Player extends GameObject{
@@ -18,6 +19,11 @@ public class Player extends GameObject{
 	
 	private int stepTimer = 0;
 	private int step = 0;
+	
+	// variables used when get hit by a zombie
+	private boolean hitByZombie = false;
+	private double angleFromZombie;
+	private int hitTimer = 0;
 	
 	public Player(ID id) {
 		super(400, 200, id);
@@ -49,10 +55,25 @@ public class Player extends GameObject{
 	public void tick() {
 		tileCollision = false;
 		TileUtil.checkTileCollision(this);
-		if(!tileCollision) {
+		if(!tileCollision && !hitByZombie) {
 			worldX += speedX;
 			worldY += speedY;
         }
+		else if (hitByZombie) // when player gets hit by zombie, 
+		{
+			if (hitTimer < 25)
+			{
+				worldX += (Math.round(Math.cos(angleFromZombie)) * 3);
+				worldY += (Math.round(Math.sin(angleFromZombie)) * 3);
+				hitTimer++;
+			}
+			else
+			{
+				hitByZombie = false;
+				hitTimer = 0;
+			}
+		}
+		
 		currImage = playerImages.get(super.getDirection())[step];
 		if((speedX != 0 || speedY != 0) && !tileCollision) {
 			stepTimer++;
@@ -70,6 +91,7 @@ public class Player extends GameObject{
 			else if(speedX < 0) {super.setDirection(2);}
 			else if(speedX > 0) {super.setDirection(3);}
 		}
+		
 	}
 	
 	private void collision() {
@@ -77,11 +99,21 @@ public class Player extends GameObject{
 			GameObject tempObject = Game.handler.object.get(i);
 			
 			if(getBounds().intersects(tempObject.getBounds())){
-				if(tempObject.getId() == ID.Zombie) {
+				if(tempObject.getId() == ID.Zombie) 
+				{
 					// Zombie collision
 				}
 			}
 		}
+	}
+	
+	public void zombieCollision(GameObject zombie)
+	{
+		// calculates the angle from the zombie, which will help calculate the direction the player gets hit
+		angleFromZombie = MathUtil.angleBetweenPoints(zombie.getWorldX(), zombie.getWorldY(), this.getWorldX(), this.getWorldY());
+		
+		// puts player into "hit by zombie" mode, which renders him unable to move and will bounce him back
+		hitByZombie = true;
 	}
 	
 	public Rectangle getBounds() {

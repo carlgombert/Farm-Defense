@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import util.ImageUtil;
+import util.MathUtil;
 
 public class Zombie extends GameObject{
 	
@@ -17,15 +18,19 @@ public class Zombie extends GameObject{
 	private int stepTimer = 0;
 	private int step = 0;
 	
+	private double targetAngle;
+	
 	private int speed = 1;
+	private double speedX;
+	private double speedY;
 
 	public Zombie(int x, int y, ID id) {
 		super(x, y, id);
 		
-		BufferedImage[] front = {ImageUtil.addImage(75, 75, "res/baby/front_right.png"), ImageUtil.addImage(75, 75, "res/baby/front_left.png")};
-		BufferedImage[] back = {ImageUtil.addImage(75, 75, "res/baby/back_right.png"), ImageUtil.addImage(75, 75, "res/baby/back_left.png")};
-		BufferedImage[] left = {ImageUtil.addImage(75, 75, "res/baby/left_right.png"), ImageUtil.addImage(75, 75, "res/baby/left_left.png")};
-		BufferedImage[] right = {ImageUtil.addImage(75, 75, "res/baby/right_right.png"), ImageUtil.addImage(75, 75, "res/baby/right_left.png")};
+		BufferedImage[] front = {ImageUtil.addImage(75, 75, "resources/zombie/front_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_left.png")};
+		BufferedImage[] back = {ImageUtil.addImage(75, 75, "resources/zombie/back_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_left.png")};
+		BufferedImage[] left = {ImageUtil.addImage(75, 75, "resources/zombie/left_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/left_left.png")};
+		BufferedImage[] right = {ImageUtil.addImage(75, 75, "resources/zombie/right_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/right_left.png")};
 		
 		
 		zombieImages.put(0, front);
@@ -38,13 +43,66 @@ public class Zombie extends GameObject{
 	}
 
 	public void tick() {
-		// TODO add zombie functionaility
+		// TODO add zombie functionality
 		
+		// if the zombie is in the same x plane as the character, the angle between
+		// points function will try to divide by zero
+		if (this.getWorldX() == Game.player.getWorldX() && !tileCollision)
+		{
+			speedX = 0;
+			speedY = speed * Math.signum(Game.player.getWorldY() - this.getWorldY());
+			worldY += speedY;
+		}
+		else if (!tileCollision)// finds closest angle to a player, will probably add another 
+		{
+			targetAngle = MathUtil.angleBetweenPoints(this.getWorldX(), this.getWorldY(), Game.player.getWorldX(), Game.player.getWorldY());
+					
+			speedX = ((double)speed * Math.cos(targetAngle));
+			speedY = ((double)speed * Math.sin(targetAngle));
+						
+			worldX += Math.round(speedX);
+			worldY += Math.round(speedY);
+		}
+		
+		if ((speedX != 0 || speedY != 0) && !tileCollision) 
+		{
+			stepTimer++;
+			if(stepTimer > 10) {
+				if(step == 0) {
+					step = 1;
+				}
+				else {
+					step = 0;
+				}
+				stepTimer = 0;
+			}
+			if(speedY <= -0.01) {super.setDirection(1);}
+			else if(speedY >= 0.01) {super.setDirection(0);}
+			else if(speedX < 0) {super.setDirection(2);}
+			else if(speedX > 0) {super.setDirection(3);}
+		}
+		
+		currImage = zombieImages.get(super.getDirection())[step];
+		
+		// check to see if the zombie has collided with the player
+		if(this.getBounds().intersects(Game.player.getBounds()))
+		{
+			Game.player.zombieCollision(this);
+		}
 	}
 
 	public void render(Graphics g) {
-		// TODO add to method so image is only drawn if the zombie is on the players screen
-		g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
+		// only draws the zombie if it is on the players screen
+		if(worldX > Game.player.getWorldX() - Game.WIDTH &&
+				worldX < Game.player.getWorldX() + Game.WIDTH &&
+				worldY > Game.player.getWorldY() - Game.HEIGHT &&
+				worldY < Game.player.getWorldY() + Game.HEIGHT) 
+		{
+			setScreenX(worldX - Game.player.getWorldX() + Game.player.getScreenX());
+			setScreenY(worldY - Game.player.getWorldY() + Game.player.getScreenY());
+			
+			g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
+		}
 		
 	}
 	
