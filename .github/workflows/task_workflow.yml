@@ -20,4 +20,4 @@ jobs:
         with:
           project: Task Board
           column: Todo
-          repo-token: ${{ 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 }}
+          repo-token: ${{ secret.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 }}
