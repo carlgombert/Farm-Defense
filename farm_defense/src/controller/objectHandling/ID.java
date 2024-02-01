@@ -6,6 +6,7 @@ import model.*;
 public enum ID {
 	Player(),
 	Zombie(),
-	Turret()
+	Turret(),
+	Projectile()
 	
 }

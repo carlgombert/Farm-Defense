@@ -1,5 +1,6 @@
 package model.gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -20,31 +21,57 @@ public class Turret extends GameObject{
 	
 	private boolean targeted = false;
 	
+	private boolean shooting = false;
+	private int shootTimer = 0;
+	private int shootCount = 0;
+	
 	public Turret(int x, int y, ID id) {
 		super(x, y, id);
+		range = 300;
+		bullets = 5;
 	}
 
 	public void tick() {
-		turnCount++;
-		if(turnCount > turnTimer) {
-			lockToTarget();
-			if(targeted) {
+		if(shooting) {
+			shootTimer++;
+			if(shootTimer % 5 == 0) {
 				shoot();
+				shootCount += 1;
 			}
-			turnCount = 0;
+			if(shootCount > bullets) {
+				shooting = false;
+				targeted = false;
+				shootCount = 0;
+				shootTimer = 0;
+			}
 		}
+		else {
+			turnCount++;
+			if(turnCount > turnTimer) {
+				lockToTarget();
+				if(targeted) {
+					shooting = true;
+				}
+				turnCount = 0;
+			}
+		}
+		setScreenX(worldX - Game.player.getWorldX() + Game.player.getScreenX());
+		setScreenY(worldY - Game.player.getWorldY() + Game.player.getScreenY());
 	}
 
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		g.setColor(Color.darkGray);
+		g.fillOval(screenX, screenY, 80, 80);
 		
 	}
 	
 	// lockToTarget chooses a target and changes the turret angle to face target
 	public void lockToTarget() {
 		Zombie target = chooseTarget();
-		if(!target.equals(null)) {
-			angle = MathUtil.angleBetweenPoints(worldX, worldY, target.getWorldX(), target.getWorldY());
+		if(target != null) {
+			int targetX = target.getWorldX() + ((target.getSize().x + target.getSize().width)/2);
+			int targetY = target.getWorldY() + ((target.getSize().y + target.getSize().height)/2);
+			angle = MathUtil.angleBetweenPoints(worldX+40, worldY+40, targetX, targetY);
 			targeted = true;
 		}
 	}
@@ -65,7 +92,7 @@ public class Turret extends GameObject{
 	}
 	
 	public void shoot() {
-		// Fire bullets at angle
+		Game.handler.addObject(new Projectile(worldX+40, worldY+40, ID.Projectile, angle));
 	}
 	
 	public Rectangle getBounds() {
