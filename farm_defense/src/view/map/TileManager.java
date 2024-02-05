@@ -83,6 +83,9 @@ public class TileManager {
 		tile [12].image = ImageUtil.addImage(48, 48, "resources/tiles/brick.png");
 		tile [12].collision = true;
 		
+		tile [13] = new Tile();
+		tile [13].image = ImageUtil.addImage(48, 48, "resources/tiles/gravestone.png");
+		
 	}
 	
 	//loads in map as txt files and reads in numbers as their specified tile type
@@ -109,6 +112,11 @@ public class TileManager {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+	
+	public int[][] getMap()
+	{
+		return mapTileNum;
 	}
 	
 	public void render (Graphics g) {

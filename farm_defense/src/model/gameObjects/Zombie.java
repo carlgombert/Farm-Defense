@@ -11,6 +11,7 @@ import controller.objectHandling.ID;
 import model.GameObject;
 import util.ImageUtil;
 import util.MathUtil;
+import util.TileUtil;
 
 
 public class Zombie extends GameObject{
@@ -19,14 +20,16 @@ public class Zombie extends GameObject{
 	
 	public Image currImage;
 	
+	private double health = 10.0;
+	
 	private int stepTimer = 0;
 	private int step = 0;
 	
 	private double targetAngle;
 	
 	private int speed = 1;
-	private double speedX;
-	private double speedY;
+	private double doubleSpeedX; // double versions of speedx & y
+	private double doubleSpeedY;
 
 	public Zombie(int x, int y, ID id) {
 		super(x, y, id);
@@ -46,27 +49,41 @@ public class Zombie extends GameObject{
 		
 	}
 
-	public void tick() {
+	public void tick() 
+	{
+		// if the zombie's health is below zero, kill it
+		if (health <= 0)
+		{
+			Game.handler.removeObject(this);
+		}
+		
+		XtileCollision = false;
+		YtileCollision = false;
+		TileUtil.checkTileCollision(this);
+		
 		// if the zombie is in the same x plane as the character, the angle between
 		// points function will try to divide by zero
-		if (this.getWorldX() == Game.player.getWorldX() && !tileCollision)
+		if (this.getWorldX() == Game.player.getWorldX() && !YtileCollision)
 		{
-			speedX = 0;
-			speedY = speed * Math.signum(Game.player.getWorldY() - this.getWorldY());
+			doubleSpeedX = 0;
+			doubleSpeedY = speed * Math.signum(Game.player.getWorldY() - this.getWorldY());
 			worldY += speedY;
 		}
-		else if (!tileCollision)// finds closest angle to a player, will probably add another 
+		else // finds closest angle to a player, will probably add another 
 		{
 			targetAngle = MathUtil.angleBetweenPoints(this.getWorldX(), this.getWorldY(), Game.player.getWorldX(), Game.player.getWorldY());
 					
-			speedX = ((double)speed * Math.cos(targetAngle));
-			speedY = ((double)speed * Math.sin(targetAngle));
+			doubleSpeedX = ((double)speed * Math.cos(targetAngle));
+			doubleSpeedY = ((double)speed * Math.sin(targetAngle));
 						
-			worldX += Math.round(speedX);
-			worldY += Math.round(speedY);
+			speedX = (int)Math.round(doubleSpeedX);
+			speedY = (int)Math.round(doubleSpeedY);
+			
+			if (!XtileCollision) worldX += speedX;
+			if (!YtileCollision) worldY += speedY;
 		}
 		
-		if ((speedX != 0 || speedY != 0) && !tileCollision) 
+		if ((speedX != 0 || speedY != 0)/* && !tileCollision*/) 
 		{
 			stepTimer++;
 			if(stepTimer > 10) {
@@ -104,6 +121,9 @@ public class Zombie extends GameObject{
 			setScreenY(worldY - Game.player.getWorldY() + Game.player.getScreenY());
 			
 			g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
+			
+			//show hitbox
+			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 		
 	}
@@ -117,10 +137,27 @@ public class Zombie extends GameObject{
 			}
 		}
 	}
+	
+	public double getHealth()
+	{
+		return health;
+	}
+	
+	public void setHealth(double h)
+	{
+		health = h;
+	}
+	
+	public int getSpeedX() {
+		return speedX;
+	}
+	public int getSpeedY() {
+		return speedY;
+	}
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(getScreenX() + 20 , getScreenY() + 20, 60, 60);
+		return new Rectangle(getScreenX() + 20 , getScreenY() + 20, 33, 30);
 	}
 
 	@Override
