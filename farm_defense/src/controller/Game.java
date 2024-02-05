@@ -46,9 +46,6 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(ID.Player);
 		handler.addObject(player);
 		
-		handler.addObject(new Zombie(48*15, 48*20, ID.Zombie));
-		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
-		
 		//handler.addObject(new Turret(48*15, 48*20, ID.Turret));
 		
 		this.addKeyListener(new KeyInput(player));
@@ -56,7 +53,7 @@ public class Game extends Canvas implements Runnable{
 		
 		tileManager = new TileManager();
 		
-		//handler.addObject(new ZombieSpawner(0, ID.ZombieSpawner));
+		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}
