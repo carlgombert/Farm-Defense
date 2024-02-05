@@ -7,6 +7,8 @@ public enum ID {
 	Player(),
 	Zombie(),
 	Turret(),
-	Projectile()
+	Projectile(),
+	ZombieSpawner(),
+	NPC()
 	
 }

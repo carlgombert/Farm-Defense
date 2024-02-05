@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
 import model.gameObjects.Zombie;
+import model.gameObjects.ZombieSpawner;
+import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.Window;
@@ -44,16 +46,17 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(ID.Player);
 		handler.addObject(player);
 		
+		handler.addObject(new Zombie(48*15, 48*20, ID.Zombie));
+		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
 		
-		
-		Zombie zombie = new Zombie(24*48, 24*48, ID.Zombie);
-		handler.addObject(zombie);
-		handler.addObject(new Turret(48*15, 48*20, ID.Turret));
+		//handler.addObject(new Turret(48*15, 48*20, ID.Turret));
 		
 		this.addKeyListener(new KeyInput(player));
 		this.addMouseListener(new KeyInput(player));
 		
 		tileManager = new TileManager();
+		
+		//handler.addObject(new ZombieSpawner(0, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}

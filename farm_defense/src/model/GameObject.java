@@ -12,7 +12,8 @@ public abstract class GameObject {
 	protected ID id;
 	
 	// boolean signifying if the object is colliding with a tile or not
-	protected boolean tileCollision;
+	protected boolean XtileCollision;
+	protected boolean YtileCollision;
 
 	// world coordinates represent the position of the object on the broader map
 	protected int worldX, worldY;
@@ -98,11 +99,19 @@ public abstract class GameObject {
 		this.screenY = screenY;
 	}
 	
-	public boolean isTileCollision() {
-		return tileCollision;
+	public boolean isXTileCollision() {
+		return XtileCollision;
 	}
 
-	public void setTileCollision(boolean tileCollsion) {
-		this.tileCollision = tileCollsion;
+	public void setXTileCollision(boolean XtileCollision) {
+		this.XtileCollision = XtileCollision;
+	}
+	
+	public boolean isYTileCollision() {
+		return YtileCollision;
+	}
+
+	public void setYTileCollision(boolean YtileCollision) {
+		this.YtileCollision = YtileCollision;
 	}
 }

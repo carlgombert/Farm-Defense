@@ -1,5 +1,6 @@
 package model.gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -22,6 +23,8 @@ public class Player extends GameObject{
 	
 	private int stepTimer = 0;
 	private int step = 0;
+	
+	private int ammo = 10;
 	
 	// variables used when get hit by a zombie
 	private boolean hitByZombie = false;
@@ -53,16 +56,27 @@ public class Player extends GameObject{
 	public void render(Graphics g) {
 		g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 		
+		// show hitbox
+		g.setColor(Color.white);
+		g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+		
+		// temp code to display the number of ammo
+		g.setColor(Color.white);
+		g.drawString("" + ammo, 50, 50);
 	}
 	
 	public void tick() {
-		tileCollision = false;
+		XtileCollision = false;
+		YtileCollision = false;
 		TileUtil.checkTileCollision(this);
-		if(!tileCollision && !hitByZombie) {
-			worldX += speedX;
-			worldY += speedY;
+		
+		if(!hitByZombie) 
+		{
+			//System.out.println(XtileCollision + " " + YtileCollision);
+			if (!XtileCollision) worldX += speedX;
+			if (!YtileCollision) worldY += speedY;
         }
-		else if (hitByZombie) // when player gets hit by zombie, 
+		else if (hitByZombie) // when player gets hit by zombie, they wont be able to move & they get knocked back
 		{
 			if (hitTimer < 25)
 			{
@@ -78,7 +92,7 @@ public class Player extends GameObject{
 		}
 		
 		currImage = playerImages.get(super.getDirection())[step];
-		if((speedX != 0 || speedY != 0) && !tileCollision) {
+		if((speedX != 0 || speedY != 0)/* && !tileCollision*/) {
 			stepTimer++;
 			if(stepTimer > 10) {
 				if(step == 0) {
@@ -117,8 +131,23 @@ public class Player extends GameObject{
 		hitByZombie = true;
 	}
 	
+	public int getAmmo()
+	{
+		return ammo;
+	}
+	
+	public void reload()
+	{
+		ammo = 10;
+	}
+	
+	public void setAmmo(int a)
+	{
+		ammo = a;
+	}
+	
 	public Rectangle getBounds() {
-		return new Rectangle(20 + getScreenX(), 20 + getScreenY(), 60, 60);
+		return new Rectangle(20 + getScreenX(), 20 + getScreenY(), 33, 30);
 	}
 
 	public Rectangle getSize() {
