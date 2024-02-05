@@ -123,7 +123,7 @@ public class Zombie extends GameObject{
 			g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 			
 			//show hitbox
-			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+			//g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 		
 	}

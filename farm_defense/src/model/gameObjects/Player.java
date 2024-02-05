@@ -57,8 +57,8 @@ public class Player extends GameObject{
 		g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 		
 		// show hitbox
-		g.setColor(Color.white);
-		g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+		//g.setColor(Color.white);
+		//g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		
 		// temp code to display the number of ammo
 		g.setColor(Color.white);
