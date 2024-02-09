@@ -19,19 +19,23 @@ public class Handler {
 		}
 	}
 	
-	public void render(Graphics g) {
-		for(int i = 0; i < object.size(); i++){
+	public void render(Graphics g) 
+	{
+		for(int i = 1; i < object.size(); i++)
+		{
 			GameObject tempObject = object.get(i);
-			
 			tempObject.render(g);
 		}
+		
+		object.get(0).render(g); // always renders the player last to draw them above all other objects
 	}
 	
-	public void addObject(GameObject object) {
-		this.object.add(object);
+	public void addObject(GameObject addedObject) 
+	{
+		this.object.add(addedObject);
 	}
 	
-	public void removeObject(GameObject object) {
-		this.object.remove(object);
+	public void removeObject(GameObject removedObject) {
+		this.object.remove(removedObject);
 	}
 }

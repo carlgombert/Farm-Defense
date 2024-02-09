@@ -2,6 +2,8 @@ package view.map;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -19,6 +21,11 @@ public class TileManager {
 	public static Tile[] tile;
 	public static int mapTileNum[][];
 	
+	public static int mouseX;
+	public static int mouseY;
+	public static int mouseWorldX;
+	public static int mouseWorldY;
+	
 	public TileManager () {
 		
 		tile = new Tile [20];
@@ -32,8 +39,13 @@ public class TileManager {
 	// sets map tile types to numbers
 	public void getTileImage () {
 		
+		// we now have 3 different grass tiles for variation
 		tile [0] = new Tile();
-		tile [0].image = ImageUtil.addImage(48, 48, "resources/tiles/grass.png");
+		tile [0].image = ImageUtil.addImage(48, 48, "resources/tiles/grass_1.png");
+		tile [14] = new Tile();
+		tile [14].image = ImageUtil.addImage(48, 48, "resources/tiles/grass_2.png");
+		tile [15] = new Tile();
+		tile [15].image = ImageUtil.addImage(48, 48, "resources/tiles/grass_3.png");
 		
 		tile [1] = new Tile();
 		tile [1].image = ImageUtil.addImage(48, 48, "resources/tiles/water.png");
@@ -135,8 +147,27 @@ public class TileManager {
 			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
 					worldX < Game.player.getWorldX() + Game.WIDTH &&
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
-					worldY < Game.player.getWorldY() + Game.HEIGHT) {
+					worldY < Game.player.getWorldY() + Game.HEIGHT) 
+			{
 				g.drawImage(tile[tileNum].image, screenX, screenY, 48, 48, null);
+				
+				// draw white highlight on tiles when player is in build mode
+				if (Game.player.getWeaponState() == Game.player.stateBuild()) 
+				{
+					Color whiteOverlay = new Color(255, 255, 255, 3);
+					
+					// reverts the screen mouse coordinates to world coordinates 
+					mouseWorldX = mouseX + Game.player.getWorldX() - Game.player.getScreenX();
+					mouseWorldY = mouseY + Game.player.getWorldY() - Game.player.getScreenY();
+					
+					// gets the tile coordinates that the mouse is on and reverts them back to screen coordinates
+					int tileX = (mouseWorldX - (mouseWorldX%48)) - Game.player.getWorldX() + Game.player.getScreenX();
+					int tileY = (mouseWorldY - (mouseWorldY%48)) - Game.player.getWorldY() + Game.player.getScreenY();
+					
+					// draw highlight
+					g.setColor(whiteOverlay);
+					g.fillRect(tileX, tileY, 48, 48);
+				}
 			}
 			
 			col++;
@@ -224,5 +255,15 @@ public class TileManager {
 				row++;
 			}
 		}
+	}
+	
+	public static void setMouseX(int x)
+	{
+		mouseX = x;
+	}
+	
+	public static void setMouseY(int y)
+	{
+		mouseY = y;
 	}
 }

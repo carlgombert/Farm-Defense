@@ -47,9 +47,11 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(player);
 		
 		//handler.addObject(new Turret(48*15, 48*20, ID.Turret));
+		handler.addObject(new NPC(48*15, 48*20, ID.NPC));		
 		
 		this.addKeyListener(new KeyInput(player));
 		this.addMouseListener(new KeyInput(player));
+		this.addMouseMotionListener(new KeyInput(player));
 		
 		tileManager = new TileManager();
 		

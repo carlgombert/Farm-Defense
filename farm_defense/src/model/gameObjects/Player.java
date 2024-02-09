@@ -31,8 +31,26 @@ public class Player extends GameObject{
 	private double angleFromZombie;
 	private int hitTimer = 0;
 	
+	private int right = 0; // variables representing the player's speeds in certain direction
+	private int left = 0;
+	private int up = 0;
+	private int down = 0;
+	
+	private boolean locked = false; // used to lock the player in place for several reasons
+	
+	public enum w_State // used to determine the weapon state of the player- 1: Gun, 2: Melee, 3: Build (temp)
+	{
+		Gun(),
+		Melee(),
+		Build()
+	}
+	
+	private w_State weaponState; // weapon state of player
+	
 	public Player(ID id) {
 		super(400, 200, id);
+		
+		setWeaponState(w_State.Gun); // starting state as gun
 		
 		BufferedImage[] front = {ImageUtil.addImage(75, 75, "resources/player/front_right.png"), ImageUtil.addImage(75, 75, "resources/player/front_left.png")};
 		BufferedImage[] back = {ImageUtil.addImage(75, 75, "resources/player/back_right.png"), ImageUtil.addImage(75, 75, "resources/player/back_left.png")};
@@ -57,8 +75,7 @@ public class Player extends GameObject{
 		g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 		
 		// show hitbox
-		//g.setColor(Color.white);
-		//g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+		//g.setColor(Color.white); g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		
 		// temp code to display the number of ammo
 		g.setColor(Color.white);
@@ -70,11 +87,16 @@ public class Player extends GameObject{
 		YtileCollision = false;
 		TileUtil.checkTileCollision(this);
 		
+		speedX = left + right; // better way of calculating speed
+		speedY = up + down;
+		
 		if(!hitByZombie) 
 		{
-			//System.out.println(XtileCollision + " " + YtileCollision);
-			if (!XtileCollision) worldX += speedX;
-			if (!YtileCollision) worldY += speedY;
+			if (!locked)
+			{
+				if (!XtileCollision) worldX += speedX;
+				if (!YtileCollision) worldY += speedY;
+			}
         }
 		else if (hitByZombie) // when player gets hit by zombie, they wont be able to move & they get knocked back
 		{
@@ -92,7 +114,7 @@ public class Player extends GameObject{
 		}
 		
 		currImage = playerImages.get(super.getDirection())[step];
-		if((speedX != 0 || speedY != 0)/* && !tileCollision*/) {
+		if((speedX != 0 || speedY != 0) && !locked) {
 			stepTimer++;
 			if(stepTimer > 10) {
 				if(step == 0) {
@@ -144,6 +166,56 @@ public class Player extends GameObject{
 	public void setAmmo(int a)
 	{
 		ammo = a;
+	}
+	
+	public void setLocked(boolean t) // sets whether or not the player should be locked in place 
+	{
+		locked = t;
+	}
+	
+	public void setUp(int var)
+	{
+		up = var;
+	}
+	
+	public void setDown(int var)
+	{
+		down = var;
+	}
+	
+	public void setLeft(int var)
+	{
+		left = var;
+	}
+	
+	public void setRight(int var)
+	{
+		right = var;
+	}
+	
+	public void setWeaponState(w_State s) // change the weapon state of the player
+	{
+		weaponState = s;
+	}
+	
+	public w_State getWeaponState()
+	{
+		return weaponState;
+	}
+	
+	public w_State stateGun()
+	{
+		return w_State.Gun;
+	}
+	
+	public w_State stateMelee()
+	{
+		return w_State.Melee;
+	}
+	
+	public w_State stateBuild()
+	{
+		return w_State.Build;
 	}
 	
 	public Rectangle getBounds() {
