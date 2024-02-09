@@ -34,10 +34,10 @@ public class Zombie extends GameObject{
 	public Zombie(int x, int y, ID id) {
 		super(x, y, id);
 		
-		BufferedImage[] front = {ImageUtil.addImage(75, 75, "resources/zombie/front_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_left.png")};
-		BufferedImage[] back = {ImageUtil.addImage(75, 75, "resources/zombie/back_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_left.png")};
-		BufferedImage[] left = {ImageUtil.addImage(75, 75, "resources/zombie/left_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/left_left.png")};
-		BufferedImage[] right = {ImageUtil.addImage(75, 75, "resources/zombie/right_right.png"), ImageUtil.addImage(75, 75, "resources/zombie/right_left.png")};
+		BufferedImage[] front = {ImageUtil.addImage(75, 75, "resources/zombie/front_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_2.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_2.png")};
+		BufferedImage[] back = {ImageUtil.addImage(75, 75, "resources/zombie/back_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_2.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_2.png")};
+		BufferedImage[] left = {ImageUtil.addImage(75, 75, "resources/zombie/left_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/left_2.png"), ImageUtil.addImage(75, 75, "resources/zombie/left_3.png"), ImageUtil.addImage(75, 75, "resources/zombie/left_4.png")};
+		BufferedImage[] right = {ImageUtil.addImage(75, 75, "resources/zombie/right_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/right_2.png"), ImageUtil.addImage(75, 75, "resources/zombie/right_3.png"), ImageUtil.addImage(75, 75, "resources/zombie/right_4.png")};
 		
 		
 		zombieImages.put(0, front);
@@ -83,12 +83,12 @@ public class Zombie extends GameObject{
 			if (!YtileCollision) worldY += speedY;
 		}
 		
-		if ((speedX != 0 || speedY != 0)/* && !tileCollision*/) 
+		if ((speedX != 0 || speedY != 0)) 
 		{
 			stepTimer++;
 			if(stepTimer > 10) {
-				if(step == 0) {
-					step = 1;
+				if(step < 3) {
+					step++;
 				}
 				else {
 					step = 0;
