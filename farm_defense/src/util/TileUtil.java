@@ -26,18 +26,17 @@ public class TileUtil {
 
         int tileNum1, tileNum2;
 
-        
         if(object.getSpeedY() < 0) {
             objectTopRow = (objectTopWorldY + object.getSpeedY()) / Game.tileSize;
 
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectTopRow];
 
-            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) {
+            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) 
+            {
                 object.setYTileCollision(true);
-                
-                
             }
+            else object.setYTileCollision(false);
         }
         
         if(object.getSpeedY() > 0) {
@@ -46,11 +45,11 @@ public class TileUtil {
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectBottomRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectBottomRow];
 
-            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) {
+            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) 
+            {
                 object.setYTileCollision(true);
-                
-                
             }
+            else object.setYTileCollision(false);
         }
         
         objectTopRow = objectTopWorldY / Game.tileSize; // resets these for when checking x tile collision
@@ -62,10 +61,11 @@ public class TileUtil {
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectLeftCol][objectBottomRow];
 
-            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) {
+            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) 
+            {
                 object.setXTileCollision(true);
-                
             }
+            else object.setXTileCollision(false);
         }
         
         if(object.getSpeedX() > 0) {
@@ -74,10 +74,11 @@ public class TileUtil {
             tileNum1 = TileManager.mapTileNum[objectRightCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectBottomRow];
 
-            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) {
+            if (TileManager.tile[tileNum1].isCollision() || TileManager.tile[tileNum2].isCollision()) 
+            {
                 object.setXTileCollision(true);
-                
             }
+            else object.setXTileCollision(false);
         }
     }
 }

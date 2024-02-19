@@ -19,6 +19,7 @@ import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.Window;
+import view.map.BuildingManager;
 import view.map.TileManager;
 
 public class Game extends Canvas implements Runnable{
@@ -39,6 +40,7 @@ public class Game extends Canvas implements Runnable{
 	public static Player player;
 	
 	public static TileManager tileManager;
+	public static BuildingManager buildingManager;
 	
 	public Game() {
 		handler = new Handler();
@@ -54,6 +56,7 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseMotionListener(new KeyInput(player));
 		
 		tileManager = new TileManager();
+		buildingManager = new BuildingManager();
 		
 		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
 		
@@ -127,6 +130,8 @@ public class Game extends Canvas implements Runnable{
 		
 		//rendering the tilemanager renders the background map
 		tileManager.render(g);
+		
+		buildingManager.render(g);
 		
 		//tileManager.renderNightFade(g);
 		//tileManager.renderNightConstant(g);

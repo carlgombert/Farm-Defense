@@ -21,11 +21,6 @@ public class TileManager {
 	public static Tile[] tile;
 	public static int mapTileNum[][];
 	
-	public static int mouseX;
-	public static int mouseY;
-	public static int mouseWorldX;
-	public static int mouseWorldY;
-	
 	public TileManager () {
 		
 		tile = new Tile [20];
@@ -136,6 +131,7 @@ public class TileManager {
 		int row = 0;
 		while (col < Game.mapCol && row < Game.mapRow) {
 			int tileNum = mapTileNum[col][row];
+			int[][] buildingMap = Game.buildingManager.getBuildingMap();
 			
 			int worldX = col * 48;
 			int worldY = row * 48;
@@ -147,27 +143,10 @@ public class TileManager {
 			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
 					worldX < Game.player.getWorldX() + Game.WIDTH &&
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
-					worldY < Game.player.getWorldY() + Game.HEIGHT) 
+					worldY < Game.player.getWorldY() + Game.HEIGHT/* &&
+					buildingMap[col][row] == 0*/) 
 			{
 				g.drawImage(tile[tileNum].image, screenX, screenY, 48, 48, null);
-				
-				// draw white highlight on tiles when player is in build mode
-				if (Game.player.getWeaponState() == Game.player.stateBuild()) 
-				{
-					Color whiteOverlay = new Color(255, 255, 255, 3);
-					
-					// reverts the screen mouse coordinates to world coordinates 
-					mouseWorldX = mouseX + Game.player.getWorldX() - Game.player.getScreenX();
-					mouseWorldY = mouseY + Game.player.getWorldY() - Game.player.getScreenY();
-					
-					// gets the tile coordinates that the mouse is on and reverts them back to screen coordinates
-					int tileX = (mouseWorldX - (mouseWorldX%48)) - Game.player.getWorldX() + Game.player.getScreenX();
-					int tileY = (mouseWorldY - (mouseWorldY%48)) - Game.player.getWorldY() + Game.player.getScreenY();
-					
-					// draw highlight
-					g.setColor(whiteOverlay);
-					g.fillRect(tileX, tileY, 48, 48);
-				}
 			}
 			
 			col++;
@@ -255,15 +234,5 @@ public class TileManager {
 				row++;
 			}
 		}
-	}
-	
-	public static void setMouseX(int x)
-	{
-		mouseX = x;
-	}
-	
-	public static void setMouseY(int y)
-	{
-		mouseY = y;
 	}
 }

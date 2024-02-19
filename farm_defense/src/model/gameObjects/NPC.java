@@ -16,7 +16,7 @@ import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
 
-// !!DISCLAIMER!! all of the code in this file is temporary and very poorly organized
+// !!!README!!! all of the code in this file is temporary and very poorly organized
 // i will probably make a better system for this in the future, but for now this will work
 // im not gonna waste time commenting this file, so if u want to understand it ask me
 public class NPC extends GameObject

@@ -82,10 +82,10 @@ public class Player extends GameObject{
 		g.drawString("" + ammo, 50, 50);
 	}
 	
-	public void tick() {
-		XtileCollision = false;
-		YtileCollision = false;
+	public void tick() 
+	{
 		TileUtil.checkTileCollision(this);
+		Game.buildingManager.checkBuildingCollision(this);
 		
 		speedX = left + right; // better way of calculating speed
 		speedY = up + down;
