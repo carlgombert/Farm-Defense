@@ -15,9 +15,12 @@ import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
 import model.gameObjects.Zombie;
 import model.gameObjects.ZombieSpawner;
+import model.gameObjects.trader.Trader;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
+import view.HUD;
+import view.TradeMenu;
 import view.Window;
 import view.map.TileManager;
 
@@ -30,6 +33,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 16 * 48, HEIGHT = 12 * 48;
 	
 	public static Handler handler;
+	public static HUD hud;
 	
 	public static int tileSize = 48;
 	
@@ -46,12 +50,19 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(ID.Player);
 		handler.addObject(player);
 		
-		//handler.addObject(new Turret(48*15, 48*20, ID.Turret));
-		handler.addObject(new NPC(48*15, 48*20, ID.NPC));		
+		hud = new HUD(player);
 		
-		this.addKeyListener(new KeyInput(player));
-		this.addMouseListener(new KeyInput(player));
-		this.addMouseMotionListener(new KeyInput(player));
+		//handler.addObject(new Turret(48*15, 48*20, ID.Turret));
+		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
+		
+		Trader temp = new Trader(48*19, 48*25, ID.Trader);
+		handler.addObject(temp);
+		
+		TradeMenu menu = new TradeMenu(temp);
+		
+		this.addKeyListener(new KeyInput());
+		this.addMouseListener(new KeyInput());
+		this.addMouseMotionListener(new KeyInput());
 		
 		tileManager = new TileManager();
 		
@@ -127,12 +138,13 @@ public class Game extends Canvas implements Runnable{
 		
 		//rendering the tilemanager renders the background map
 		tileManager.render(g);
-		
 		//tileManager.renderNightFade(g);
 		//tileManager.renderNightConstant(g);
 		
 		//rendering handler renders all gameobjects
 		handler.render(g);
+		
+		hud.render(g);
 		
 		g.dispose();
 		bs.show();

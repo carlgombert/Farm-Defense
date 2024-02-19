@@ -20,7 +20,7 @@ import model.gameObjects.Zombie;
 import util.MathUtil;
 import view.map.TileManager;
 
-public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionListener
+public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionListener, ActionListener
 {
 	
 	private Player player;
@@ -33,9 +33,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	private int mouseX;
 	private int mouseY;
 	
-	public KeyInput(Player player) 
+	public KeyInput() 
 	{
-		this.player = player;
+		this.player = Game.player;
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -172,6 +172,12 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

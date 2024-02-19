@@ -26,6 +26,8 @@ public class Player extends GameObject{
 	
 	private int ammo = 10;
 	
+	private int health = 400;
+	
 	// variables used when get hit by a zombie
 	private boolean hitByZombie = false;
 	private double angleFromZombie;
@@ -78,8 +80,7 @@ public class Player extends GameObject{
 		//g.setColor(Color.white); g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		
 		// temp code to display the number of ammo
-		g.setColor(Color.white);
-		g.drawString("" + ammo, 50, 50);
+
 	}
 	
 	public void tick() {
@@ -100,6 +101,7 @@ public class Player extends GameObject{
         }
 		else if (hitByZombie) // when player gets hit by zombie, they wont be able to move & they get knocked back
 		{
+			health--;
 			if (hitTimer < 25)
 			{
 				worldX += (Math.round(Math.cos(angleFromZombie)) * 3);
@@ -224,6 +226,14 @@ public class Player extends GameObject{
 
 	public Rectangle getSize() {
 		return new Rectangle(10, 10, 50, 60);
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
 	}
 }
 	
