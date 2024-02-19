@@ -60,6 +60,7 @@ public class Zombie extends GameObject{
 		XtileCollision = false;
 		YtileCollision = false;
 		TileUtil.checkTileCollision(this);
+		Game.buildingManager.checkBuildingCollision(this);
 		
 		// if the zombie is in the same x plane as the character, the angle between
 		// points function will try to divide by zero

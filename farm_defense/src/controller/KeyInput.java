@@ -28,6 +28,8 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	private boolean canShoot = true;
 	private boolean canReload = true;
 	
+	private boolean canBuild = true;
+	
 	private boolean interactionBoolean = false;
 	
 	private int mouseX;
@@ -45,6 +47,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	public void mouseReleased(MouseEvent e) 
 	{
 		canShoot = true;
+		canBuild = true;
 	}
 	
 	public void mousePressed(MouseEvent e) 
@@ -73,6 +76,13 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				canShoot = false; // prevents the player from being able to shoot infinitely fast by holding down the mouse button
 				player.setAmmo(player.getAmmo() - 1); // remove 1 from the player's ammo
 			}
+		}
+		else if (player.getWeaponState() == player.stateBuild() && canBuild)
+		{
+			canBuild = false;
+			
+			// tells buildingManager to create a building
+			Game.buildingManager.createBuilding();
 		}
 	}
 	
@@ -144,23 +154,23 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 
 	public void mouseMoved(MouseEvent e)
 	{
-		// sends the coordinates of the mouse to the tilemanager if the player is in build mode
+		// sends the coordinates of the mouse to the buildingmanager if the player is in build mode
 		// in order to draw the highlight on the tiles
 		if (player.getWeaponState() == player.stateBuild())
 		{
-			TileManager.setMouseX(e.getX());
-			TileManager.setMouseY(e.getY());
+			Game.buildingManager.setMouseX(e.getX());
+			Game.buildingManager.setMouseY(e.getY());
 		}
 	}
 	
 	public void mouseDragged(MouseEvent e) 
 	{
-		// sends the coordinates of the mouse to the tilemanager if the player is in build mode
+		// sends the coordinates of the mouse to the buildingmanager if the player is in build mode
 		// in order to draw the highlight on the tiles
 		if (player.getWeaponState() == player.stateBuild())
 		{
-			TileManager.setMouseX(e.getX());
-			TileManager.setMouseY(e.getY());
+			Game.buildingManager.setMouseX(e.getX());
+			Game.buildingManager.setMouseY(e.getY());
 		}
 	}
 
