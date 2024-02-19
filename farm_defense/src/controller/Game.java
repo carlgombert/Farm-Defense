@@ -58,7 +58,7 @@ public class Game extends Canvas implements Runnable{
 		tileManager = new TileManager();
 		buildingManager = new BuildingManager();
 		
-		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
+		//handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}
