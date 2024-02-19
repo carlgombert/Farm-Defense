@@ -18,4 +18,8 @@ public class MathUtil {
 	public static double Distance(int x1, int y1, int x2, int y2) {
 		return Math.sqrt(Math.pow((y2 - y1), 2) + Math.pow((x2 - x1), 2));
 	}
+	
+	public static int randomNumber(int min, int max) {
+	    return (int) ((Math.random() * (max - min)) + min);
+	}
 }

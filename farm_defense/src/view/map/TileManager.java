@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 import controller.Game;
 import util.ImageUtil;
@@ -107,6 +108,10 @@ public class TileManager {
 				while (col < Game.mapCol) {
 					String numbers[] = line.split("\t");
 					int num = Integer.parseInt (numbers[col]);
+					if(num == 0 || num == 14 || num == 15) {
+						// janky way to generate random grass tile
+						num = (new int[]{0, 14, 15})[MathUtil.randomNumber(0, 2)];
+					}
 					mapTileNum[col][row] = num;
 					col++;
 				}
