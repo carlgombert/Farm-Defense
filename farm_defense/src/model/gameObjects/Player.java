@@ -83,10 +83,10 @@ public class Player extends GameObject{
 
 	}
 	
-	public void tick() {
-		XtileCollision = false;
-		YtileCollision = false;
+	public void tick() 
+	{
 		TileUtil.checkTileCollision(this);
+		Game.buildingManager.checkBuildingCollision(this);
 		
 		speedX = left + right; // better way of calculating speed
 		speedY = up + down;
