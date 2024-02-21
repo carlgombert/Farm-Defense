@@ -60,6 +60,9 @@ public class Game extends Canvas implements Runnable{
 		inventory = new Inventory();
 		
 		handler.addObject(new Turret(48*7, 48*23, ID.Turret));
+		handler.addObject(new Turret(48*11, 48*23, ID.Turret));
+		handler.addObject(new Turret(48*19, 48*23, ID.Turret));
+		handler.addObject(new Turret(48*23, 48*23, ID.Turret));
 		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
 		
 		tm = new TradeMenu();

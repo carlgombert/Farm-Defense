@@ -15,7 +15,6 @@ import util.ImageUtil;
 public class TurretProjectile extends Projectile{
 	
 	private Color color = new Color(148, 141, 62);
-	private double angle;
 	private int speed = 20;
 	
 	private boolean hitZombie = false; 
@@ -66,8 +65,8 @@ public class TurretProjectile extends Projectile{
 				}
 			}
 		
-			worldX += (int) (speed * Math.cos(angle));
-			worldY += (int) (speed * Math.sin(angle));
+			worldX += (int) (speed * Math.cos(super.angle));
+			worldY += (int) (speed * Math.sin(super.angle));
 		}
 		setScreenX(worldX - Game.player.getWorldX() + Game.player.getScreenX());
 		setScreenY(worldY - Game.player.getWorldY() + Game.player.getScreenY());

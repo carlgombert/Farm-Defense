@@ -15,7 +15,7 @@ import util.ImageUtil;
 public class Projectile extends GameObject{
 		
 	private Color color = new Color(148, 141, 62);
-	private double angle;
+	protected double angle;
 	private int speed = 20;
 	
 	private boolean hitZombie = false; 
