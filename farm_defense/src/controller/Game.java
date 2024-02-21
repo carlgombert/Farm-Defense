@@ -54,13 +54,8 @@ public class Game extends Canvas implements Runnable{
 		
 		hud = new HUD(player);
 		
-		//handler.addObject(new Turret(48*15, 48*20, ID.Turret));
+		handler.addObject(new Turret(48*15, 48*20, ID.Turret));
 		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
-		
-		Trader temp = new Trader(48*19, 48*25, ID.Trader);
-		handler.addObject(temp);
-		
-		TradeMenu menu = new TradeMenu(temp);
 		
 		this.addKeyListener(new KeyInput());
 		this.addMouseListener(new KeyInput());
@@ -69,7 +64,7 @@ public class Game extends Canvas implements Runnable{
 		tileManager = new TileManager();
 		buildingManager = new BuildingManager();
 		
-		//handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
+		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}
