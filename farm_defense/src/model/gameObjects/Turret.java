@@ -1,8 +1,11 @@
 package model.gameObjects;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 
 import controller.Game;
 import controller.objectHandling.ID;
@@ -62,8 +65,17 @@ public class Turret extends GameObject{
 	}
 
 	public void render(Graphics g) {
+		
+		Graphics2D g2d = (Graphics2D)g;
+		Stroke temp = g2d.getStroke();
+		
+		g2d.setColor(Color.black);
+	    g2d.setStroke(new BasicStroke(5));
+		g2d.drawLine(screenX+20, screenY+20, (int)(screenX + 20 + 40* Math.cos(angle)), (int)(screenY + 20 + 40* Math.sin(angle)));
+		
+		g2d.setStroke(temp);
 		g.setColor(Color.darkGray);
-		g.fillOval(screenX, screenY, 80, 80);
+		g.fillOval(screenX, screenY, 40, 40);
 		
 	}
 	
@@ -73,7 +85,7 @@ public class Turret extends GameObject{
 		if(target != null) {
 			int targetX = target.getWorldX() + ((target.getSize().x + target.getSize().width)/2);
 			int targetY = target.getWorldY() + ((target.getSize().y + target.getSize().height)/2);
-			angle = MathUtil.angleBetweenPoints(worldX+40, worldY+40, targetX, targetY);
+			angle = MathUtil.angleBetweenPoints(worldX+20, worldY+20, targetX, targetY);
 			targeted = true;
 		}
 	}
@@ -94,7 +106,7 @@ public class Turret extends GameObject{
 	}
 	
 	public void shoot() {
-		Game.handler.addObject(new TurretProjectile(worldX+40, worldY+40, ID.Projectile, angle));
+		Game.handler.addObject(new TurretProjectile(worldX+20, worldY+20, ID.Projectile, angle));
 	}
 	
 	public Rectangle getBounds() {
