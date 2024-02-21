@@ -1,4 +1,4 @@
-package model.gameObjects;
+package model.gameObjects.projectile;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,10 +9,11 @@ import java.util.LinkedList;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.gameObjects.Zombie;
 import util.ImageUtil;
 
-public class Projectile extends GameObject{
-		
+public class TurretProjectile extends Projectile{
+	
 	private Color color = new Color(148, 141, 62);
 	private double angle;
 	private int speed = 20;
@@ -29,9 +30,9 @@ public class Projectile extends GameObject{
 	private int animationCount = 0;
 	// used to limit how long the animation stays on screen
 	
-	public Projectile(int x, int y, ID id, double angle) {
-		super(x, y, id);
-		this.angle = angle;
+	public TurretProjectile(int x, int y, ID id, double angle) {
+		super(x, y, id, angle);
+
 	}
 
 	public void tick() 
@@ -59,7 +60,7 @@ public class Projectile extends GameObject{
 				}
 				if(this.getBounds().intersects(Game.player.getBounds()))
 				{
-					// don't get caught in the line of fire
+					// don't get caught in the line of fire :)
 					Game.player.setHealth(Game.player.getHealth() - 5);
 					hitZombie = true;
 				}

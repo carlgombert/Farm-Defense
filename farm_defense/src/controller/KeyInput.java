@@ -15,8 +15,8 @@ import controller.objectHandling.ID;
 import model.GameObject;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
-import model.gameObjects.Projectile;
 import model.gameObjects.Zombie;
+import model.gameObjects.projectile.Projectile;
 import util.MathUtil;
 import view.map.TileManager;
 
