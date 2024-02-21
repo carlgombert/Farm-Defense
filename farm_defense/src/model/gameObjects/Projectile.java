@@ -57,6 +57,12 @@ public class Projectile extends GameObject{
 					tempZombie.setHealth(tempZombie.getHealth() - 2.5);
 					hitZombie = true;
 				}
+				if(this.getBounds().intersects(Game.player.getBounds()))
+				{
+					// don't get caught in the line of fire
+					Game.player.setHealth(Game.player.getHealth() - 5);
+					hitZombie = true;
+				}
 			}
 		
 			worldX += (int) (speed * Math.cos(angle));
