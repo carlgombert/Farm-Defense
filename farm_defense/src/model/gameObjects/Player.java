@@ -44,7 +44,9 @@ public class Player extends GameObject{
 	{
 		Gun(),
 		Melee(),
-		Build()
+		Build(),
+		Tilling(),
+		Empty() // holding nothing
 	}
 	
 	private w_State weaponState; // weapon state of player
@@ -218,6 +220,16 @@ public class Player extends GameObject{
 	public w_State stateBuild()
 	{
 		return w_State.Build;
+	}
+	
+	public w_State stateTilling()
+	{
+		return w_State.Tilling;
+	}
+	
+	public w_State stateEmpty()
+	{
+		return w_State.Empty;
 	}
 	
 	public Rectangle getBounds() {
