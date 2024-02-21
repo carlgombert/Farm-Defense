@@ -1,12 +1,14 @@
-package model.gameObjects.trader;
+package model;
 
-public class Item {
+public class TradeItem {
 	private String name;
 	private int cost;
+	private int ID;
 	
-	public Item(String name, int cost) {
+	public TradeItem(String name, int cost, int ID) {
 		this.setName(name);
 		this.setCost(cost);
+		this.setID(ID);
 	}
 
 	public String getName() {
@@ -23,5 +25,13 @@ public class Item {
 
 	public void setCost(int cost) {
 		this.cost = cost;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 }

@@ -24,7 +24,7 @@ public class TileManager {
 	
 	public TileManager () {
 		
-		tile = new Tile [20];
+		tile = new Tile [30];
 		
 		mapTileNum = new int[Game.mapCol][Game.mapRow];
 		loadMap();
@@ -93,6 +93,32 @@ public class TileManager {
 		
 		tile [13] = new Tile();
 		tile [13].image = ImageUtil.addImage(48, 48, "resources/tiles/gravestone.png");
+		
+		tile [16] = new Tile();
+		tile [16].image = ImageUtil.addImage(48, 48, "resources/tiles/store/wall.png");
+		tile [16].collision = true;
+		
+		tile [17] = new Tile();
+		tile [17].image = ImageUtil.addImage(48, 48, "resources/tiles/store/roof.png");
+		tile [17].collision = true;
+		
+		tile [18] = new Tile();
+		tile [18].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_left.png");
+		tile [18].collision = true;
+		tile [18].store = true;
+		
+		tile [19] = new Tile();
+		tile [19].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_right.png");
+		tile [19].collision = true;
+		tile [19].store = true;
+		
+		tile [20] = new Tile();
+		tile [20].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_left.png");
+		tile [20].collision = true;
+		
+		tile [21] = new Tile();
+		tile [21].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_right.png");
+		tile [21].collision = true;
 		
 	}
 	

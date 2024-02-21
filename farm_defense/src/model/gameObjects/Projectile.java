@@ -15,6 +15,8 @@ public class Projectile extends GameObject{
 	private double angle;
 	private int speed = 20;
 	
+	private boolean hitzombie;
+	
 	private LinkedList<Zombie> zombies;
 	
 	public Projectile(int x, int y, ID id, double angle) {
@@ -42,7 +44,7 @@ public class Projectile extends GameObject{
 			if(this.getBounds().intersects(tempZombie.getBounds()))
 			{
 					tempZombie.setHealth(tempZombie.getHealth() - 2.5);
-					Game.handler.removeObject(this);
+					
 			}
 		}
 		
@@ -63,6 +65,7 @@ public class Projectile extends GameObject{
 		else {
 			Game.handler.removeObject(this);
 		}
+		
 		
 	}
 

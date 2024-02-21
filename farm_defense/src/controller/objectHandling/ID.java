@@ -9,7 +9,6 @@ public enum ID {
 	Turret(),
 	Projectile(),
 	ZombieSpawner(),
-	NPC(),
-	Trader()
+	NPC()
 	
 }

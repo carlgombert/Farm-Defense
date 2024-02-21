@@ -93,6 +93,7 @@ public class Player extends GameObject{
 		speedX = left + right; // better way of calculating speed
 		speedY = up + down;
 		
+		
 		if(!hitByZombie) 
 		{
 			if (!locked)
@@ -134,6 +135,7 @@ public class Player extends GameObject{
 			else if(speedX < 0) {super.setDirection(2);}
 			else if(speedX > 0) {super.setDirection(3);}
 		}
+		
 	}
 	
 	private void collision() {

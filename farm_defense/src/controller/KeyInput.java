@@ -131,16 +131,31 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		
 		if (key == KeyEvent.VK_G) Game.inventory.addItem(20, 5); // adds 5 wood walls to the players inventory (for now)
 		
-		if (key == KeyEvent.VK_1) Game.inventory.setSelected(0);;
-		if (key == KeyEvent.VK_2) Game.inventory.setSelected(1);;
-		if (key == KeyEvent.VK_3) Game.inventory.setSelected(2);;
-		if (key == KeyEvent.VK_4) Game.inventory.setSelected(3);;
-		if (key == KeyEvent.VK_5) Game.inventory.setSelected(4);;
-		if (key == KeyEvent.VK_6) Game.inventory.setSelected(5);;
-		if (key == KeyEvent.VK_7) Game.inventory.setSelected(6);;
-		if (key == KeyEvent.VK_8) Game.inventory.setSelected(7);;
-		if (key == KeyEvent.VK_9) Game.inventory.setSelected(8);;
-		if (key == KeyEvent.VK_0) Game.inventory.setSelected(9);;
+		
+		if(Game.tm.visible) { //if trade menu is open, number key bindings swap to buying items
+			if (key == KeyEvent.VK_1) Game.tm.buy(1);;
+			if (key == KeyEvent.VK_2) Game.tm.buy(2);;
+			if (key == KeyEvent.VK_3) Game.tm.buy(3);;
+			if (key == KeyEvent.VK_4) Game.tm.buy(4);;
+			if (key == KeyEvent.VK_5) Game.tm.buy(5);;
+			if (key == KeyEvent.VK_6) Game.tm.buy(6);;
+			if (key == KeyEvent.VK_7) Game.tm.buy(7);;
+			if (key == KeyEvent.VK_8) Game.tm.buy(8);;
+			if (key == KeyEvent.VK_9) Game.tm.buy(9);;
+			if (key == KeyEvent.VK_0) Game.tm.buy(10);;
+		}
+		else {
+			if (key == KeyEvent.VK_1) Game.inventory.setSelected(0);;
+			if (key == KeyEvent.VK_2) Game.inventory.setSelected(1);;
+			if (key == KeyEvent.VK_3) Game.inventory.setSelected(2);;
+			if (key == KeyEvent.VK_4) Game.inventory.setSelected(3);;
+			if (key == KeyEvent.VK_5) Game.inventory.setSelected(4);;
+			if (key == KeyEvent.VK_6) Game.inventory.setSelected(5);;
+			if (key == KeyEvent.VK_7) Game.inventory.setSelected(6);;
+			if (key == KeyEvent.VK_8) Game.inventory.setSelected(7);;
+			if (key == KeyEvent.VK_9) Game.inventory.setSelected(8);;
+			if (key == KeyEvent.VK_0) Game.inventory.setSelected(9);;
+		}
 			
 		if(key == KeyEvent.VK_ESCAPE) {
 			System.exit(1);

@@ -3,6 +3,7 @@ package util;
 import view.map.TileManager;
 import controller.Game;
 import model.GameObject;
+import model.gameObjects.Player;
 
 public class TileUtil {
 	
@@ -36,7 +37,9 @@ public class TileUtil {
             {
                 object.setYTileCollision(true);
             }
-            else object.setYTileCollision(false);
+            else {
+            	object.setYTileCollision(false);
+            }
         }
         
         if(object.getSpeedY() > 0) {
@@ -79,6 +82,21 @@ public class TileUtil {
                 object.setXTileCollision(true);
             }
             else object.setXTileCollision(false);
+        }
+        
+        if(object instanceof Player) { //check if player is infront of the store
+        	objectTopRow = (objectTopWorldY - 20) / Game.tileSize;
+
+            tileNum1 = TileManager.mapTileNum[objectLeftCol][objectTopRow];
+            tileNum2 = TileManager.mapTileNum[objectRightCol][objectTopRow];
+            
+        	if (TileManager.tile[tileNum1].isStore() || TileManager.tile[tileNum2].isStore()) 
+            {
+                Game.tm.visible = true;
+            }
+            else {
+            	Game.tm.visible = false;
+            }
         }
     }
 }

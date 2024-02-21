@@ -15,12 +15,11 @@ import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
 import model.gameObjects.Zombie;
 import model.gameObjects.ZombieSpawner;
-import model.gameObjects.trader.Trader;
+import model.Inventory;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.HUD;
-import view.Inventory;
 import view.TradeMenu;
 import view.Window;
 import view.map.BuildingManager;
@@ -49,6 +48,8 @@ public class Game extends Canvas implements Runnable{
 	
 	public static Inventory inventory;
 	
+	public static TradeMenu tm;
+	
 	public Game() {
 		handler = new Handler();
 		
@@ -58,13 +59,10 @@ public class Game extends Canvas implements Runnable{
 		hud = new HUD(player);
 		inventory = new Inventory();
 		
-		handler.addObject(new Turret(48*15, 48*20, ID.Turret));
+		handler.addObject(new Turret(48*7, 48*23, ID.Turret));
 		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
 		
-		Trader temp = new Trader(48*19, 48*25, ID.Trader);
-		handler.addObject(temp);
-		
-		//TradeMenu menu = new TradeMenu(temp);
+		tm = new TradeMenu();
 		
 		this.addKeyListener(new KeyInput());
 		this.addMouseListener(new KeyInput());
@@ -155,6 +153,10 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 		
 		hud.render(g);
+		
+		if(tm.visible) {
+			tm.render(g);
+		}
 		
 		g.dispose();
 		bs.show();
