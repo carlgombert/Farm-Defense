@@ -69,6 +69,10 @@ public class Turret extends GameObject{
 		Graphics2D g2d = (Graphics2D)g;
 		Stroke temp = g2d.getStroke();
 		
+		g2d.setColor(Color.darkGray);
+	    g2d.setStroke(new BasicStroke(8));
+		g2d.drawLine(screenX+20, screenY+20, (int)(screenX + 20 + 30* Math.cos(angle)), (int)(screenY + 20 + 30* Math.sin(angle)));
+		
 		g2d.setColor(Color.black);
 	    g2d.setStroke(new BasicStroke(5));
 		g2d.drawLine(screenX+20, screenY+20, (int)(screenX + 20 + 40* Math.cos(angle)), (int)(screenY + 20 + 40* Math.sin(angle)));
