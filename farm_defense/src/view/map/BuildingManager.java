@@ -211,58 +211,65 @@ public class BuildingManager
 	// creates a building based on where the mouse is on the screen
 	public void createBuilding()
 	{
-		try 
+		// reverts the screen mouse coordinates to world coordinates 
+		mouseWorldX = mouseX + Game.player.getWorldX() - Game.player.getScreenX();
+		mouseWorldY = mouseY + Game.player.getWorldY() - Game.player.getScreenY();
+		
+		// grabs the col and row of the tile that the mouse is hovering over
+		int col = mouseWorldX / 48;
+		int row = mouseWorldY / 48;
+		
+		// checks to make sure the tile that the player is trying to build on is empty
+		if (mapBuildingNum[col][row] == 0)
 		{
-			File file = new File("resources/maps/buildingmap.txt");
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			
-			String line = br.readLine();;
-			lines = new String[45]; // string array of every line in the buildingmap.txt file
-			
-			int arrayNum = 0;
-			
-			while (line != null)
+			try 
 			{
-				lines[arrayNum] = line;
-				arrayNum++;
-				line = br.readLine();
-			}
-			
-			// reverts the screen mouse coordinates to world coordinates 
-			mouseWorldX = mouseX + Game.player.getWorldX() - Game.player.getScreenX();
-			mouseWorldY = mouseY + Game.player.getWorldY() - Game.player.getScreenY();
-			
-			// grabs the col and row of the tile that the mouse is hovering over
-			int col = mouseWorldX / 48;
-			int row = mouseWorldY / 48;
-			
-			// calculates what the building should be based on what the buildings are around it
-			//
-			// col + col accounts for the tabs in between the numbers, because each line is read
-			// as a full string
-			recalculateTile(col + col, row);
-	
-			// once the tiles are all fully calculated, rewrite the buildingmap.txt file
-			String newFile = "";
-			
-			for(int i = 0; i < 40; i++)
+				// subtract 1 from the num of buildings in the player's inventory
+				Game.inventory.minusItem(1);
+				
+				File file = new File("resources/maps/buildingmap.txt");
+				BufferedReader br = new BufferedReader(new FileReader(file));
+				
+				String line = br.readLine();;
+				lines = new String[45]; // string array of every line in the buildingmap.txt file
+				
+				int arrayNum = 0;
+				
+				while (line != null)
+				{
+					lines[arrayNum] = line;
+					arrayNum++;
+					line = br.readLine();
+				}
+				
+				// calculates what the building should be based on what the buildings are around it
+				//
+				// col + col accounts for the tabs in between the numbers, because each line is read
+				// as a full string
+				recalculateTile(col + col, row);
+		
+				// once the tiles are all fully calculated, rewrite the buildingmap.txt file
+				String newFile = "";
+				
+				for(int i = 0; i < 40; i++)
+				{
+					newFile += lines[i];
+					if (i != 39) newFile += "\n";
+				}
+				
+				FileWriter writer = new FileWriter(file);
+				
+				writer.write(newFile);
+				
+				br.close();
+				writer.close();
+				
+				// reloads the map once the file is rewritten
+				Game.buildingManager.loadBuildingMap();
+	 		} catch (Exception e) 
 			{
-				newFile += lines[i];
-				if (i != 39) newFile += "\n";
+				System.out.println(e);
 			}
-			
-			FileWriter writer = new FileWriter(file);
-			
-			writer.write(newFile);
-			
-			br.close();
-			writer.close();
-			
-			// reloads the map once the file is rewritten
-			Game.buildingManager.loadBuildingMap();
- 		} catch (Exception e) 
-		{
-			System.out.println(e);
 		}
 	}
 	

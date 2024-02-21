@@ -20,6 +20,7 @@ import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.HUD;
+import view.Inventory;
 import view.TradeMenu;
 import view.Window;
 import view.map.BuildingManager;
@@ -46,6 +47,8 @@ public class Game extends Canvas implements Runnable{
 	public static TileManager tileManager;
 	public static BuildingManager buildingManager;
 	
+	public static Inventory inventory;
+	
 	public Game() {
 		handler = new Handler();
 		
@@ -53,6 +56,7 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(player);
 		
 		hud = new HUD(player);
+		inventory = new Inventory();
 		
 		//handler.addObject(new Turret(48*15, 48*20, ID.Turret));
 		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
@@ -60,7 +64,7 @@ public class Game extends Canvas implements Runnable{
 		Trader temp = new Trader(48*19, 48*25, ID.Trader);
 		handler.addObject(temp);
 		
-		TradeMenu menu = new TradeMenu(temp);
+		//TradeMenu menu = new TradeMenu(temp);
 		
 		this.addKeyListener(new KeyInput());
 		this.addMouseListener(new KeyInput());
@@ -69,7 +73,7 @@ public class Game extends Canvas implements Runnable{
 		tileManager = new TileManager();
 		buildingManager = new BuildingManager();
 		
-		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
+		//handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}
