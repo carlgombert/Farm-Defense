@@ -129,11 +129,18 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 			}
 		}
 		
-		// 1, 2, and 3 change the weapon state of the player. build mode (3) is temporary, it will probably
-		// be different in the future
-		if (key == KeyEvent.VK_1) player.setWeaponState(player.stateGun());
-		if (key == KeyEvent.VK_2) player.setWeaponState(player.stateMelee());
-		if (key == KeyEvent.VK_3) player.setWeaponState(player.stateBuild());
+		if (key == KeyEvent.VK_G) Game.inventory.addItem(20, 5); // adds 5 wood walls to the players inventory (for now)
+		
+		if (key == KeyEvent.VK_1) Game.inventory.setSelected(0);;
+		if (key == KeyEvent.VK_2) Game.inventory.setSelected(1);;
+		if (key == KeyEvent.VK_3) Game.inventory.setSelected(2);;
+		if (key == KeyEvent.VK_4) Game.inventory.setSelected(3);;
+		if (key == KeyEvent.VK_5) Game.inventory.setSelected(4);;
+		if (key == KeyEvent.VK_6) Game.inventory.setSelected(5);;
+		if (key == KeyEvent.VK_7) Game.inventory.setSelected(6);;
+		if (key == KeyEvent.VK_8) Game.inventory.setSelected(7);;
+		if (key == KeyEvent.VK_9) Game.inventory.setSelected(8);;
+		if (key == KeyEvent.VK_0) Game.inventory.setSelected(9);;
 			
 		if(key == KeyEvent.VK_ESCAPE) {
 			System.exit(1);

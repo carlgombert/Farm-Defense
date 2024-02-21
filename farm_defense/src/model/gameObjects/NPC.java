@@ -61,8 +61,8 @@ public class NPC extends GameObject
 	{
 		super(x, y, id);
 		
-		dialogue1 = "Hello i'm an npc";
-		dialogue2 = "Test Test test";
+		dialogue1 = "Hello I'm an NPC";
+		dialogue2 = "Test Test Test";
 		dialogue3 = "get the fuck away from me!";
 		currImage = ImageUtil.addImage(75, 75, "resources/npc/cowboy_front.png");
 		headshotImage = ImageUtil.addImage(48, 48, "resources/npc/cowboy_headshot.png");
