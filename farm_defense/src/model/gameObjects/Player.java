@@ -40,13 +40,14 @@ public class Player extends GameObject{
 	
 	private boolean locked = false; // used to lock the player in place for several reasons
 	
-	public enum w_State // used to determine the weapon state of the player- 1: Gun, 2: Melee, 3: Build (temp)
+	public enum w_State // used to determine the weapon state of the player
 	{
 		Gun(),
 		Melee(),
 		Build(),
 		Tilling(),
-		Empty() // holding nothing
+		Empty(), // holding nothing
+		Planting()
 	}
 	
 	private w_State weaponState; // weapon state of player
@@ -80,9 +81,6 @@ public class Player extends GameObject{
 		
 		// show hitbox
 		//g.setColor(Color.white); g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
-		
-		// temp code to display the number of ammo
-
 	}
 	
 	public void tick() 
@@ -230,6 +228,11 @@ public class Player extends GameObject{
 	public w_State stateEmpty()
 	{
 		return w_State.Empty;
+	}
+	
+	public w_State statePlanting()
+	{
+		return w_State.Planting;
 	}
 	
 	public Rectangle getBounds() {

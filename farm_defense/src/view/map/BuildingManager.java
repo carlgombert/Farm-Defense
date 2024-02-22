@@ -27,14 +27,12 @@ public class BuildingManager
 	public String[] lines;
 	
 	/*    
-	 *    Right now, the player is able to infinitely build tiles anywhere that the
-	 *    mouse is hovering no matter where the player is on the map. In the future,
-	 *    this code will be changed so that the player can only place buildings within
-	 *    a certain distance from their character.
+	 *    This code needs to be changed so that the player can only build a certain
+	 *    distance from their character
 	 *    
-	 *    Also, the player's ability to build will also be limited to the number of
-	 *    buildings in their inventory in the future. Once the inventory is implemented, 
-	 *    this code will be changed to reflect that.
+	 *    Also when more buildings are added we need to change the way the .txt
+	 *    files are edited to something similar to the way they are edited in
+	 *    the FarmingManager
 	 */
 	public BuildingManager()
 	{
@@ -53,7 +51,7 @@ public class BuildingManager
 	public void getBuildingImage()
 	{
 		/*  
-		 * creates new building based on the id of the building seen in the .txt file
+		 *  creates new building based on the id of the building seen in the .txt file
 		 *
 		 *  different images (image0, image1, etc) for the same building corresponds to different
 		 *  rotations of the building
@@ -180,23 +178,6 @@ public class BuildingManager
 				if (rotation == 3) image = building[tileNum].image3;
 				
 				g.drawImage(image, screenX, screenY, 48, 48, null);
-			}
-			// draw white highlight on tiles when player is in build mode
-			if (Game.player.getWeaponState() == Game.player.stateBuild()) 
-			{
-				Color whiteOverlay = new Color(255, 255, 255, 3);
-				
-				// reverts the screen mouse coordinates to world coordinates 
-				mouseWorldX = mouseX + Game.player.getWorldX() - Game.player.getScreenX();
-				mouseWorldY = mouseY + Game.player.getWorldY() - Game.player.getScreenY();
-				
-				// gets the tile coordinates that the mouse is on and reverts them back to screen coordinates
-				int tileX = (mouseWorldX - (mouseWorldX%48)) - Game.player.getWorldX() + Game.player.getScreenX();
-				int tileY = (mouseWorldY - (mouseWorldY%48)) - Game.player.getWorldY() + Game.player.getScreenY();
-				
-				// draw highlight
-				g.setColor(whiteOverlay);
-				g.fillRect(tileX, tileY, 48, 48);
 			}
 			
 			col++;
