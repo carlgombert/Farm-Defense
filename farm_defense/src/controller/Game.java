@@ -20,7 +20,7 @@ import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.HUD;
-import view.Inventory;
+import model.Inventory;
 import view.MapEditorHelper;
 import view.TradeMenu;
 import view.Window;
