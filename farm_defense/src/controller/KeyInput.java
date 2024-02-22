@@ -144,6 +144,11 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 			if (key == KeyEvent.VK_9) Game.tm.buy(9);;
 			if (key == KeyEvent.VK_0) Game.tm.buy(10);;
 		}
+		else if(Game.turm.visible) { // if turret upgrade menu is open, number key bindings swap to upgrading
+			if (key == KeyEvent.VK_1) Game.turm.buy(1);;
+			if (key == KeyEvent.VK_2) Game.turm.buy(2);;
+			if (key == KeyEvent.VK_3) Game.turm.buy(3);;
+		}
 		else {
 			if (key == KeyEvent.VK_1) Game.inventory.setSelected(0);;
 			if (key == KeyEvent.VK_2) Game.inventory.setSelected(1);;

@@ -20,10 +20,11 @@ import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.HUD;
-import view.TradeMenu;
 import view.Window;
 import view.map.BuildingManager;
 import view.map.TileManager;
+import view.sideMenu.TradeMenu;
+import view.sideMenu.TurretMenu;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -49,6 +50,7 @@ public class Game extends Canvas implements Runnable{
 	public static Inventory inventory;
 	
 	public static TradeMenu tm;
+	public static TurretMenu turm;
 	
 	public Game() {
 		handler = new Handler();
@@ -66,6 +68,8 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
 		
 		tm = new TradeMenu();
+		
+		turm = new TurretMenu();
 		
 		this.addKeyListener(new KeyInput());
 		this.addMouseListener(new KeyInput());
@@ -159,6 +163,9 @@ public class Game extends Canvas implements Runnable{
 		
 		if(tm.visible) {
 			tm.render(g);
+		}
+		else if(turm.visible) {
+			turm.render(g);
 		}
 		
 		g.dispose();

@@ -30,6 +30,11 @@ public class Turret extends GameObject{
 	private int shootTimer = 0;
 	private int shootCount = 0;
 	
+	//level variables keep track of upgrades on the turret. these features improve as the level gets higher
+	private int rangeLevel = 0;
+	private int damageLevel = 0;
+	private int cooldownLevel = 0;
+	
 	public Turret(int x, int y, ID id) {
 		super(x, y, id);
 		range = 300;
@@ -37,6 +42,14 @@ public class Turret extends GameObject{
 	}
 
 	public void tick() {
+		/*if(this.getBounds().intersects(Game.player.getBounds()))
+		{
+			Game.turm.setTurret(this);
+			Game.turm.visible = true;
+		}
+		else {
+			Game.turm.visible = false;
+		}*/
 		if(shooting) {
 			shootTimer++;
 			if(shootTimer % 5 == 0) {
@@ -52,7 +65,7 @@ public class Turret extends GameObject{
 		}
 		else {
 			turnCount++;
-			if(turnCount > turnTimer) {
+			if(turnCount > turnTimer - 5*cooldownLevel) {
 				lockToTarget();
 				if(targeted) {
 					shooting = true;
@@ -101,7 +114,7 @@ public class Turret extends GameObject{
 			
 			if(tempObject.getId() == ID.Zombie) {
 				// if the distance between position and zombie is within range
-				if(MathUtil.Distance(worldX, worldY, tempObject.getWorldX(), tempObject.getWorldY()) <= range) {
+				if(MathUtil.Distance(worldX, worldY, tempObject.getWorldX(), tempObject.getWorldY()) <= range + 10*rangeLevel) {
 					return (Zombie) tempObject;
 				}
 			}
@@ -114,8 +127,7 @@ public class Turret extends GameObject{
 	}
 	
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Rectangle(getScreenX(), getScreenY(), 40, 40);
 	}
 
 	public int getRange() {
@@ -137,6 +149,30 @@ public class Turret extends GameObject{
 	public Rectangle getSize() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public int getLevel(String type) {
+		switch(type) {
+			case "damage":
+				return this.damageLevel;
+			case "range":
+				return this.rangeLevel;
+			case "cooldown":
+				return this.cooldownLevel;
+			default:
+				return -1;
+		}
+	}
+	
+	public void setLevel(String type) {
+		switch(type) {
+			case "damage":
+				damageLevel++;
+			case "range":
+				rangeLevel++;
+			case "cooldown":
+				cooldownLevel++;
+		}
 	}
 	
 }
