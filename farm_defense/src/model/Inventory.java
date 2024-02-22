@@ -15,6 +15,19 @@ public class Inventory
 	
 	public Inventory()
 	{
+		loadInventoryImages();
+		
+		addItem(1, 1, 1);
+		addItem(10, 1, 2);
+		addItem(0, 1, 3);
+		addItem(30, 5);
+		addItem(20, 5, 6);
+		
+		setSelected(0);
+	}
+	
+	public void loadInventoryImages()
+	{
 		// item id 0 is the hoe
 		itemImages[0] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_hoe.png");
 		
@@ -27,11 +40,12 @@ public class Inventory
 		// ids in the 20s will be walls
 		itemImages[20] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_wall_wood.png");
 		
-		addItem(1, 1, 1);
-		addItem(10, 1, 2);
-		addItem(20, 5, 6);
+		// ids in the 30s will be seeds
+		itemImages[30] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_seeds_carrot.png");
+		itemImages[31] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_seeds_corn.png");
 		
-		setSelected(0);
+		// ids in the 40s will be grown crops
+		itemImages[40] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_carrot.png");
 	}
 	
 	public void setSelected(int s)
@@ -46,6 +60,8 @@ public class Inventory
 			else if (inventory[selected].getID() < 10) Game.player.setWeaponState(Game.player.stateGun());
 			else if (inventory[selected].getID() < 20) Game.player.setWeaponState(Game.player.stateMelee());
 			else if (inventory[selected].getID() < 30) Game.player.setWeaponState(Game.player.stateBuild());
+			else if (inventory[selected].getID() < 40) Game.player.setWeaponState(Game.player.statePlanting());
+			else Game.player.setWeaponState(Game.player.stateEmpty());
 		}
 		else Game.player.setWeaponState(Game.player.stateEmpty());
 	}
@@ -100,5 +116,15 @@ public class Inventory
 			Game.player.setWeaponState(Game.player.stateEmpty());
 		}
 		else inventory[selected].changeCount(-amt);
+	}
+	
+	public BufferedImage getCurrentImage()
+	{
+		return inventory[selected].getImage();
+	}
+	
+	public int getCurrentID()
+	{
+		return inventory[selected].getID();
 	}
 }

@@ -96,10 +96,10 @@ public class Zombie extends GameObject{
 				}
 				stepTimer = 0;
 			}
-			if(speedY <= -0.01) {super.setDirection(1);}
-			else if(speedY >= 0.01) {super.setDirection(0);}
-			else if(speedX < 0) {super.setDirection(2);}
-			else if(speedX > 0) {super.setDirection(3);}
+			if(doubleSpeedY <= -0.49) {super.setDirection(1);}
+			else if(doubleSpeedY >= 0.49) {super.setDirection(0);}
+			else if(doubleSpeedX < 0) {super.setDirection(2);}
+			else if(doubleSpeedX > 0) {super.setDirection(3);}
 		}
 		
 		currImage = zombieImages.get(super.getDirection())[step];
