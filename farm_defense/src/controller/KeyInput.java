@@ -29,6 +29,8 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	private boolean canReload = true;
 	
 	private boolean canBuild = true;
+	private boolean canFarm = true;
+	private boolean canPlant = true;
 	
 	private boolean interactionBoolean = false;
 	
@@ -48,6 +50,8 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	{
 		canShoot = true;
 		canBuild = true;
+		canFarm = true;
+		canPlant = true;
 	}
 	
 	public void mousePressed(MouseEvent e) 
@@ -81,8 +85,31 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		{
 			canBuild = false;
 			
+			Game.buildingManager.setMouseX(e.getX());
+			Game.buildingManager.setMouseY(e.getY());
+			
 			// tells buildingManager to create a building
 			Game.buildingManager.createBuilding();
+		}
+		else if (player.getWeaponState() == player.stateTilling() && canFarm)
+		{
+			canFarm = false;
+			
+			Game.farmingManager.setMouseX(e.getX());
+			Game.farmingManager.setMouseY(e.getY());
+			
+			// tells farmingManager to create a farmland tile
+			Game.farmingManager.tillFarmland();
+		}
+		else if (player.getWeaponState() == player.statePlanting() && canPlant)
+		{
+			canPlant = false;
+			
+			Game.farmingManager.setMouseX(e.getX());
+			Game.farmingManager.setMouseY(e.getY());
+			
+			// tells farmingManager to plant a seed on selected farmland tile
+			Game.farmingManager.plantSeed();
 		}
 	}
 	
@@ -129,7 +156,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 			}
 		}
 		
+		if (key == KeyEvent.VK_F) Game.inventory.addItem(30, 5); // adds 5 carrot seeds to the players inventory (for now)
 		if (key == KeyEvent.VK_G) Game.inventory.addItem(20, 5); // adds 5 wood walls to the players inventory (for now)
+		if (key == KeyEvent.VK_H) Game.farmingManager.advanceAllStages(); // advances the stage of all the crops on the map (for now)
 		
 		
 		if(Game.tm.visible) { //if trade menu is open, number key bindings swap to buying items
@@ -176,24 +205,16 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 
 	public void mouseMoved(MouseEvent e)
 	{
-		// sends the coordinates of the mouse to the buildingmanager if the player is in build mode
-		// in order to draw the highlight on the tiles
-		if (player.getWeaponState() == player.stateBuild())
-		{
-			Game.buildingManager.setMouseX(e.getX());
-			Game.buildingManager.setMouseY(e.getY());
-		}
+		// sends the mouse coordinates to the mousehelper so it can render highlight on tiles
+		Game.mapHelper.setMouseX(e.getX());
+		Game.mapHelper.setMouseY(e.getY());
 	}
 	
 	public void mouseDragged(MouseEvent e) 
 	{
-		// sends the coordinates of the mouse to the buildingmanager if the player is in build mode
-		// in order to draw the highlight on the tiles
-		if (player.getWeaponState() == player.stateBuild())
-		{
-			Game.buildingManager.setMouseX(e.getX());
-			Game.buildingManager.setMouseY(e.getY());
-		}
+		// sends the mouse coordinates to the mousehelper so it can render highlight on tiles
+		Game.mapHelper.setMouseX(e.getX());
+		Game.mapHelper.setMouseY(e.getY());
 	}
 
 	@Override

@@ -20,9 +20,12 @@ import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.HUD;
+import view.Inventory;
+import view.MapEditorHelper;
 import view.TradeMenu;
 import view.Window;
 import view.map.BuildingManager;
+import view.map.FarmingManager;
 import view.map.TileManager;
 
 public class Game extends Canvas implements Runnable{
@@ -45,6 +48,9 @@ public class Game extends Canvas implements Runnable{
 	
 	public static TileManager tileManager;
 	public static BuildingManager buildingManager;
+	public static FarmingManager farmingManager;
+	
+	public static MapEditorHelper mapHelper;
 	
 	public static Inventory inventory;
 	
@@ -73,6 +79,8 @@ public class Game extends Canvas implements Runnable{
 		
 		tileManager = new TileManager();
 		buildingManager = new BuildingManager();
+		farmingManager = new FarmingManager();
+		mapHelper = new MapEditorHelper();
 		
 		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
 		
@@ -148,6 +156,10 @@ public class Game extends Canvas implements Runnable{
 		tileManager.render(g);
 		
 		buildingManager.render(g);
+		farmingManager.render(g);
+		
+		// renders the highlight on the tiles when player is building/farming, needs to be rendered last (in terms of map renders)
+		mapHelper.render(g);
 		
 		//tileManager.renderNightFade(g);
 		//tileManager.renderNightConstant(g);
