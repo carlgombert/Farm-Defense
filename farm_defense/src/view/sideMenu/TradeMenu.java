@@ -26,26 +26,38 @@ public class TradeMenu {
 	public TradeMenu() {
 		visible = false;
 		
-		items.add(new TradeItem("WALL", 50, 20));
-		items.add(new TradeItem("TURRET", 50, 20));
-		items.add(new TradeItem("SEEDS", 50, 20));
+		items.add(new TradeItem("Wall", 50, 20));
+		items.add(new TradeItem("Turret", 50, 20));
+		items.add(new TradeItem("Carrot Seeds", 50, 30));
+		items.add(new TradeItem("Corn Seeds", 50, 31));
 	}
 	
 	public void render(Graphics g) {
 		// create box for each available item starting in bottom right and moving upwards
-		for(int i = 0; i < items.size(); i++) {
+		if(!Game.night) {
+			for(int i = 0; i < items.size(); i++) {
+				g.setColor(lightBrown);
+				g.fillRect(11 * Game.tileSize + 5, (10-i) * Game.tileSize + 5, (int) (Game.tileSize * 4.5) - 10, Game.tileSize - 10);
+				
+				g.setFont(null);
+				g.setColor(Color.black);
+				g.drawString(
+						items.get(i).getName() + " cost: " + items.get(i).getCost() + " buy: enter " + (i+1)
+						, 11 * Game.tileSize + 10, (10-i) * Game.tileSize + 25);
+			}
+		}
+		else {
 			g.setColor(lightBrown);
-			g.fillRect(11 * Game.tileSize + 5, (10-i) * Game.tileSize + 5, (int) (Game.tileSize * 4.5) - 10, Game.tileSize - 10);
+			g.fillRect(11 * Game.tileSize + 5, 10* Game.tileSize + 5, (int) (Game.tileSize * 4.5) - 10, Game.tileSize - 10);
 			
 			g.setFont(null);
 			g.setColor(Color.black);
-			g.drawString(
-					items.get(i).getName() + " cost: " + items.get(i).getCost() + " buy: enter " + (i+1)
-					, 11 * Game.tileSize + 10, (10-i) * Game.tileSize + 25);
+			g.drawString("CLOSED UNTIL MORNING", 11 * Game.tileSize + 10, 10 * Game.tileSize + 25);
 		}
 	}
 	
 	public void buy(int i) {
+		i = Math.min(i, items.size());
 		int ID = items.get(i-1).getID();
 		Game.inventory.addItem(ID, 1);
 	}

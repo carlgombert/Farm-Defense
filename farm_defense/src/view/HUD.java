@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import controller.Game;
-import model.InventoryItem;
+import model.Inventory.InventoryItem;
 import model.gameObjects.Player;
 
 public class HUD {

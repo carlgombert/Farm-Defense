@@ -10,6 +10,7 @@ import java.awt.Stroke;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import model.gameObjects.projectile.Projectile;
 import model.gameObjects.projectile.TurretProjectile;
 import util.MathUtil;
@@ -123,6 +124,7 @@ public class Turret extends GameObject{
 	}
 	
 	public void shoot() {
+		Sound.rifleSound();
 		Game.handler.addObject(new TurretProjectile(worldX+20, worldY+20, ID.Projectile, angle));
 	}
 	

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import model.gameObjects.Zombie;
 import util.ImageUtil;
 
@@ -55,6 +56,7 @@ public class TurretProjectile extends Projectile{
 				if(this.getBounds().intersects(tempZombie.getBounds()))
 				{
 					tempZombie.setHealth(tempZombie.getHealth() - 2.5);
+					Sound.zombieDeathSound();
 					hitZombie = true;
 				}
 				if(this.getBounds().intersects(Game.player.getBounds()))

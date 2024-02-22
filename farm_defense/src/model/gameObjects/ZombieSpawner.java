@@ -56,26 +56,28 @@ public class ZombieSpawner extends GameObject
 
 	public void tick() 
 	{
-		if (spawn)
-		{
-			int spawnStone = random.nextInt(0, numStones); // chooses a random gravestone from the array
-			int zombieSpawnX = gravestones[spawnStone][0] * 48; // calculate worldX and Y of gravestone based on the row and column
-			int zombieSpawnY = gravestones[spawnStone][1] * 48;
-			
-			int offSet = 15; // it spawns the zombies bottom right of the gravestone, subtracting this offset centers it
-			
-			Game.handler.addObject(new Zombie(zombieSpawnX - offSet, zombieSpawnY - offSet, ID.Zombie)); // create zombie
-			
-			lastSpawn = System.currentTimeMillis();
-			spawn = false;
-		}
-		else
-		{
-			// will wait a default of 3 seconds minues the passed spawnRate of the spawner, each number represents 1/10 of a second
-			// ex. spawnRate of 0 would be 3 seconds per spawn, spawnRate of 5 would be 2.5s, spawnRate of 10 would be 2s, etc.
-			if (System.currentTimeMillis() > (lastSpawn + 3000 - (spawnRate * 100)))
+		if(Game.night) {
+			if (spawn)
 			{
-				spawn = true;
+				int spawnStone = random.nextInt(0, numStones); // chooses a random gravestone from the array
+				int zombieSpawnX = gravestones[spawnStone][0] * 48; // calculate worldX and Y of gravestone based on the row and column
+				int zombieSpawnY = gravestones[spawnStone][1] * 48;
+				
+				int offSet = 15; // it spawns the zombies bottom right of the gravestone, subtracting this offset centers it
+				
+				Game.handler.addObject(new Zombie(zombieSpawnX - offSet, zombieSpawnY - offSet, ID.Zombie)); // create zombie
+				
+				lastSpawn = System.currentTimeMillis();
+				spawn = false;
+			}
+			else
+			{
+				// will wait a default of 3 seconds minues the passed spawnRate of the spawner, each number represents 1/10 of a second
+				// ex. spawnRate of 0 would be 3 seconds per spawn, spawnRate of 5 would be 2.5s, spawnRate of 10 would be 2s, etc.
+				if (System.currentTimeMillis() > (lastSpawn + 3000 - (spawnRate * 100)))
+				{
+					spawn = true;
+				}
 			}
 		}
 	}

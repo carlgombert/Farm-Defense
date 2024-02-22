@@ -13,6 +13,7 @@ import java.util.LinkedList;
 
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Zombie;
@@ -75,6 +76,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	
 				// create bullet
 				Projectile bullet = new Projectile(spawnx, spawny, ID.Projectile, angle);
+				Sound.pistolSound();
 				Game.handler.addObject(bullet);
 				
 				canShoot = false; // prevents the player from being able to shoot infinitely fast by holding down the mouse button
@@ -125,6 +127,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		{
 			player.setAmmo(10);
 			canReload = false;
+			Sound.reloadSound();
 		}
 		
 		// checks the handler for NPCs within the player's hitbox, and sets their interaction boolean to true.

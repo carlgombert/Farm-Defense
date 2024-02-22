@@ -1,4 +1,4 @@
-package model;
+package model.Inventory;
 
 import java.awt.image.BufferedImage;
 

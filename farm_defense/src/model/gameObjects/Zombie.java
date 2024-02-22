@@ -9,6 +9,7 @@ import java.util.HashMap;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;

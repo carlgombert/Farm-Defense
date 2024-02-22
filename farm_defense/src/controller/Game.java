@@ -15,12 +15,12 @@ import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
 import model.gameObjects.Zombie;
 import model.gameObjects.ZombieSpawner;
-import model.Inventory;
+import model.Sound;
+import model.Inventory.Inventory;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Turret;
 import view.HUD;
-import model.Inventory;
 import view.MapEditorHelper;
 import view.Window;
 import view.map.BuildingManager;
@@ -58,6 +58,9 @@ public class Game extends Canvas implements Runnable{
 	public static TradeMenu tm;
 	public static TurretMenu turm;
 	
+	public static boolean night;
+	public int nightTimer = 9000;
+	
 	public Game() {
 		handler = new Handler();
 		
@@ -76,6 +79,8 @@ public class Game extends Canvas implements Runnable{
 		tm = new TradeMenu();
 		
 		turm = new TurretMenu();
+		
+		new Sound();
 		
 		this.addKeyListener(new KeyInput());
 		this.addMouseListener(new KeyInput());
@@ -143,6 +148,11 @@ public class Game extends Canvas implements Runnable{
 	
 	// tick method updates data of in game objects
 	private void tick() {
+		nightTimer++;
+		if(nightTimer >= 10000) {
+			nightTimer = 0;
+			night = !night;
+		}
 		handler.tick();
 	}
 	
@@ -166,12 +176,10 @@ public class Game extends Canvas implements Runnable{
 		mapHelper.render(g);
 		
 		//tileManager.renderNightFade(g);
-		//tileManager.renderNightConstant(g);
 		
 		//rendering handler renders all gameobjects
 		handler.render(g);
 		
-		hud.render(g);
 		
 		if(tm.visible) {
 			tm.render(g);
@@ -179,6 +187,12 @@ public class Game extends Canvas implements Runnable{
 		else if(turm.visible) {
 			turm.render(g);
 		}
+		
+		if(night) {
+			tileManager.renderNightConstant(g);
+		}
+		
+		hud.render(g);
 		
 		g.dispose();
 		bs.show();

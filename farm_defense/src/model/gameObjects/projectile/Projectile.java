@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import model.gameObjects.Zombie;
 import util.ImageUtil;
 
@@ -56,6 +57,7 @@ public class Projectile extends GameObject{
 				if(this.getBounds().intersects(tempZombie.getBounds()))
 				{
 					tempZombie.setHealth(tempZombie.getHealth() - 2.5);
+					Sound.zombieDeathSound();
 					hitZombie = true;
 				}
 			}

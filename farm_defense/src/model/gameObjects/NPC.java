@@ -150,6 +150,7 @@ public class NPC extends GameObject
 				g.drawString(currDialogue1, textX, textY);
 				g.drawString(currDialogue2, textX, textY + dialogueBoxHeight / 4);
 				g.drawString(currDialogue3, textX, textY + 2*(dialogueBoxHeight / 4));
+				g.setFont(null);
 			}
 		}
 	}
