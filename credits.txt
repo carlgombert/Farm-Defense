@@ -1,0 +1,20 @@
+(to be used in credits section of main menu)
+
+Developers:
+
+Carl Gombert
+Zander McGinley
+
+
+Artwork:
+
+
+Sound and Music:
+
+
+Writing:
+
+
+Testing and Quality Assurance:
+
+
