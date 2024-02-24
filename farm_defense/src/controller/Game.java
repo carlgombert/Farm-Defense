@@ -23,9 +23,9 @@ import model.gameObjects.Turret;
 import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
+import view.map.TileManager;
 import view.map.building.BuildingManager;
 import view.map.farming.FarmingManager;
-import view.map.tiles.TileManager;
 import view.sideMenu.TradeMenu;
 import view.sideMenu.TurretMenu;
 
