@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import controller.Game;
 import model.GameObject;
@@ -98,8 +100,8 @@ public class BuildingManager
 	public void loadBuildingMap() 
 	{
 		try {
-			File file = new File("resources/maps/buildingmap.txt");
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			URL url = getClass().getClassLoader().getResource("resources/maps/buildingmap.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			int col = 0;
 			int row = 0;
 			while (col < Game.mapCol && row < Game.mapRow) {
@@ -126,8 +128,8 @@ public class BuildingManager
 	{
 		try 
 		{
-			File file = new File("resources/maps/buildingrotationmap.txt");
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			URL url = getClass().getClassLoader().getResource("resources/maps/buildingrotationmap.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			int col = 0;
 			int row = 0;
 			while (col < Game.mapCol && row < Game.mapRow) {
@@ -208,8 +210,8 @@ public class BuildingManager
 				// subtract 1 from the num of buildings in the player's inventory
 				Game.inventory.minusItem(1);
 				
-				File file = new File("resources/maps/buildingmap.txt");
-				BufferedReader br = new BufferedReader(new FileReader(file));
+				URL url = getClass().getClassLoader().getResource("resources/maps/buildingmap.txt");
+				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 				
 				String line = br.readLine();;
 				lines = new String[45]; // string array of every line in the buildingmap.txt file
@@ -238,7 +240,7 @@ public class BuildingManager
 					if (i != 39) newFile += "\n";
 				}
 				
-				FileWriter writer = new FileWriter(file);
+				FileWriter writer = new FileWriter(url.getFile());
 				
 				writer.write(newFile);
 				
@@ -423,9 +425,9 @@ public class BuildingManager
 	public void rewriteRotation(int col, int row, int rot)
 	{
 		try
-		{
-			File file = new File("resources/maps/buildingrotationmap.txt");
-			BufferedReader br = new BufferedReader(new FileReader(file));
+		{	
+			URL url = getClass().getClassLoader().getResource("resources/maps/buildingrotationmap.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			
 			String line = br.readLine();
 			String[] rotationLines = new String[45];
@@ -439,7 +441,7 @@ public class BuildingManager
 				line = br.readLine();
 			}
 			
-			FileWriter writer = new FileWriter(file);
+			FileWriter writer = new FileWriter(url.getFile());
 			
 			String firstHalf = rotationLines[row].substring(0, col);
 			String secondHalf = rotationLines[row].substring(col + 1, rotationLines[row].length());
@@ -472,10 +474,10 @@ public class BuildingManager
 	{
 		try
 		{
-			File file1 = new File("resources/maps/buildingmap.txt");
-			File file2 = new File("resources/maps/buildingrotationmap.txt");
-			FileWriter writer1 = new FileWriter(file1);
-			FileWriter writer2 = new FileWriter(file2);
+			URL url1 = getClass().getClassLoader().getResource("resources/maps/buildingmap.txt");
+			URL url2 = getClass().getClassLoader().getResource("resources/maps/buildingrotationmap.txt");
+			FileWriter writer1 = new FileWriter(url1.getFile());
+			FileWriter writer2 = new FileWriter(url2.getFile());
 			
 			String blankLine = "";
 			String blankFile = "";

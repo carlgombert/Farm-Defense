@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -12,7 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Sound {
 	
 	static Clip clip;
-	static File[] soundFile = new File[30];
+	static URL[] soundFile = new URL[30];
 	
 	// timers to make sure sounds that repeat very quickly do not play too many times at once. 
 	// If a zombie gets hit by 10 bullets at once I don't want 10 death sounds.
@@ -22,10 +23,11 @@ public class Sound {
 	
 	public Sound() {
 		
-		soundFile[0] = new File("resources/sound/effects/rifle.wav").getAbsoluteFile();
-		soundFile[1] = new File("resources/sound/effects/pistol.wav").getAbsoluteFile();
-		soundFile[2] = new File("resources/sound/effects/reload.wav").getAbsoluteFile();
-		soundFile[3] = new File("resources/sound/effects/zombiedeath.wav").getAbsoluteFile();
+		soundFile[0] = Sound.class.getClassLoader().getResource("resources/sound/effects/rifle.wav");
+		soundFile[1] = Sound.class.getClassLoader().getResource("resources/sound/effects/pistol.wav");
+		soundFile[2] = Sound.class.getClassLoader().getResource("resources/sound/effects/reload.wav");
+		soundFile[3] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombiedeath.wav");
+		System.out.println(soundFile[0]);
 	}
 	
 	public static void setFile(int i) {

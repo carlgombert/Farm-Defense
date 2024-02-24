@@ -7,6 +7,7 @@ import java.util.Random;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import util.MathUtil;
 
 public class ZombieSpawner extends GameObject
 {
@@ -59,7 +60,7 @@ public class ZombieSpawner extends GameObject
 		if(Game.night) {
 			if (spawn)
 			{
-				int spawnStone = random.nextInt(0, numStones); // chooses a random gravestone from the array
+				int spawnStone = MathUtil.randomNumber(0, numStones); // chooses a random gravestone from the array
 				int zombieSpawnX = gravestones[spawnStone][0] * 48; // calculate worldX and Y of gravestone based on the row and column
 				int zombieSpawnY = gravestones[spawnStone][1] * 48;
 				

@@ -10,9 +10,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Random;
 
 import controller.Game;
+import model.Sound;
 import util.ImageUtil;
 import util.MathUtil;
 
@@ -125,8 +127,8 @@ public class TileManager {
 	//loads in map as txt files and reads in numbers as their specified tile type
 	public void loadMap() {
 		try {
-			File file = new File("resources/maps/map1.txt");
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			URL url = getClass().getClassLoader().getResource("resources/maps/map1.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			int col = 0;
 			int row = 0;
 			while (col < Game.mapCol && row < Game.mapRow) {

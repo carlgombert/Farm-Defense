@@ -12,8 +12,9 @@ public class ImageUtil {
 	public static BufferedImage addImage(int width, int height, String file) {
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File(file));
+			image = ImageIO.read(ImageUtil.class.getClassLoader().getResource(file));
 		} catch (IOException e) {
+			System.out.println("bug here");
 			e.printStackTrace();
 		}
 		image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
