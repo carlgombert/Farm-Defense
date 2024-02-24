@@ -10,8 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.UIManager;
+import javax.swing.ImageIcon;
 
 import controller.Game;
+import util.ImageUtil;
 
 public class Window {
 	

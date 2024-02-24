@@ -202,13 +202,18 @@ public class BuildingManager
 		int col = mouseWorldX / 48;
 		int row = mouseWorldY / 48;
 		
+		
+		
 		// checks to make sure the tile that the player is trying to build on is empty
 		if (mapBuildingNum[col][row] == 0)
 		{
+			// subtract 1 from the num of buildings in the player's inventory
+			Game.inventory.minusItem(1);
+			
+			
 			try 
 			{
-				// subtract 1 from the num of buildings in the player's inventory
-				Game.inventory.minusItem(1);
+
 				
 				URL url = getClass().getClassLoader().getResource("resources/maps/buildingmap.txt");
 				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));

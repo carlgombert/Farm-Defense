@@ -40,9 +40,6 @@ public class FarmingManager
 		
 		farmlandImage = ImageUtil.addImage(48, 48, "resources/farming/farmland.png");
 		
-		// resets all farmland on the map and all crop stages to 0
-		resetFarmingMap();
-		
 		loadFarmlandMap();
 		loadCropStageMap();
 		getCropImage();
@@ -81,7 +78,6 @@ public class FarmingManager
 			br.close () ;
 		} catch (Exception e) {
 			System.out.println(e);
-			System.out.println("error occured loading map");
 		}
 	}
 	
@@ -111,6 +107,8 @@ public class FarmingManager
 			System.out.println(e);
 		}
 	}
+	
+	
 	
 	public void render (Graphics g) 
 	{
@@ -165,64 +163,14 @@ public class FarmingManager
 		if (mapFarmland[col][row] == 0) changeNumber = 1;
 		else changeNumber = 0;
 		
-		try 
+		//if tile has fully grown crop, give crop to player
+		if (mapCropStage[col][row] == 3)
 		{
-			URL url = TxtFileUtil.readFile("resources/maps/farmlandmap.txt");
-			BufferedReader br = TxtFileUtil.readURL(url);
-			
-			String line = br.readLine();;
-			lines = new String[45]; // string array of every line in the farmlandmap.txt file
-			
-			int arrayNum = 0;
-			
-			while (line != null)
-			{
-				lines[arrayNum] = line;
-				arrayNum++;
-				line = br.readLine();
-			}
-	
-			String firstHalf = "";
-			String secondHalf = "";
-			
-			// rewrites the number in the lines[] string list to whatever was decided
-			for (int i = 0; i < col; i++) firstHalf += mapFarmland[i][row] + "\t";
-			for (int i = col + 1; i < 40; i++) secondHalf += mapFarmland[i][row] + "\t";
-			
-			String newString = firstHalf + changeNumber + "\t" + secondHalf;
-			
-			lines[row] = newString;
-			
-			// once the tiles are all fully calculated, rewrite the farmlandmap.txt file
-			String newFile = "";
-			
-			for(int i = 0; i < 40; i++)
-			{
-				newFile += lines[i];
-				if (i != 39) newFile += "\n";
-			}
-			
-			FileWriter writer = new FileWriter(new File(url.getFile()));
-			
-			writer.write(newFile);
-			
-			br.close();
-			writer.close();
-			
-			// if there was a fully grown crop on that tile, give them 5 grown crops
-			if (mapCropStage[col][row] == 3)
-			{
-				Game.inventory.addItem(mapFarmland[col][row] + 10, 5);
-				setPlantStage(col, row, 0);
-			}
-			
-			// reloads the farming map once the file is rewritten
-			Game.farmingManager.loadFarmlandMap();
- 		} catch (Exception e) 
-		{
-			System.out.println(e);
-			System.out.println("the issue seems to be with tilling??");
+			Game.inventory.addItem(mapFarmland[col][row] + 10, 5);
+			setPlantStage(col, row, 0);
 		}
+		
+		mapFarmland[col][row] = changeNumber;
 	}
 	
 	// plants the selected seed on a specified farmland tile 
@@ -243,63 +191,15 @@ public class FarmingManager
 		{
 			// grabs number to place in .txt file (same number as crop id in inventory)
 			int seedID = Game.inventory.getCurrentID();
-
-			try 
-			{
-				URL url1 = TxtFileUtil.readFile("resources/maps/farmlandmap.txt");
-				BufferedReader br1 = TxtFileUtil.readURL(url1);
-				
-				String line = br1.readLine();;
-				lines = new String[45]; // string array of every line in the farmlandmap.txt file
-				
-				int arrayNum = 0;
-				
-				while (line != null)
-				{
-					lines[arrayNum] = line;
-					arrayNum++;
-					line = br1.readLine();
-				}
-		
-				String firstHalf = "";
-				String secondHalf = "";
-				
-				// rewrites the number in the lines[] string list to the id of the seed
-				for (int i = 0; i < col; i++) firstHalf += mapFarmland[i][row] + "\t";
-				for (int i = col + 1; i < 40; i++) secondHalf += mapFarmland[i][row] + "\t";
-				
-				String newString = firstHalf + seedID + "\t" + secondHalf;
-				
-				lines[row] = newString;
-				
-				// once the tiles are all fully calculated, rewrite the farmlandmap.txt file
-				String newFile = "";
-				
-				for(int i = 0; i < 40; i++)
-				{
-					newFile += lines[i];
-					if (i != 39) newFile += "\n";
-				}
-				
-				FileWriter writer1 = new FileWriter(new File(url1.getFile()));
-				
-				writer1.write(newFile);
-				
-				br1.close();
-				writer1.close();
-				
-				// sets plant stage in this tile to 1 (plant is now growing in this tile)
-				setPlantStage(col, row, 1);
-				
-				// reloads the farmlandmap once the file is rewritten
-				Game.farmingManager.loadFarmlandMap();
-				
-				// subtract 1 from the num of buildings in the player's inventory
-				Game.inventory.minusItem(1);
-	 		} catch (Exception e) 
-			{
-				System.out.println(e);
-			}
+			
+			mapFarmland[col][row] = seedID;
+			
+			// sets plant stage in this tile to 1 (plant is now growing in this tile)
+			setPlantStage(col, row, 1);
+			
+			// subtract 1 from the num of buildings in the player's inventory
+			Game.inventory.minusItem(1);
+			
 		}
 	}
 	
@@ -308,155 +208,27 @@ public class FarmingManager
 	{
 		if (stage > 3 || stage < 0) return; // dont even bother running code if its an invalid stage
 		
-		try 
-		{	
-			URL url1 = TxtFileUtil.readFile("resources/maps/cropstagemap.txt");
-			BufferedReader br1 = TxtFileUtil.readURL(url1);
-			
-			String line = br1.readLine();;
-			lines = new String[45]; // string array of every line in the cropstagemap.txt file
-			
-			int arrayNum = 0;
-			
-			while (line != null)
-			{
-				lines[arrayNum] = line;
-				arrayNum++;
-				line = br1.readLine();
-			}
-	
-			String firstHalf = "";
-			String secondHalf = "";
-			
-			// rewrites the number in the lines[] string list to the specified crop stage
-			for (int i = 0; i < col; i++) firstHalf += mapCropStage[i][row] + "\t";
-			for (int i = col + 1; i < 40; i++) secondHalf += mapCropStage[i][row] + "\t";
-			
-			String newString = firstHalf + stage + "\t" + secondHalf;
-			
-			lines[row] = newString;
-			
-			// once the tiles are all fully calculated, rewrite the cropstagemap.txt file
-			String newFile = "";
-			
-			for(int i = 0; i < 40; i++)
-			{
-				newFile += lines[i];
-				if (i != 39) newFile += "\n";
-			}
-			
-			FileWriter writer1 = new FileWriter(new File(url1.getFile()));
-			
-			writer1.write(newFile);
-			
-			br1.close();
-			writer1.close();
-			
-			// reloads the crop stage map once the file is rewritten
-			Game.farmingManager.loadCropStageMap();
- 		} catch (Exception e) 
-		{
-			System.out.println(e);
-		}
+		mapCropStage[col][row] = stage;
 	}
 	
 	// this function advances the crop stage of all crops on the map
 	// probably not how we want to do this in the future if we want crops to grow at different rates
 	public void advanceAllStages()
 	{
-		try
+		for (int i = 0; i < 40; i++)
 		{
-			URL url = TxtFileUtil.readFile("resources/maps/cropstagemap.txt");
-			BufferedReader br = TxtFileUtil.readURL(url);
-			
-			String line = br.readLine();
-			lines = new String[45]; // string array of every line in the cropstagemap.txt file
-			
-			String newLine;
-			
-			// increases all numbers in the lines[] string array that isn't a 0 or 3
-			for (int i = 0; i < 40; i++)
+			for (int j = 0; j < 40; j++)
 			{
-				newLine = "";
-				
-				for (int j = 0; j < 40; j++)
-				{
-					if (mapCropStage[j][i] != 0 && mapCropStage[j][i] < 3) newLine += (mapCropStage[j][i] + 1) + "\t";
-					else newLine += mapCropStage[j][i] + "\t";
+				if (mapCropStage[j][i] != 0 && mapCropStage[j][i] < 3) {
+					mapCropStage[j][i] =  mapCropStage[j][i] + 1;
 				}
-				
-				lines[i] = newLine;
 			}
-			
-			// rewrites cropstagemap.txt file with new crop stages
-			String newFile = "";
-			
-			for (int i = 0; i < 40; i++)
-			{
-				newFile += lines[i];
-				if (i != 39) newFile += "\n";
-			}
-			
-			FileWriter writer = new FileWriter(new File(url.getFile()));
-			
-			writer.write(newFile);
-			writer.close();
-			
-			// reload crop stage map once done
-			Game.farmingManager.loadCropStageMap();
-		} catch (Exception e)
-		{
-			System.out.println(e);
 		}
 	}
 	
 	public int getPlantStage(int col, int row)
 	{
 		return mapCropStage[col][row];
-	}
-	
-	// resets both farmlandmap.txt and cropstagemap.txt
-	public void resetFarmingMap()
-	{
-		try
-		{
-			URL url1 = TxtFileUtil.readFile("resources/maps/farmlandmap.txt");
-			URL url2 = TxtFileUtil.readFile("resources/maps/cropstagemap.txt");
-
-			
-			File file = new File(url1.getFile()).getCanonicalFile();
-			
-			FileWriter fw = new FileWriter(file);
-			
-
-			BufferedWriter writer1 = new BufferedWriter(fw);
-			
-			BufferedWriter writer2 = new BufferedWriter(new FileWriter(new File(url2.getFile())));
-			
-			String blankLine = "";
-			String blankFile = "";
-			
-			for (int i = 0; i < 40; i++)
-			{
-				blankLine += '0';
-				if (i != 39) blankLine += '\t';
-			}
-			
-			for (int i = 0; i < 40; i++)
-			{
-				blankFile += blankLine;
-				if (i != 39) blankFile += '\n';
-			}
-			
-			writer1.write(blankFile);
-			writer2.write(blankFile);
-			
-			writer1.close();
-			writer2.close();
-		} catch (Exception e) 
-		{
-			System.out.println(e);
-		}
 	}
 	
 	public void setMouseX(int x)
