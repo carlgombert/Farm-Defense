@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,6 +15,7 @@ import java.net.URL;
 import controller.Game;
 import model.GameObject;
 import util.ImageUtil;
+import util.TxtFileUtil;
 
 public class FarmingManager 
 {
@@ -59,8 +61,8 @@ public class FarmingManager
 	public void loadFarmlandMap()
 	{
 		try {
-			URL url = getClass().getClassLoader().getResource("resources/maps/farmlandmap.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+			URL url = TxtFileUtil.readFile("resources/maps/farmlandmap.txt");
+			BufferedReader br = TxtFileUtil.readURL(url);
 			int col = 0;
 			int row = 0;
 			while (col < Game.mapCol && row < Game.mapRow) {
@@ -79,6 +81,7 @@ public class FarmingManager
 			br.close () ;
 		} catch (Exception e) {
 			System.out.println(e);
+			System.out.println("error occured loading map");
 		}
 	}
 	
@@ -86,8 +89,8 @@ public class FarmingManager
 	public void loadCropStageMap()
 	{
 		try {
-			URL url = getClass().getClassLoader().getResource("resources/maps/cropstagemap.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+			URL url = TxtFileUtil.readFile("resources/maps/cropstagemap.txt");
+			BufferedReader br = TxtFileUtil.readURL(url);
 			int col = 0;
 			int row = 0;
 			while (col < Game.mapCol && row < Game.mapRow) {
@@ -164,8 +167,8 @@ public class FarmingManager
 		
 		try 
 		{
-			URL url = getClass().getClassLoader().getResource("resources/maps/farmlandmap.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+			URL url = TxtFileUtil.readFile("resources/maps/farmlandmap.txt");
+			BufferedReader br = TxtFileUtil.readURL(url);
 			
 			String line = br.readLine();;
 			lines = new String[45]; // string array of every line in the farmlandmap.txt file
@@ -199,7 +202,7 @@ public class FarmingManager
 				if (i != 39) newFile += "\n";
 			}
 			
-			FileWriter writer = new FileWriter(url.getFile());
+			FileWriter writer = new FileWriter(new File(url.getFile()));
 			
 			writer.write(newFile);
 			
@@ -218,6 +221,7 @@ public class FarmingManager
  		} catch (Exception e) 
 		{
 			System.out.println(e);
+			System.out.println("the issue seems to be with tilling??");
 		}
 	}
 	
@@ -242,8 +246,8 @@ public class FarmingManager
 
 			try 
 			{
-				URL url1 = getClass().getClassLoader().getResource("resources/maps/farmlandmap.txt");
-				BufferedReader br1 = new BufferedReader(new InputStreamReader(url1.openStream()));
+				URL url1 = TxtFileUtil.readFile("resources/maps/farmlandmap.txt");
+				BufferedReader br1 = TxtFileUtil.readURL(url1);
 				
 				String line = br1.readLine();;
 				lines = new String[45]; // string array of every line in the farmlandmap.txt file
@@ -277,7 +281,7 @@ public class FarmingManager
 					if (i != 39) newFile += "\n";
 				}
 				
-				FileWriter writer1 = new FileWriter(url1.getFile());
+				FileWriter writer1 = new FileWriter(new File(url1.getFile()));
 				
 				writer1.write(newFile);
 				
@@ -305,9 +309,9 @@ public class FarmingManager
 		if (stage > 3 || stage < 0) return; // dont even bother running code if its an invalid stage
 		
 		try 
-		{
-			URL url1 = getClass().getClassLoader().getResource("resources/maps/cropstagemap.txt");
-			BufferedReader br1 = new BufferedReader(new InputStreamReader(url1.openStream()));
+		{	
+			URL url1 = TxtFileUtil.readFile("resources/maps/cropstagemap.txt");
+			BufferedReader br1 = TxtFileUtil.readURL(url1);
 			
 			String line = br1.readLine();;
 			lines = new String[45]; // string array of every line in the cropstagemap.txt file
@@ -341,7 +345,7 @@ public class FarmingManager
 				if (i != 39) newFile += "\n";
 			}
 			
-			FileWriter writer1 = new FileWriter(url1.getFile());
+			FileWriter writer1 = new FileWriter(new File(url1.getFile()));
 			
 			writer1.write(newFile);
 			
@@ -362,9 +366,8 @@ public class FarmingManager
 	{
 		try
 		{
-			URL url = getClass().getClassLoader().getResource("resources/maps/cropstagemap.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-			
+			URL url = TxtFileUtil.readFile("resources/maps/cropstagemap.txt");
+			BufferedReader br = TxtFileUtil.readURL(url);
 			
 			String line = br.readLine();
 			lines = new String[45]; // string array of every line in the cropstagemap.txt file
@@ -394,7 +397,7 @@ public class FarmingManager
 				if (i != 39) newFile += "\n";
 			}
 			
-			FileWriter writer = new FileWriter(url.getFile());
+			FileWriter writer = new FileWriter(new File(url.getFile()));
 			
 			writer.write(newFile);
 			writer.close();
@@ -417,10 +420,18 @@ public class FarmingManager
 	{
 		try
 		{
-			URL url1 = getClass().getClassLoader().getResource("resources/maps/farmlandmap.txt");
-			URL url2 = getClass().getClassLoader().getResource("resources/maps/cropstagemap.txt");
-			FileWriter writer1 = new FileWriter(url1.getFile());
-			FileWriter writer2 = new FileWriter(url2.getFile());
+			URL url1 = TxtFileUtil.readFile("resources/maps/farmlandmap.txt");
+			URL url2 = TxtFileUtil.readFile("resources/maps/cropstagemap.txt");
+
+			
+			File file = new File(url1.getFile()).getCanonicalFile();
+			
+			FileWriter fw = new FileWriter(file);
+			
+
+			BufferedWriter writer1 = new BufferedWriter(fw);
+			
+			BufferedWriter writer2 = new BufferedWriter(new FileWriter(new File(url2.getFile())));
 			
 			String blankLine = "";
 			String blankFile = "";

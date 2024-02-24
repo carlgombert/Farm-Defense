@@ -240,7 +240,7 @@ public class BuildingManager
 					if (i != 39) newFile += "\n";
 				}
 				
-				FileWriter writer = new FileWriter(url.getFile());
+				FileWriter writer = new FileWriter(new File(url.getFile()));
 				
 				writer.write(newFile);
 				
@@ -441,7 +441,7 @@ public class BuildingManager
 				line = br.readLine();
 			}
 			
-			FileWriter writer = new FileWriter(url.getFile());
+			FileWriter writer = new FileWriter(new File(url.getFile()));
 			
 			String firstHalf = rotationLines[row].substring(0, col);
 			String secondHalf = rotationLines[row].substring(col + 1, rotationLines[row].length());
@@ -476,8 +476,8 @@ public class BuildingManager
 		{
 			URL url1 = getClass().getClassLoader().getResource("resources/maps/buildingmap.txt");
 			URL url2 = getClass().getClassLoader().getResource("resources/maps/buildingrotationmap.txt");
-			FileWriter writer1 = new FileWriter(url1.getFile());
-			FileWriter writer2 = new FileWriter(url2.getFile());
+			FileWriter writer1 = new FileWriter(new File(url1.getFile()));
+			FileWriter writer2 = new FileWriter(new File(url2.getFile()));
 			
 			String blankLine = "";
 			String blankFile = "";
