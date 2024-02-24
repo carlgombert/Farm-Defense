@@ -12,7 +12,6 @@ Zander McGinley
 
 Writing:
 
-
 Testing and Quality Assurance:
 Carl Gombert
 
