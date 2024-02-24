@@ -1,9 +1,9 @@
 package util;
 
-import view.map.TileManager;
 import controller.Game;
 import model.GameObject;
 import model.gameObjects.Player;
+import view.map.tiles.TileManager;
 
 public class TileUtil {
 	

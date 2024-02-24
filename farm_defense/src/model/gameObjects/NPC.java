@@ -11,10 +11,10 @@ import java.util.HashMap;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
-import view.map.TileManager;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
+import view.map.tiles.TileManager;
 
 // !!!README!!! all of the code in this file is temporary and very poorly organized
 // i will probably make a better system for this in the future, but for now this will work

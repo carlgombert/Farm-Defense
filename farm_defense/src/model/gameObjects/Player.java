@@ -10,10 +10,10 @@ import java.util.HashMap;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
-import view.map.TileManager;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
+import view.map.tiles.TileManager;
 
 public class Player extends GameObject{
 	

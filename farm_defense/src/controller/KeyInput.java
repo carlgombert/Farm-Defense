@@ -19,7 +19,7 @@ import model.gameObjects.Player;
 import model.gameObjects.Zombie;
 import model.gameObjects.projectile.Projectile;
 import util.MathUtil;
-import view.map.TileManager;
+import view.map.tiles.TileManager;
 
 public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionListener, ActionListener
 {
