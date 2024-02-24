@@ -1,21 +1,18 @@
 (to be used in credits section of main menu)
 
 Developers:
-
 Carl Gombert
 Zander McGinley
 
-
 Artwork:
-
+Addison Knoll
 
 Sound and Music:
-
+Zander McGinley
 
 Writing:
 
 
 Testing and Quality Assurance:
-
 Carl Gombert
 
