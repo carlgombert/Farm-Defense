@@ -29,7 +29,7 @@ public class TradeMenu {
 		items.add(new TradeItem("Wall", 50, 20));
 		items.add(new TradeItem("Turret", 50, 20));
 		items.add(new TradeItem("Carrot Seeds", 50, 30));
-		items.add(new TradeItem("Corn Seeds", 50, 31));
+		items.add(new TradeItem("Corn Seeds", 60, 31));
 	}
 	
 	public void render(Graphics g) {
@@ -45,6 +45,14 @@ public class TradeMenu {
 						items.get(i).getName() + " cost: " + items.get(i).getCost() + " buy: enter " + (i+1)
 						, 11 * Game.tileSize + 10, (10-i) * Game.tileSize + 25);
 			}
+			g.setColor(Color.red);
+			g.fillRect(11 * Game.tileSize + 5, (10-items.size()) * Game.tileSize + 5, (int) (Game.tileSize * 4.5) - 10, Game.tileSize - 10);
+			
+			g.setFont(null);
+			g.setColor(lightBrown);
+			g.drawString(
+					"Sell items: enter Q"
+					, 11 * Game.tileSize + 10, (10-items.size()) * Game.tileSize + 25);
 		}
 		else {
 			g.setColor(lightBrown);
@@ -56,9 +64,24 @@ public class TradeMenu {
 		}
 	}
 	
+	// sells all crops in the players inventory
+	public void sell() {
+		for(int i = 40; i < 50; i++) {
+			if(Game.inventory.items.containsKey(i)) {
+				int price = Game.inventory.items.get(i).getPrice();
+				Game.player.setCoins(
+						Game.player.getCoins() + Game.inventory.clearItem(i) * price
+						);
+			}
+		}
+	}
+	
 	public void buy(int i) {
 		i = Math.min(i, items.size());
 		int ID = items.get(i-1).getID();
-		Game.inventory.addItem(ID, 1);
+		if(items.get(i-1).getCost() <= Game.player.getCoins()) {
+			Game.inventory.addItem(ID, 1);
+			Game.player.setCoins(Game.player.getCoins() -  items.get(i-1).getCost());
+		}
 	}
 }

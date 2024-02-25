@@ -42,7 +42,7 @@ public class HUD {
 		
 		g.setFont(null);
 		g.setColor(Color.white);
-		g.drawString(player.getHealth() + "/400", 13, 65);
+		g.drawString(player.getHealth() + "/400\tCoins: " + player.getCoins(), 13, 65);
 		
 		g.setColor(new Color(148, 141, 62));
 		for(int i = 0; i < player.getAmmo(); i++) {

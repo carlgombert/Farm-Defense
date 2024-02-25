@@ -166,7 +166,7 @@ public class FarmingManager
 		//if tile has fully grown crop, give crop to player
 		if (mapCropStage[col][row] == 3)
 		{
-			Game.inventory.addItem(mapFarmland[col][row] + 10, 5);
+			Game.inventory.addItem(mapFarmland[col][row] + 10, 1);
 			setPlantStage(col, row, 0);
 		}
 		

@@ -1,6 +1,7 @@
 package model.Inventory;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 import controller.Game;
 import util.ImageUtil;
@@ -9,6 +10,9 @@ public class Inventory
 {
 	public InventoryItem[] inventory = new InventoryItem[10];
 	public int selected;
+	
+	// once an item is encountered, it is added to the map of ID's mapped to the item
+	public HashMap<Integer, InventoryItem> items = new HashMap<Integer, InventoryItem>();
 	
 	// image list of every possible image that the inventory item could be
 	public BufferedImage[] itemImages = new BufferedImage[51];
@@ -74,12 +78,15 @@ public class Inventory
 	// add an item to the player's inventory at the specified slot, see above for item IDs
 	public void addItem(int ID, int count, int slot)
 	{
+		items.put(ID, new InventoryItem(ID, itemImages[ID], count));
 		inventory[slot - 1] = new InventoryItem(ID, itemImages[ID], count);
 	}
+	
 	
 	// add an item to the player's inventory at the next empty slot, or stacks if some of the item is alr in the inventory
 	public void addItem(int ID, int count)
 	{
+		items.put(ID, new InventoryItem(ID, itemImages[ID], count));
 		// first check if should be stacked with items already in the inventory
 		for (int i = 0; i < 10; i++)
 		{
@@ -117,6 +124,19 @@ public class Inventory
 		}
 		else inventory[selected].changeCount(-amt);
 	}
+	
+	// clear all of a specific item from the players inventory and return the count
+	public int clearItem(int ID) {
+		int count = 0;
+		for(int i = 0; i < inventory.length; i++) {
+			if(inventory[i] != null && inventory[i].ID == ID) {
+				count += inventory[i].getCount();
+				inventory[i] = null;
+			}
+		}
+		return count;
+	}
+	
 	
 	public BufferedImage getCurrentImage()
 	{

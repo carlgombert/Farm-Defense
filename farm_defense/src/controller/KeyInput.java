@@ -164,7 +164,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		if (key == KeyEvent.VK_H) Game.farmingManager.advanceAllStages(); // advances the stage of all the crops on the map (for now)
 		
 		
-		if(Game.tm.visible) { //if trade menu is open, number key bindings swap to buying items
+		if(Game.tm.visible && !Game.night) { //if trade menu is open, number key bindings swap to buying items
 			if (key == KeyEvent.VK_1) Game.tm.buy(1);;
 			if (key == KeyEvent.VK_2) Game.tm.buy(2);;
 			if (key == KeyEvent.VK_3) Game.tm.buy(3);;
@@ -175,6 +175,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 			if (key == KeyEvent.VK_8) Game.tm.buy(8);;
 			if (key == KeyEvent.VK_9) Game.tm.buy(9);;
 			if (key == KeyEvent.VK_0) Game.tm.buy(10);;
+			if (key == KeyEvent.VK_Q) Game.tm.sell();;
 		}
 		else if(Game.turm.visible) { // if turret upgrade menu is open, number key bindings swap to upgrading
 			if (key == KeyEvent.VK_1) Game.turm.buy(1);;
