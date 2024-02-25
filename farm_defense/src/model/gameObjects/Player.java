@@ -28,6 +28,8 @@ public class Player extends GameObject{
 	
 	private int health = 400;
 	
+	private int coins = 100;
+	
 	// variables used when get hit by a zombie
 	private boolean hitByZombie = false;
 	private double angleFromZombie;
@@ -251,6 +253,14 @@ public class Player extends GameObject{
 
 	public void setHealth(int health) {
 		this.health = health;
+	}
+
+	public int getCoins() {
+		return coins;
+	}
+
+	public void setCoins(int coins) {
+		this.coins = coins;
 	}
 }
 	
