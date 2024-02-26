@@ -15,6 +15,7 @@ import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
 import model.gameObjects.Zombie;
 import model.gameObjects.ZombieSpawner;
+import model.GameState;
 import model.Sound;
 import model.Inventory.Inventory;
 import model.gameObjects.NPC;
@@ -23,6 +24,7 @@ import model.gameObjects.Turret;
 import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
+import view.fullMenu.MainMenu;
 import view.map.TileManager;
 import view.map.building.BuildingManager;
 import view.map.farming.FarmingManager;
@@ -60,6 +62,8 @@ public class Game extends Canvas implements Runnable{
 	
 	public static boolean night;
 	public int nightTimer = 0;
+	
+	public static GameState gamestate = GameState.MainMenu;
 	
 	public Game() {
 		handler = new Handler();
@@ -148,12 +152,14 @@ public class Game extends Canvas implements Runnable{
 	
 	// tick method updates data of in game objects
 	private void tick() {
-		nightTimer++;
-		if(nightTimer >= 10000) {
-			nightTimer = 0;
-			night = !night;
+		if(gamestate == GameState.Running) {
+			nightTimer++;
+			if(nightTimer >= 10000) {
+				nightTimer = 0;
+				night = !night;
+			}
+			handler.tick();
 		}
-		handler.tick();
 	}
 	
 	// render method displays in game objects on the screen
@@ -166,34 +172,38 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		//rendering the tilemanager renders the background map
-		tileManager.render(g);
-		
-		buildingManager.render(g);
-		farmingManager.render(g);
-		
-		// renders the highlight on the tiles when player is building/farming, needs to be rendered last (in terms of map renders)
-		mapHelper.render(g);
-		
-		//tileManager.renderNightFade(g);
-		
-		//rendering handler renders all gameobjects
-		handler.render(g);
-		
-		
-		if(tm.visible) {
-			tm.render(g);
+		if(gamestate == GameState.Running) {
+			//rendering the tilemanager renders the background map
+			tileManager.render(g);
+			
+			buildingManager.render(g);
+			farmingManager.render(g);
+			
+			// renders the highlight on the tiles when player is building/farming, needs to be rendered last (in terms of map renders)
+			mapHelper.render(g);
+			
+			//tileManager.renderNightFade(g);
+			
+			//rendering handler renders all gameobjects
+			handler.render(g);
+			
+			
+			if(tm.visible) {
+				tm.render(g);
+			}
+			else if(turm.visible) {
+				turm.render(g);
+			}
+			
+			if(night) {
+				tileManager.renderNightConstant(g);
+			}
+			
+			hud.render(g);
 		}
-		else if(turm.visible) {
-			turm.render(g);
+		if(gamestate == GameState.MainMenu) {
+			MainMenu.render(g);
 		}
-		
-		if(night) {
-			tileManager.renderNightConstant(g);
-		}
-		
-		hud.render(g);
-		
 		g.dispose();
 		bs.show();
 	}
