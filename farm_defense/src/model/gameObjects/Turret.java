@@ -58,6 +58,7 @@ public class Turret extends GameObject{
 				shootCount += 1;
 			}
 			if(shootCount == bullets) {
+				Sound.rifleSound();
 				shooting = false;
 				targeted = false;
 				shootCount = 0;
@@ -124,7 +125,6 @@ public class Turret extends GameObject{
 	}
 	
 	public void shoot() {
-		Sound.rifleSound();
 		Game.handler.addObject(new TurretProjectile(worldX+20, worldY+20, ID.Projectile, angle));
 	}
 	

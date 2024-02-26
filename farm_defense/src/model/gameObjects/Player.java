@@ -28,7 +28,7 @@ public class Player extends GameObject{
 	
 	private int health = 400;
 	
-	private int coins = 100;
+	private int coins = 10000;
 	
 	// variables used when get hit by a zombie
 	private boolean hitByZombie = false;
@@ -50,7 +50,8 @@ public class Player extends GameObject{
 		Tilling(),
 		Empty(), // holding nothing
 		Planting(),
-		Turret()
+		Turret(),
+		Torch()
 	}
 	
 	private w_State weaponState; // weapon state of player
@@ -243,6 +244,11 @@ public class Player extends GameObject{
 	public w_State stateTurret()
 	{
 		return w_State.Turret;
+	}
+	
+	public w_State stateTorch()
+	{
+		return w_State.Torch;
 	}
 	
 	public Rectangle getBounds() {

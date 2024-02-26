@@ -13,7 +13,7 @@ public class LightManager {
 	private static BufferedImage torch = ImageUtil.addImage(48, 48, "resources/tiles/torch.png");
 	
 	public static void addLight(int worldX, int worldY) {
-		lightPositions.add(new int[]{worldX%48, worldY%48});
+		lightPositions.add(new int[]{(worldX-worldX%48)/48, (worldY-worldY%48)/48});
 	}
 	
 	public static void render(Graphics g) {
@@ -40,6 +40,11 @@ public class LightManager {
 		for(int i = 0; i < lightPositions.size(); i++) {
 			distance = Math.min(
 					(int) MathUtil.Distance(x, y, lightPositions.get(i)[0], lightPositions.get(i)[1]),
+					distance);
+		}
+		if(Game.player.getWeaponState() == Game.player.stateTorch()) {
+			distance = Math.min(
+					(int) (MathUtil.Distance(x, y, Game.player.getWorldX()/48+1, Game.player.getWorldY()/48+1)*1.5),
 					distance);
 		}
 		return distance;

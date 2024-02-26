@@ -33,10 +33,6 @@ public class TileManager {
 		loadMap();
 		
 		getTileImage();
-		
-		LightManager.addLight(400, 300);
-		LightManager.addLight(30, 300);
-		LightManager.addLight(400, 30);
 	}
 	
 	// sets map tile types to numbers
@@ -261,7 +257,7 @@ public class TileManager {
 				//set color to a dark brown with an opacity of %50
 				int alpha = LightManager.getLightDistance(col, row) * 50; 
 				//make sure alpha doesn't exceed limit
-				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 200);
+				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 230);
 				
 				Color color = new Color(27, 5, 0, alpha);
 				g.setColor(color);

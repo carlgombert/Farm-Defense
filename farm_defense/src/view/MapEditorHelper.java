@@ -23,7 +23,8 @@ public class MapEditorHelper
 		if (Game.player.getWeaponState() == Game.player.stateTilling() 
 		 || Game.player.getWeaponState() == Game.player.stateBuild()
 		 || Game.player.getWeaponState() == Game.player.statePlanting()
-		 || Game.player.getWeaponState() == Game.player.stateTurret()) 
+		 || Game.player.getWeaponState() == Game.player.stateTurret()
+		 || Game.player.getWeaponState() == Game.player.stateTorch()) 
 		{
 			// rendering
 			Color whiteOverlay = new Color(255, 255, 255, 50);

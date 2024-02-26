@@ -22,6 +22,7 @@ import model.gameObjects.Zombie;
 import model.gameObjects.projectile.Projectile;
 import util.MathUtil;
 import view.fullMenu.MainMenu;
+import view.map.LightManager;
 import view.map.tile.TileManager;
 
 public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionListener, ActionListener
@@ -36,6 +37,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	private boolean canFarm = true;
 	private boolean canPlant = true;
 	private boolean canTurret = true;
+	private boolean canTorch = true;
 	
 	private boolean interactionBoolean = false;
 	
@@ -58,6 +60,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		canFarm = true;
 		canPlant = true;
 		canTurret = true;
+		canTorch = true;
 	}
 	
 	public void mousePressed(MouseEvent e) 
@@ -123,10 +126,29 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 			{
 				canTurret = false;
 				
-				Game.handler.addObject(new Turret(
-						e.getX() - player.getScreenX() + player.getWorldX() - 30, 
-						e.getY() -player.getScreenY() + player.getWorldY() - 30, 
-						ID.Turret));
+				// reverts the screen mouse coordinates to world coordinates 
+				int mouseWorldX = e.getX() + Game.player.getWorldX() - Game.player.getScreenX();
+				int mouseWorldY = e.getY() + Game.player.getWorldY() - Game.player.getScreenY();
+				
+				// adjust turret coordinates to fit in tile
+				int turretX = (mouseWorldX - (mouseWorldX%48));
+				int turretY = (mouseWorldY - (mouseWorldY%48));
+				
+				//center turret coordinates in tile
+				turretX += 4;
+				turretY += 4;
+				
+				Game.handler.addObject(new Turret(turretX, turretY, ID.Turret));
+				
+				Game.inventory.minusItem(1);
+			}
+			else if (player.getWeaponState() == player.stateTorch() && canTorch)
+			{
+				canTorch = false;
+				
+				LightManager.addLight(
+						e.getX() - player.getScreenX() + player.getWorldX(), 
+						e.getY() - player.getScreenY() + player.getWorldY());
 				
 				Game.inventory.minusItem(1);
 			}

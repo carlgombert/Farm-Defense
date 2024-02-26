@@ -27,6 +27,7 @@ public class Inventory
 		addItem(30, 5);
 		addItem(20, 5, 6);
 		addItem(50, 5);
+		addItem(51, 5);
 		
 		setSelected(0);
 	}
@@ -54,6 +55,9 @@ public class Inventory
 		
 		// id 50 will be turret
 		itemImages[50] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_turret.png");
+		
+		// id 51 will be torch
+		itemImages[51] = ImageUtil.addImage(16, 16, "resources/tiles/torch.png");
 	}
 	
 	public void setSelected(int s)
@@ -70,7 +74,8 @@ public class Inventory
 			else if (inventory[selected].getID() < 30) Game.player.setWeaponState(Game.player.stateBuild());
 			else if (inventory[selected].getID() < 40) Game.player.setWeaponState(Game.player.statePlanting());
 			else if (inventory[selected].getID() < 50) Game.player.setWeaponState(Game.player.stateEmpty());
-			else if (inventory[selected].getID() < 60) Game.player.setWeaponState(Game.player.stateTurret());
+			else if (inventory[selected].getID() == 50) Game.player.setWeaponState(Game.player.stateTurret());
+			else if (inventory[selected].getID() == 51) Game.player.setWeaponState(Game.player.stateTorch());
 			else Game.player.setWeaponState(Game.player.stateEmpty());
 		}
 		else Game.player.setWeaponState(Game.player.stateEmpty());
