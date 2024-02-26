@@ -22,7 +22,8 @@ public class MapEditorHelper
 		// draw white highlight on tiles when player is in build mode, tilling mode, or planting mode
 		if (Game.player.getWeaponState() == Game.player.stateTilling() 
 		 || Game.player.getWeaponState() == Game.player.stateBuild()
-		 || Game.player.getWeaponState() == Game.player.statePlanting()) 
+		 || Game.player.getWeaponState() == Game.player.statePlanting()
+		 || Game.player.getWeaponState() == Game.player.stateTurret()) 
 		{
 			// rendering
 			Color whiteOverlay = new Color(255, 255, 255, 50);
@@ -39,8 +40,10 @@ public class MapEditorHelper
 			g.setColor(whiteOverlay);
 			g.fillRect(tileX, tileY, 48, 48);
 			
-			// draw transparent inventory slot item by mouse
-			g.drawImage(Game.inventory.getCurrentImage(), mouseX + 10, mouseY + 10, Game.tileSize / 2, Game.tileSize / 2, null);
+			if(Game.inventory.getCurrentImage() != null) {
+				// draw transparent inventory slot item by mouse
+				g.drawImage(Game.inventory.getCurrentImage(), mouseX + 10, mouseY + 10, Game.tileSize / 2, Game.tileSize / 2, null);
+			}
 		}
 	}
 	

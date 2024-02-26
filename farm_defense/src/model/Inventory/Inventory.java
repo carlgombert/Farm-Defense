@@ -15,7 +15,7 @@ public class Inventory
 	public HashMap<Integer, InventoryItem> items = new HashMap<Integer, InventoryItem>();
 	
 	// image list of every possible image that the inventory item could be
-	public BufferedImage[] itemImages = new BufferedImage[51];
+	public BufferedImage[] itemImages = new BufferedImage[60];
 	
 	public Inventory()
 	{
@@ -26,6 +26,7 @@ public class Inventory
 		addItem(0, 1, 3);
 		addItem(30, 5);
 		addItem(20, 5, 6);
+		addItem(50, 5);
 		
 		setSelected(0);
 	}
@@ -50,6 +51,9 @@ public class Inventory
 		
 		// ids in the 40s will be grown crops
 		itemImages[40] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_carrot.png");
+		
+		// id 50 will be turret
+		itemImages[50] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_turret.png");
 	}
 	
 	public void setSelected(int s)
@@ -65,6 +69,8 @@ public class Inventory
 			else if (inventory[selected].getID() < 20) Game.player.setWeaponState(Game.player.stateMelee());
 			else if (inventory[selected].getID() < 30) Game.player.setWeaponState(Game.player.stateBuild());
 			else if (inventory[selected].getID() < 40) Game.player.setWeaponState(Game.player.statePlanting());
+			else if (inventory[selected].getID() < 50) Game.player.setWeaponState(Game.player.stateEmpty());
+			else if (inventory[selected].getID() < 60) Game.player.setWeaponState(Game.player.stateTurret());
 			else Game.player.setWeaponState(Game.player.stateEmpty());
 		}
 		else Game.player.setWeaponState(Game.player.stateEmpty());

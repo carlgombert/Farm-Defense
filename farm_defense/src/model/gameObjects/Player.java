@@ -49,7 +49,8 @@ public class Player extends GameObject{
 		Build(),
 		Tilling(),
 		Empty(), // holding nothing
-		Planting()
+		Planting(),
+		Turret()
 	}
 	
 	private w_State weaponState; // weapon state of player
@@ -237,6 +238,11 @@ public class Player extends GameObject{
 	public w_State statePlanting()
 	{
 		return w_State.Planting;
+	}
+	
+	public w_State stateTurret()
+	{
+		return w_State.Turret;
 	}
 	
 	public Rectangle getBounds() {

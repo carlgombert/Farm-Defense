@@ -17,6 +17,7 @@ import model.GameState;
 import model.Sound;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
+import model.gameObjects.Turret;
 import model.gameObjects.Zombie;
 import model.gameObjects.projectile.Projectile;
 import util.MathUtil;
@@ -34,6 +35,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	private boolean canBuild = true;
 	private boolean canFarm = true;
 	private boolean canPlant = true;
+	private boolean canTurret = true;
 	
 	private boolean interactionBoolean = false;
 	
@@ -55,6 +57,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		canBuild = true;
 		canFarm = true;
 		canPlant = true;
+		canTurret = true;
 	}
 	
 	public void mousePressed(MouseEvent e) 
@@ -115,6 +118,17 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				
 				// tells farmingManager to plant a seed on selected farmland tile
 				Game.farmingManager.plantSeed();
+			}
+			else if (player.getWeaponState() == player.stateTurret() && canTurret)
+			{
+				canTurret = false;
+				
+				Game.handler.addObject(new Turret(
+						e.getX() - player.getScreenX() + player.getWorldX() - 30, 
+						e.getY() -player.getScreenY() + player.getWorldY() - 30, 
+						ID.Turret));
+				
+				Game.inventory.minusItem(1);
 			}
 		}
 		if(Game.gamestate == GameState.MainMenu) {

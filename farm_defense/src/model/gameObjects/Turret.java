@@ -39,7 +39,7 @@ public class Turret extends GameObject{
 	public Turret(int x, int y, ID id) {
 		super(x, y, id);
 		range = 300;
-		bullets = 5;
+		bullets = 1;
 	}
 
 	public void tick() {
@@ -57,7 +57,7 @@ public class Turret extends GameObject{
 				shoot();
 				shootCount += 1;
 			}
-			if(shootCount > bullets) {
+			if(shootCount == bullets) {
 				shooting = false;
 				targeted = false;
 				shootCount = 0;

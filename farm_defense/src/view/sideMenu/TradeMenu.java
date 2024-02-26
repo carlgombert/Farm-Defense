@@ -27,7 +27,7 @@ public class TradeMenu {
 		visible = false;
 		
 		items.add(new TradeItem("Wall", 50, 20));
-		items.add(new TradeItem("Turret", 50, 20));
+		items.add(new TradeItem("Turret", 100, 50));
 		items.add(new TradeItem("Carrot Seeds", 50, 30));
 		items.add(new TradeItem("Corn Seeds", 60, 31));
 	}

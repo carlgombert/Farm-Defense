@@ -61,7 +61,7 @@ public class Game extends Canvas implements Runnable{
 	public static TurretMenu turm;
 	
 	public static boolean night;
-	public int nightTimer = 0;
+	public int nightTimer = 9000;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
@@ -74,10 +74,6 @@ public class Game extends Canvas implements Runnable{
 		hud = new HUD(player);
 		inventory = new Inventory();
 		
-		handler.addObject(new Turret(48*7, 48*23, ID.Turret));
-		handler.addObject(new Turret(48*11, 48*23, ID.Turret));
-		handler.addObject(new Turret(48*19, 48*23, ID.Turret));
-		handler.addObject(new Turret(48*23, 48*23, ID.Turret));
 		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
 		
 		tm = new TradeMenu();
@@ -157,6 +153,7 @@ public class Game extends Canvas implements Runnable{
 			if(nightTimer >= 10000) {
 				nightTimer = 0;
 				night = !night;
+				player.setHealth(400);
 			}
 			handler.tick();
 		}

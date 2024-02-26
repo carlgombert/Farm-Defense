@@ -1,0 +1,7 @@
+A: move left	>
+S: move down	>
+D: move right	>
+W: move up	>
+Q: sell items (when at store)	>
+1-9: select inventory slot	>
+E: interact with NPC	>

@@ -1,9 +1,15 @@
 package util;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 public class TxtFileUtil {
 
@@ -21,5 +27,25 @@ public class TxtFileUtil {
 			System.out.println("error reading txt files");
 		}
 		return br;
+	}
+	
+	//method for taking a ttf file and creating a font
+	public static Font createFont(String file, float size) {
+		Font customFont = null;
+		
+		//creating the font
+		try {
+			URL fontPath = TxtFileUtil.class.getClassLoader().getResource(file);
+		    customFont = Font.createFont(Font.TRUETYPE_FONT, fontPath.openStream()).deriveFont(size);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    //register the font
+		    ge.registerFont(customFont);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+		
+		return customFont;
 	}
 }
