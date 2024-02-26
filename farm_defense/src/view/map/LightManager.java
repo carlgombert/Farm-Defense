@@ -18,10 +18,13 @@ public class LightManager {
 	
 	public static void render(Graphics g) {
 		for(int i = 0; i < lightPositions.size(); i++) {
+			
 			int worldX = lightPositions.get(i)[0] * 48;
 			int worldY = lightPositions.get(i)[1] * 48;
+			
 			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
 			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
+			
 			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
 					worldX < Game.player.getWorldX() + Game.WIDTH &&
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
