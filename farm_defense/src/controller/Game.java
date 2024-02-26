@@ -62,7 +62,7 @@ public class Game extends Canvas implements Runnable{
 	public static TurretMenu turm;
 	
 	public static boolean night;
-	public int nightTimer = 9800;
+	public int nightTimer = 0;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
