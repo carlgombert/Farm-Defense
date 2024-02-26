@@ -1,4 +1,4 @@
-package view.map;
+package view.map.tile;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,6 +17,7 @@ import controller.Game;
 import model.Sound;
 import util.ImageUtil;
 import util.MathUtil;
+import view.map.LightManager;
 
 
 // the games map is built as a grid of a bunch of different tiles.
@@ -32,6 +33,10 @@ public class TileManager {
 		loadMap();
 		
 		getTileImage();
+		
+		LightManager.addLight(400, 300);
+		LightManager.addLight(30, 300);
+		LightManager.addLight(400, 30);
 	}
 	
 	// sets map tile types to numbers
@@ -254,7 +259,11 @@ public class TileManager {
 					worldY < Game.player.getWorldY() + Game.HEIGHT) {
 				
 				//set color to a dark brown with an opacity of %50
-				Color color = new Color(27, 5, 0, 127);
+				int alpha = LightManager.getLightDistance(col, row) * 50; 
+				//make sure alpha doesn't exceed limit
+				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 253);
+				
+				Color color = new Color(27, 5, 0, alpha);
 				g.setColor(color);
 				//pverlay the current tile with the color
 				g.fillRect(screenX, screenY, 48, 48);

@@ -22,7 +22,7 @@ import model.gameObjects.Zombie;
 import model.gameObjects.projectile.Projectile;
 import util.MathUtil;
 import view.fullMenu.MainMenu;
-import view.map.TileManager;
+import view.map.tile.TileManager;
 
 public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionListener, ActionListener
 {

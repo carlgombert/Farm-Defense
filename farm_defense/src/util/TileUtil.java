@@ -3,7 +3,7 @@ package util;
 import controller.Game;
 import model.GameObject;
 import model.gameObjects.Player;
-import view.map.TileManager;
+import view.map.tile.TileManager;
 
 public class TileUtil {
 	

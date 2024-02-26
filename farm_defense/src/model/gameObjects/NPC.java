@@ -14,7 +14,7 @@ import model.GameObject;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
-import view.map.TileManager;
+import view.map.tile.TileManager;
 
 // !!!README!!! all of the code in this file is temporary and very poorly organized
 // i will probably make a better system for this in the future, but for now this will work

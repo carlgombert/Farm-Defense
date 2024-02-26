@@ -13,7 +13,7 @@ import model.GameObject;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
-import view.map.TileManager;
+import view.map.tile.TileManager;
 
 public class Player extends GameObject{
 	

@@ -25,9 +25,10 @@ import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
 import view.fullMenu.MainMenu;
-import view.map.TileManager;
+import view.map.LightManager;
 import view.map.building.BuildingManager;
 import view.map.farming.FarmingManager;
+import view.map.tile.TileManager;
 import view.sideMenu.TradeMenu;
 import view.sideMenu.TurretMenu;
 
@@ -61,7 +62,7 @@ public class Game extends Canvas implements Runnable{
 	public static TurretMenu turm;
 	
 	public static boolean night;
-	public int nightTimer = 9000;
+	public int nightTimer = 9800;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
@@ -180,7 +181,7 @@ public class Game extends Canvas implements Runnable{
 			mapHelper.render(g);
 			
 			//tileManager.renderNightFade(g);
-			
+			LightManager.render(g);
 			//rendering handler renders all gameobjects
 			handler.render(g);
 			
