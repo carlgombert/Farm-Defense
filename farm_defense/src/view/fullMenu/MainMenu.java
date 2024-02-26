@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.awt.Image;
 
 import controller.Game;
-import model.GameState;
+import controller.Game.GameState;
 import util.GraphicsUtil;
 import util.ImageUtil;
 import util.TxtFileUtil;

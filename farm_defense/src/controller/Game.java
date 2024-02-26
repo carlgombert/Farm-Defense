@@ -15,7 +15,6 @@ import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
 import model.gameObjects.Zombie;
 import model.gameObjects.ZombieSpawner;
-import model.GameState;
 import model.Sound;
 import model.Inventory.Inventory;
 import model.gameObjects.NPC;
@@ -65,6 +64,12 @@ public class Game extends Canvas implements Runnable{
 	public int nightTimer = 0;
 	
 	public static GameState gamestate = GameState.MainMenu;
+	
+	public enum GameState {
+		Paused(),
+		Running(),
+		MainMenu()
+	}
 	
 	public Game() {
 		handler = new Handler();

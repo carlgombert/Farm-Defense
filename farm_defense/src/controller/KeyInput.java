@@ -11,9 +11,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
+import controller.Game.GameState;
 import controller.objectHandling.ID;
 import model.GameObject;
-import model.GameState;
 import model.Sound;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
