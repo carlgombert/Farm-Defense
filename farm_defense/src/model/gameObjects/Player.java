@@ -32,7 +32,7 @@ public class Player extends GameObject{
 	
 	private int health = 400;
 	
-	private int coins = 10000;
+	private int coins = 100;
 	
 	// variables used when get hit by a zombie
 	private boolean hitByZombie = false;
@@ -144,6 +144,10 @@ public class Player extends GameObject{
 		
 		if(health <= 0) {
 			Game.gamestate = GameState.Dead;
+		}
+		
+		if(coins < 50 && !Game.noCoins) {
+			Game.noCoins = true;
 		}
 		
 	}

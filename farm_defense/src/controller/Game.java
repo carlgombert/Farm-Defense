@@ -62,9 +62,16 @@ public class Game extends Canvas implements Runnable{
 	public static TurretMenu turm;
 	
 	public static boolean night;
-	public int nightTimer = 0;
+	public static int nightTimer = 0;
 	
 	public static GameState gamestate = GameState.MainMenu;
+	
+	// the following are the 3 conditions for the player to go bankrupt. 
+	// noCoins will be changes by player, noCrops by farming manager and
+	// noSeeds by inventory.
+	public static boolean noCoins = false; // not actually no coins but not enough to buy seeds
+	public static boolean noSeeds = false;
+	public static boolean noCrops = false;
 	
 	public enum GameState {
 		Paused(),
@@ -164,6 +171,9 @@ public class Game extends Canvas implements Runnable{
 				nightTimer = 0;
 				night = !night;
 				player.setHealth(400);
+			}
+			if(noCoins && noCrops) { // check if the player is bankrupt
+				gamestate = GameState.Dead;
 			}
 			handler.tick();
 		}

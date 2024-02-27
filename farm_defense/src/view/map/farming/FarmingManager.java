@@ -32,6 +32,8 @@ public class FarmingManager
 	
 	public String[] lines;
 	
+	public int numCrops = 0;
+	
 	public FarmingManager()
 	{
 		crop = new Crop[40];
@@ -43,6 +45,8 @@ public class FarmingManager
 		loadFarmlandMap();
 		loadCropStageMap();
 		getCropImage();
+		
+		Game.noCrops = true;
 	}
 	
 	public void getCropImage()
@@ -163,11 +167,20 @@ public class FarmingManager
 		if (mapFarmland[col][row] == 0) changeNumber = 1;
 		else changeNumber = 0;
 		
+		if(mapCropStage[col][row] >= 1){ // some crop has been removed, therefor decrease crop count
+			numCrops--;
+			
+			if(numCrops <= 0) {
+				Game.noCrops = true;
+			}
+		}
+		
 		//if tile has fully grown crop, give crop to player
 		if (mapCropStage[col][row] == 3)
 		{
 			Game.inventory.addItem(mapFarmland[col][row] + 10, 1);
 			setPlantStage(col, row, 0);
+			
 		}
 		
 		mapFarmland[col][row] = changeNumber;
@@ -199,6 +212,13 @@ public class FarmingManager
 			
 			// subtract 1 from the num of buildings in the player's inventory
 			Game.inventory.minusItem(1);
+			
+			// since a crop is added make sure the game knows the player has crops planted
+			if(Game.noCrops) {
+				Game.noCrops = false;
+			}
+			
+			numCrops++;
 			
 		}
 	}
