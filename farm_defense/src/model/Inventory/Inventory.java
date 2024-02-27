@@ -17,6 +17,8 @@ public class Inventory
 	// image list of every possible image that the inventory item could be
 	public BufferedImage[] itemImages = new BufferedImage[60];
 	
+	public int seedCropCount;
+	
 	public Inventory()
 	{
 		loadInventoryImages();
@@ -91,6 +93,13 @@ public class Inventory
 	{
 		items.put(ID, new InventoryItem(ID, itemImages[ID], count));
 		inventory[slot - 1] = new InventoryItem(ID, itemImages[ID], count);
+		
+		if(ID > 29 && ID < 50) {
+			seedCropCount += count;
+			if(seedCropCount > 0) {
+				Game.badInventory = false;
+			}
+		}
 	}
 	
 	
@@ -123,6 +132,13 @@ public class Inventory
 			setSelected(selected);
 		}
 		// else statement here for what to do if the player tries to buy something with a full inventory
+		
+		if(ID > 29 && ID < 50) {
+			seedCropCount += count;
+			if(seedCropCount > 0) {
+				Game.badInventory = false;
+			}
+		}
 	}
 	
 	// subtract a number of items from the selected slot of the player's inventory
@@ -130,10 +146,27 @@ public class Inventory
 	{
 		if (inventory[selected].getCount() - amt <= 0) 
 		{
-			inventory[selected] = null;
+			if(inventory[selected].ID > 29 && inventory[selected].ID < 50) {
+				seedCropCount -= inventory[selected].getCount();
+				if(seedCropCount <= 0) {
+					Game.badInventory = true;
+				}
+			}
+			
 			Game.player.setWeaponState(Game.player.stateEmpty());
+			
+			inventory[selected] = null;
 		}
-		else inventory[selected].changeCount(-amt);
+		else {
+			inventory[selected].changeCount(-amt);
+			
+			if(inventory[selected].ID > 29 && inventory[selected].ID < 50) {
+				seedCropCount -= amt;
+				if(seedCropCount <= 0) {
+					Game.badInventory = true;
+				}
+			}
+		}
 	}
 	
 	// clear all of a specific item from the players inventory and return the count
@@ -145,6 +178,14 @@ public class Inventory
 				inventory[i] = null;
 			}
 		}
+		
+		if(ID > 29 && ID < 50) {
+			seedCropCount -= count;
+			if(seedCropCount <= 0) {
+				Game.badInventory = true;
+			}
+		}
+		
 		return count;
 	}
 	

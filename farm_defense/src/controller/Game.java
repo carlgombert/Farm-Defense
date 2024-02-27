@@ -68,10 +68,10 @@ public class Game extends Canvas implements Runnable{
 	
 	// the following are the 3 conditions for the player to go bankrupt. 
 	// noCoins will be changes by player, noCrops by farming manager and
-	// noSeeds by inventory.
+	// badInventory by inventory.
 	public static boolean noCoins = false; // not actually no coins but not enough to buy seeds
-	public static boolean noSeeds = false;
-	public static boolean noCrops = false;
+	public static boolean badInventory = false; // if the player doesn't have seeds or crops
+	public static boolean noCrops = false; // if there aren't crops planted
 	
 	public enum GameState {
 		Paused(),
@@ -172,7 +172,7 @@ public class Game extends Canvas implements Runnable{
 				night = !night;
 				player.setHealth(400);
 			}
-			if(noCoins && noCrops) { // check if the player is bankrupt
+			if(badInventory && (noCoins && noCrops)) { // check if the player is bankrupt
 				gamestate = GameState.Dead;
 			}
 			handler.tick();
