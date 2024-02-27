@@ -152,6 +152,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				
 				Game.inventory.minusItem(1);
 			}
+			Game.hud.checkButton(e.getX(), e.getY());
 		}
 		if(Game.gamestate == GameState.MainMenu) {
 			MainMenu.checkButton(e.getX(), e.getY());

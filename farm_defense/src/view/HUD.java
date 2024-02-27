@@ -3,10 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import controller.Game;
+import controller.Game.GameState;
 import model.Inventory.InventoryItem;
 import model.gameObjects.Player;
+import util.TxtFileUtil;
 
 public class HUD {
 	
@@ -20,10 +23,14 @@ public class HUD {
 	
 	private int inventoryStartY = (Game.HEIGHT - inventoryHeight) / 2;
 	
+	private Font font = TxtFileUtil.createFont("resources/fonts/menuFont.ttf", 24);
+	
 	// the small distance between the edge of the light brown and the edge of the dark brown in the inventory
 	private int padding = inventoryWidth / 10;
 	
 	private int inventorySelected = 0;
+	
+	private static Rectangle pauseButton = new Rectangle(Game.WIDTH-30, 0, 30, 30);
 	
 	public HUD(Player player) {
 		this.player = player;
@@ -31,6 +38,7 @@ public class HUD {
 	
 	public void render(Graphics g) 
 	{
+		g.setFont(Game.defaultFont);
 		g.setColor(Color.black);
 		g.fillRect(13, 13, 204, 36);
 		
@@ -40,17 +48,22 @@ public class HUD {
 		g.setColor(new Color(97, 172, 49));
 		g.fillRect(15, 15, (int) Math.round(player.getHealth() / 2), 32);
 		
-		g.setFont(null);
 		g.setColor(Color.white);
 		g.drawString(player.getHealth() + "/400\tCoins: " + player.getCoins(), 13, 65);
 		
+		g.setFont(font);
+		g.setColor(lightBrown);
+		g.drawString("| |", pauseButton.x+10, pauseButton.y+25);
+		
+		g.setFont(Game.defaultFont);
 		g.setColor(new Color(148, 141, 62));
 		for(int i = 0; i < player.getAmmo(); i++) {
-			g.fillOval(540 + (20*i), 25, 8, 16);
+			g.fillOval(540 + (20*i), 35, 8, 16);
 		}
 		
+		g.setFont(null);
 		g.setColor(Color.white);
-		g.drawString("" + player.getAmmo(), 540, 60);
+		g.drawString("" + player.getAmmo(), 540, 70);
 		
 		// render inventory backdrop
 		g.setColor(darkBrown);
@@ -99,5 +112,11 @@ public class HUD {
 	public void setInventorySelection(int s)
 	{
 		inventorySelected = s;
+	}
+	
+	public void checkButton(int x, int y) {
+		if(pauseButton.contains(x, y)) {
+			Game.gamestate = GameState.Paused;
+		}
 	}
 }

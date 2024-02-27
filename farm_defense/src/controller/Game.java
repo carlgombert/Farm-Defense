@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferStrategy;
@@ -57,6 +58,8 @@ public class Game extends Canvas implements Runnable{
 	
 	public static Inventory inventory;
 	
+	public static Font defaultFont;
+	
 	public static TradeMenu tm;
 	public static TurretMenu turm;
 	
@@ -87,6 +90,8 @@ public class Game extends Canvas implements Runnable{
 		turm = new TurretMenu();
 		
 		new Sound();
+		
+		defaultFont = new Font("Lucida Grande", Font.PLAIN, 13);
 		
 		this.addKeyListener(new KeyInput());
 		this.addMouseListener(new KeyInput());
