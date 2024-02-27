@@ -16,10 +16,14 @@ public class InventoryItem
 		count = itemCount;
 		
 		switch(ID) {
-			case 40:
-				price = 70;
-			case 41:
-				price = 81;
+			case 40: // carrot
+				price = 90;
+			case 41: // corn
+				price = 102;
+			case 42: // cauliflower
+				price = 127;
+			case 43: // potato
+				price = 151;
 		}
 	}
 	
