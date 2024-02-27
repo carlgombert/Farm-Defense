@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import controller.Game;
+import controller.Game.GameState;
 import controller.objectHandling.ID;
 import model.GameObject;
 import util.ImageUtil;
@@ -139,6 +140,10 @@ public class Player extends GameObject{
 			else if(speedY > 0) {super.setDirection(0);}
 			else if(speedX < 0) {super.setDirection(2);}
 			else if(speedX > 0) {super.setDirection(3);}
+		}
+		
+		if(health <= 0) {
+			Game.gamestate = GameState.Dead;
 		}
 		
 	}

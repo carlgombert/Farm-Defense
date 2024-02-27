@@ -1,7 +1,5 @@
 package controller.objectHandling;
 
-import model.*;
-
 /**
  * The ID enum is used to categorize and differentiate between different types of in game objects
  */

@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,12 +17,10 @@ import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import model.gameObjects.Projectile;
 import model.gameObjects.Turret;
-import model.gameObjects.Zombie;
-import util.MathUtil;
+import view.fullMenu.DeathMenu;
 import view.fullMenu.MainMenu;
 import view.fullMenu.PauseMenu;
 import view.map.LightManager;
-import view.map.tile.TileManager;
 
 /**
  * The KeyInput class handles the mouse and key input from the user.
@@ -163,6 +159,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		}
 		if(Game.gamestate == GameState.Paused) {
 			PauseMenu.checkButton(e.getX(), e.getY());
+		}
+		if(Game.gamestate == GameState.Dead) {
+			DeathMenu.checkButton(e.getX(), e.getY());
 		}
 	}
 	

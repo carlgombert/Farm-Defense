@@ -1,29 +1,20 @@
 package controller;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
 import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
-import model.gameObjects.Zombie;
 import model.gameObjects.ZombieSpawner;
 import model.Sound;
 import model.Inventory.Inventory;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
-import model.gameObjects.Turret;
 import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
+import view.fullMenu.DeathMenu;
 import view.fullMenu.MainMenu;
 import view.fullMenu.PauseMenu;
 import view.map.LightManager;
@@ -78,7 +69,8 @@ public class Game extends Canvas implements Runnable{
 	public enum GameState {
 		Paused(),
 		Running(),
-		MainMenu()
+		MainMenu(),
+		Dead()
 	}
 	
 	public Game() {
@@ -221,6 +213,9 @@ public class Game extends Canvas implements Runnable{
 		}
 		if(gamestate == GameState.Paused) {
 			PauseMenu.render(g);
+		}
+		if(gamestate == GameState.Dead) {
+			DeathMenu.render(g);
 		}
 		g.dispose();
 		bs.show();
