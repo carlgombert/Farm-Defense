@@ -22,6 +22,7 @@ import util.TxtFileUtil;
 public class MainMenu {
 	
 	private static Rectangle startButton = new Rectangle(Game.WIDTH/2 - 100, 2*(Game.HEIGHT/3) - 15, 200, 30);
+	private static Rectangle creditsButton = new Rectangle(Game.WIDTH/2 - 100, 2*(Game.HEIGHT/3) + 20, 200, 30);
 	private static Rectangle helpButton = new Rectangle(0, 0, 30, 30);
 	
 	private static Image icon = ImageUtil.addImage(100, 100, "resources/icon/icon.png");
@@ -33,8 +34,10 @@ public class MainMenu {
 	private static Color textColor = new Color(240, 236, 225);
 	
 	private static String helpScreenText = TxtFileUtil.readURL(TxtFileUtil.readFile("resources/text/controls.txt")).lines().collect(Collectors.joining());
+	private static String creditsScreenText = TxtFileUtil.readURL(TxtFileUtil.readFile("resources/text/credits.txt")).lines().collect(Collectors.joining());
 	
 	private static boolean helpScreen = false;
+	private static boolean creditsScreen = false;
 	
 	public static void render(Graphics g) {
 		
@@ -49,11 +52,21 @@ public class MainMenu {
 			g.setColor(Color.red);
 			g.drawString("X", helpButton.x+10, helpButton.y+25);
 		}
+		else if(creditsScreen) {
+			g.setFont(font);
+			g.setColor(buttonColor);
+			GraphicsUtil.drawStringMultiLine((Graphics2D) g, creditsScreenText, 10, 10, 90);
+			
+			g.setColor(Color.red);
+			g.drawString("X", helpButton.x+10, helpButton.y+25);
+		}
 		else {
 			g.drawImage(icon, Game.WIDTH/2 - 50, Game.HEIGHT/4 - 50, 100, 100, null);
 			
 			g.setColor(buttonColor);
 			g.fillRect(startButton.x, startButton.y, startButton.width, startButton.height);
+			
+			g.fillRect(creditsButton.x, creditsButton.y, creditsButton.width, creditsButton.height);
 			
 			g.setFont(font);
 			g.setColor(buttonColor);
@@ -61,19 +74,25 @@ public class MainMenu {
 			
 			g.setColor(textColor);
 			g.drawString("Start", startButton.x+70, startButton.y+23);
+			
+			g.drawString("Credits", creditsButton.x+57, creditsButton.y+23);
 		}
 
 	}
 	
 	public static void checkButton(int x, int y) {
-		if(startButton.contains(x, y) && !helpScreen) {
+		if(startButton.contains(x, y) && !(helpScreen || creditsScreen)) {
 			Game.gamestate = GameState.Running;
 		}
-		else if(helpButton.contains(x, y) && !helpScreen) {
+		else if(creditsButton.contains(x, y) && !(helpScreen || creditsScreen)){
+			creditsScreen = true;
+		}
+		else if(helpButton.contains(x, y) && !(helpScreen || creditsScreen)) {
 			helpScreen = true;
 		}
-		else if(helpButton.contains(x, y) && helpScreen) {
+		else if(helpButton.contains(x, y) && (helpScreen || creditsScreen)) {
 			helpScreen = false;
+			creditsScreen = false;
 		}
 	}
 	
