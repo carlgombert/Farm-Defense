@@ -190,9 +190,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				
 				LinkedList<NPC> NPCs = new LinkedList<NPC>();
 				
-				for(int i = 0; i < Game.handler.object.size(); i++) 
+				for(int i = 0; i < Game.handler.getObject().size(); i++) 
 				{
-					GameObject tempObject = Game.handler.object.get(i);
+					GameObject tempObject = Game.handler.getObject().get(i);
 					if (tempObject.getId() == ID.NPC) 
 					{
 						NPCs.add((NPC)tempObject);
@@ -215,7 +215,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 			if (key == KeyEvent.VK_H) Game.farmingManager.advanceAllStages(); // advances the stage of all the crops on the map (for now)
 			
 			
-			if(Game.tm.visible && !Game.night) { //if trade menu is open, number key bindings swap to buying items
+			if(Game.tm.isVisible() && !Game.night) { //if trade menu is open, number key bindings swap to buying items
 				if (key == KeyEvent.VK_1) Game.tm.buy(1);;
 				if (key == KeyEvent.VK_2) Game.tm.buy(2);;
 				if (key == KeyEvent.VK_3) Game.tm.buy(3);;

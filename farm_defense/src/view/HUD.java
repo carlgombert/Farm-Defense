@@ -30,7 +30,7 @@ public class HUD {
 	
 	private int inventorySelected = 0;
 	
-	private static Rectangle pauseButton = new Rectangle(Game.WIDTH-30, 0, 30, 30);
+	private Rectangle pauseButton = new Rectangle(Game.WIDTH-30, 0, 30, 30);
 	
 	public HUD(Player player) {
 		this.player = player;
@@ -38,7 +38,7 @@ public class HUD {
 	
 	public void render(Graphics g) 
 	{
-		g.setFont(Game.defaultFont);
+		g.setFont(Game.DEFAULT_FONT);
 		g.setColor(Color.black);
 		g.fillRect(13, 13, 204, 36);
 		
@@ -55,7 +55,7 @@ public class HUD {
 		g.setColor(lightBrown);
 		g.drawString("| |", pauseButton.x+10, pauseButton.y+25);
 		
-		g.setFont(Game.defaultFont);
+		g.setFont(Game.DEFAULT_FONT);
 		g.setColor(new Color(148, 141, 62));
 		for(int i = 0; i < player.getAmmo(); i++) {
 			g.fillOval(540 + (20*i), 35, 8, 16);

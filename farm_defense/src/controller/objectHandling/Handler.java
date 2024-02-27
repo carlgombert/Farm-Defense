@@ -12,11 +12,11 @@ import model.GameObject;
  */
 public class Handler {
 	
-	public LinkedList<GameObject> object = new LinkedList<GameObject>();
+	private LinkedList<GameObject> object = new LinkedList<GameObject>();
 	
 	public void tick() {
-		for(int i = 0; i < object.size(); i++) {
-			GameObject tempObject = object.get(i);
+		for(int i = 0; i < getObject().size(); i++) {
+			GameObject tempObject = getObject().get(i);
 			
 			tempObject.tick();
 		}
@@ -24,21 +24,29 @@ public class Handler {
 	
 	public void render(Graphics g) 
 	{
-		for(int i = 1; i < object.size(); i++)
+		for(int i = 1; i < getObject().size(); i++)
 		{
-			GameObject tempObject = object.get(i);
+			GameObject tempObject = getObject().get(i);
 			tempObject.render(g);
 		}
 		
-		object.get(0).render(g); // always renders the player last to draw them above all other objects
+		getObject().get(0).render(g); // always renders the player last to draw them above all other objects
 	}
 	
 	public void addObject(GameObject addedObject) 
 	{
-		this.object.add(addedObject);
+		this.getObject().add(addedObject);
 	}
 	
 	public void removeObject(GameObject removedObject) {
-		this.object.remove(removedObject);
+		this.getObject().remove(removedObject);
+	}
+
+	public LinkedList<GameObject> getObject() {
+		return object;
+	}
+
+	public void setObject(LinkedList<GameObject> object) {
+		this.object = object;
 	}
 }

@@ -8,16 +8,16 @@ import util.ImageUtil;
 
 public class Inventory 
 {
-	public InventoryItem[] inventory = new InventoryItem[10];
-	public int selected;
+	private InventoryItem[] inventory = new InventoryItem[10];
+	private int selected;
 	
 	// once an item is encountered, it is added to the map of ID's mapped to the item
-	public HashMap<Integer, InventoryItem> items = new HashMap<Integer, InventoryItem>();
+	private HashMap<Integer, InventoryItem> items = new HashMap<Integer, InventoryItem>();
 	
 	// image list of every possible image that the inventory item could be
-	public BufferedImage[] itemImages = new BufferedImage[60];
+	private BufferedImage[] itemImages = new BufferedImage[60];
 	
-	public int seedCropCount;
+	private int seedCropCount;
 	
 	public Inventory()
 	{
@@ -91,7 +91,7 @@ public class Inventory
 	// add an item to the player's inventory at the specified slot, see above for item IDs
 	public void addItem(int ID, int count, int slot)
 	{
-		items.put(ID, new InventoryItem(ID, itemImages[ID], count));
+		getItems().put(ID, new InventoryItem(ID, itemImages[ID], count));
 		inventory[slot - 1] = new InventoryItem(ID, itemImages[ID], count);
 		
 		if(ID > 29 && ID < 50) {
@@ -106,7 +106,7 @@ public class Inventory
 	// add an item to the player's inventory at the next empty slot, or stacks if some of the item is alr in the inventory
 	public void addItem(int ID, int count)
 	{
-		items.put(ID, new InventoryItem(ID, itemImages[ID], count));
+		getItems().put(ID, new InventoryItem(ID, itemImages[ID], count));
 		// first check if should be stacked with items already in the inventory
 		for (int i = 0; i < 10; i++)
 		{
@@ -146,7 +146,7 @@ public class Inventory
 	{
 		if (inventory[selected].getCount() - amt <= 0) 
 		{
-			if(inventory[selected].ID > 29 && inventory[selected].ID < 50) {
+			if(inventory[selected].getID() > 29 && inventory[selected].getID() < 50) {
 				seedCropCount -= inventory[selected].getCount();
 				if(seedCropCount <= 0) {
 					Game.badInventory = true;
@@ -160,7 +160,7 @@ public class Inventory
 		else {
 			inventory[selected].changeCount(-amt);
 			
-			if(inventory[selected].ID > 29 && inventory[selected].ID < 50) {
+			if(inventory[selected].getID() > 29 && inventory[selected].getID() < 50) {
 				seedCropCount -= amt;
 				if(seedCropCount <= 0) {
 					Game.badInventory = true;
@@ -173,7 +173,7 @@ public class Inventory
 	public int clearItem(int ID) {
 		int count = 0;
 		for(int i = 0; i < inventory.length; i++) {
-			if(inventory[i] != null && inventory[i].ID == ID) {
+			if(inventory[i] != null && inventory[i].getID() == ID) {
 				count += inventory[i].getCount();
 				inventory[i] = null;
 			}
@@ -198,5 +198,13 @@ public class Inventory
 	public int getCurrentID()
 	{
 		return inventory[selected].getID();
+	}
+
+	public HashMap<Integer, InventoryItem> getItems() {
+		return items;
+	}
+
+	public void setItems(HashMap<Integer, InventoryItem> items) {
+		this.items = items;
 	}
 }

@@ -39,7 +39,7 @@ public class ZombieSpawner extends GameObject
 		// arranged as follows:
 		// [ X ][ X ][ X ] <-- all the x locations of the gravestones, 
 		// [ Y ][ Y ][ Y ] <-- all the y locations of the gravestones, all based on the row and columns
-		while (col < Game.mapCol && row < Game.mapRow)
+		while (col < Game.MAP_COL && row < Game.MAP_ROW)
 		{
 			if (allTiles[col][row] == 13)
 			{
@@ -50,7 +50,7 @@ public class ZombieSpawner extends GameObject
 			
 			col++;
 			
-			if (col == Game.mapCol) 
+			if (col == Game.MAP_COL) 
 			{
 				col = 0;
 				row++;

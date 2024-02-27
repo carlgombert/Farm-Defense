@@ -17,14 +17,14 @@ import util.ImageUtil;
 
 public class BuildingManager 
 {
-	public static Building[] building;
-	public static int mapBuildingNum[][];
-	public static int mapRotationNum[][];
+	private static Building[] building;
+	private static int mapBuildingNum[][];
+	private static int mapRotationNum[][];
 	
-	public static int mouseX;
-	public static int mouseY;
-	public static int mouseWorldX;
-	public static int mouseWorldY;
+	private static int mouseX;
+	private static int mouseY;
+	private static int mouseWorldX;
+	private static int mouseWorldY;
 	
 	public String[] lines;
 	
@@ -39,8 +39,8 @@ public class BuildingManager
 	public BuildingManager()
 	{
 		building = new Building[20];
-		mapBuildingNum = new int[Game.mapCol][Game.mapRow];
-		mapRotationNum = new int[Game.mapCol][Game.mapRow];
+		mapBuildingNum = new int[Game.MAP_COL][Game.MAP_ROW];
+		mapRotationNum = new int[Game.MAP_COL][Game.MAP_ROW];
 		
 		// resets the building map, deleting this will save the player's buildings across games
 		resetBuildingMap();
@@ -62,37 +62,37 @@ public class BuildingManager
 		 *  useful for other calculations in the future
 		 */
 		building [1] = new Building();
-		building [1].image0 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_0.png");
-		building [1].image1 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_1.png");
-		building [1].image2 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_2.png");
-		building [1].image3 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_3.png");
+		building [1].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_0.png"));
+		building [1].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_1.png"));
+		building [1].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_2.png"));
+		building [1].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_3.png"));
 		building [1].setConnections(1);
 		
 		building [2] = new Building();
-		building [2].image0 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_0.png");
-		building [2].image1 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_1.png");
-		building [2].image2 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_2.png");
-		building [2].image3 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_3.png");
+		building [2].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_0.png"));
+		building [2].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_1.png"));
+		building [2].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_2.png"));
+		building [2].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_3.png"));
 		building [2].setConnections(2);
 		
 		building [3] = new Building();
-		building [3].image0 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_0.png");
-		building [3].image1 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_1.png");
-		building [3].image2 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_2.png");
-		building [3].image3 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_3.png");
+		building [3].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_0.png"));
+		building [3].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_1.png"));
+		building [3].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_2.png"));
+		building [3].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_3.png"));
 		building [3].setConnections(3);
 		
 		building [4] = new Building();
-		building [4].image0 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_4.png");
+		building [4].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_4.png"));
 		building [4].setConnections(4);
 		
 		building [5] = new Building();
-		building [5].image0 = ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_0.png");
+		building [5].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_0.png"));
 		building [5].setConnections(0);
 		
 		building [6] = new Building();
-		building [6].image0 = ImageUtil.addImage(48, 48, "resources/buildings/wall_side_0.png");
-		building [6].image1 = ImageUtil.addImage(48, 48, "resources/buildings/wall_side_1.png");
+		building [6].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_side_0.png"));
+		building [6].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_side_1.png"));
 		building [6].setConnections(2);
 	}
 	
@@ -104,15 +104,15 @@ public class BuildingManager
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			int col = 0;
 			int row = 0;
-			while (col < Game.mapCol && row < Game.mapRow) {
+			while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 				String line = br.readLine ();
-				while (col < Game.mapCol) {
+				while (col < Game.MAP_COL) {
 					String numbers[] = line.split("\t");
 					int num = Integer.parseInt (numbers[col]);
 					mapBuildingNum[col][row] = num;
 					col++;
 				}
-				if (col == Game.mapCol) {
+				if (col == Game.MAP_COL) {
 					col = 0;
 					row++;
 				}
@@ -132,15 +132,15 @@ public class BuildingManager
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			int col = 0;
 			int row = 0;
-			while (col < Game.mapCol && row < Game.mapRow) {
+			while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 				String line = br.readLine();
-				while (col < Game.mapCol) {
+				while (col < Game.MAP_COL) {
 					String numbers[] = line.split("\t");
 					int num = Integer.parseInt (numbers[col]);
 					mapRotationNum[col][row] = num;
 					col++;
 				}
-				if (col == Game.mapCol) {
+				if (col == Game.MAP_COL) {
 					col = 0;
 					row++;
 				}
@@ -154,7 +154,7 @@ public class BuildingManager
 	public void render (Graphics g) {
 		int col = 0;
 		int row = 0;
-		while (col < Game.mapCol && row < Game.mapRow) {
+		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 			int tileNum = mapBuildingNum[col][row];
 			
 			int worldX = col * 48;
@@ -174,17 +174,17 @@ public class BuildingManager
 				int rotation = mapRotationNum[col][row];
 				BufferedImage image = null;
 				
-				if (rotation == 0) image = building[tileNum].image0;
-				if (rotation == 1) image = building[tileNum].image1;
-				if (rotation == 2) image = building[tileNum].image2;
-				if (rotation == 3) image = building[tileNum].image3;
+				if (rotation == 0) image = building[tileNum].getImage0();
+				if (rotation == 1) image = building[tileNum].getImage1();
+				if (rotation == 2) image = building[tileNum].getImage2();
+				if (rotation == 3) image = building[tileNum].getImage3();
 				
 				g.drawImage(image, screenX, screenY, 48, 48, null);
 			}
 			
 			col++;
 			
-			if (col == Game.mapCol) {
+			if (col == Game.MAP_COL) {
 				col = 0;
 				row++;
 			}
@@ -526,10 +526,10 @@ public class BuildingManager
 		int objectBottomScreenY = object.getBounds().y + object.getBounds().height;
 		
 		// turn coordinates into X&Y indexes to be used to find the buildings on specified tiles
-		int leftIndex = objectLeftWorldX/Game.tileSize;
-		int rightIndex = objectRightWorldX/Game.tileSize;
-		int topIndex = objectTopWorldY/Game.tileSize;
-		int bottomIndex = objectBottomWorldY/Game.tileSize;
+		int leftIndex = objectLeftWorldX/Game.TILE_SIZE;
+		int rightIndex = objectRightWorldX/Game.TILE_SIZE;
+		int topIndex = objectTopWorldY/Game.TILE_SIZE;
+		int bottomIndex = objectBottomWorldY/Game.TILE_SIZE;
 		
 		// checks if the object is even on any tiles with buildings on them
 		if ((mapBuildingNum[leftIndex][topIndex] != 0)
@@ -675,8 +675,8 @@ public class BuildingManager
 		
 		// finds the screen coordinates of the tile that the building is one, useful because
 		// the returned bounds of the building is in screen coordinates
-		int buildingScreenX = (col * Game.tileSize) - Game.player.getWorldX() + Game.player.getScreenX();
-		int buildingScreenY = (row * Game.tileSize) - Game.player.getWorldY() + Game.player.getScreenY();
+		int buildingScreenX = (col * Game.TILE_SIZE) - Game.player.getWorldX() + Game.player.getScreenX();
+		int buildingScreenY = (row * Game.TILE_SIZE) - Game.player.getWorldY() + Game.player.getScreenY();
 		
 		Rectangle returnRectangle = null;
 		
@@ -684,12 +684,12 @@ public class BuildingManager
 		//
 		// all buildings that dont look like "-" or "|" have a square as their bounds 
 		// buildings that look like "-" or "|" have a skinnier rectangle as their bound
-		if (building[buildingNum].getConnections() != 2) returnRectangle = new Rectangle(buildingScreenX + (int)((1.0/8)*Game.tileSize), buildingScreenY + (int)((1.0/8)*Game.tileSize), (int)(Game.tileSize * (6.0/8)), (int)(Game.tileSize * (6.0/8)));
+		if (building[buildingNum].getConnections() != 2) returnRectangle = new Rectangle(buildingScreenX + (int)((1.0/8)*Game.TILE_SIZE), buildingScreenY + (int)((1.0/8)*Game.TILE_SIZE), (int)(Game.TILE_SIZE * (6.0/8)), (int)(Game.TILE_SIZE * (6.0/8)));
 		else
 		{
-			if (mapBuildingNum[col-1][row] != 0 && mapBuildingNum[col+1][row] != 0) returnRectangle = new Rectangle(buildingScreenX, buildingScreenY + (int)((7.0/24)*Game.tileSize), Game.tileSize, (int)(Game.tileSize * (10.0/24)));
-			else if (mapBuildingNum[col][row-1] != 0 && mapBuildingNum[col][row+1] != 0) returnRectangle = new Rectangle(buildingScreenX + (int)((7.0/24)*Game.tileSize), buildingScreenY, (int)(Game.tileSize * (10.0/24)), Game.tileSize);
-			else returnRectangle = new Rectangle(buildingScreenX + (int)((1.0/8)*Game.tileSize), buildingScreenY + (int)((1.0/8)*Game.tileSize), (int)(Game.tileSize * (6.0/8)), (int)(Game.tileSize * (6.0/8)));
+			if (mapBuildingNum[col-1][row] != 0 && mapBuildingNum[col+1][row] != 0) returnRectangle = new Rectangle(buildingScreenX, buildingScreenY + (int)((7.0/24)*Game.TILE_SIZE), Game.TILE_SIZE, (int)(Game.TILE_SIZE * (10.0/24)));
+			else if (mapBuildingNum[col][row-1] != 0 && mapBuildingNum[col][row+1] != 0) returnRectangle = new Rectangle(buildingScreenX + (int)((7.0/24)*Game.TILE_SIZE), buildingScreenY, (int)(Game.TILE_SIZE * (10.0/24)), Game.TILE_SIZE);
+			else returnRectangle = new Rectangle(buildingScreenX + (int)((1.0/8)*Game.TILE_SIZE), buildingScreenY + (int)((1.0/8)*Game.TILE_SIZE), (int)(Game.TILE_SIZE * (6.0/8)), (int)(Game.TILE_SIZE * (6.0/8)));
 		}
 		
 		return returnRectangle;

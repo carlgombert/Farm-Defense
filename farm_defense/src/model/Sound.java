@@ -15,8 +15,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Sound {
 	
-	static Clip clip;
-	static URL[] soundFile = new URL[30];
+	private static Clip clip;
+	private static URL[] soundFile = new URL[30];
 	
 	// timers to make sure sounds that repeat very quickly do not play too many times at once. 
 	// If a zombie gets hit by 10 bullets at once I don't want 10 death sounds.

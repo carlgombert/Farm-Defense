@@ -135,8 +135,8 @@ public class Zombie extends GameObject{
 	}
 	
 	private void collision() {
-		for(int i = 0; i < Game.handler.object.size(); i++) {
-			GameObject tempObject = Game.handler.object.get(i);
+		for(int i = 0; i < Game.handler.getObject().size(); i++) {
+			GameObject tempObject = Game.handler.getObject().get(i);
 			
 			if(getBounds().intersects(tempObject.getBounds())){
 				

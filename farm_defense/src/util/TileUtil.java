@@ -23,15 +23,15 @@ public class TileUtil {
         //int objectTopWorldY = object.getWorldY() + object.getSize().y;
         //int objectBottomWorldY = object.getWorldY() + object.getSize().y + object.getSize().height;
 
-        int objectLeftCol = objectLeftWorldX / Game.tileSize;
-        int objectRightCol = objectRightWorldX / Game.tileSize;
-        int objectTopRow = objectTopWorldY / Game.tileSize;
-        int objectBottomRow = objectBottomWorldY / Game.tileSize;
+        int objectLeftCol = objectLeftWorldX / Game.TILE_SIZE;
+        int objectRightCol = objectRightWorldX / Game.TILE_SIZE;
+        int objectTopRow = objectTopWorldY / Game.TILE_SIZE;
+        int objectBottomRow = objectBottomWorldY / Game.TILE_SIZE;
 
         int tileNum1, tileNum2;
 
         if(object.getSpeedY() < 0) {
-            objectTopRow = (objectTopWorldY + object.getSpeedY()) / Game.tileSize;
+            objectTopRow = (objectTopWorldY + object.getSpeedY()) / Game.TILE_SIZE;
 
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectTopRow];
@@ -46,7 +46,7 @@ public class TileUtil {
         }
         
         if(object.getSpeedY() > 0) {
-            objectBottomRow = (objectBottomWorldY + object.getSpeedY()) / Game.tileSize;
+            objectBottomRow = (objectBottomWorldY + object.getSpeedY()) / Game.TILE_SIZE;
 
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectBottomRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectBottomRow];
@@ -58,11 +58,11 @@ public class TileUtil {
             else object.setYTileCollision(false);
         }
         
-        objectTopRow = objectTopWorldY / Game.tileSize; // resets these for when checking x tile collision
-        objectBottomRow = objectBottomWorldY / Game.tileSize;
+        objectTopRow = objectTopWorldY / Game.TILE_SIZE; // resets these for when checking x tile collision
+        objectBottomRow = objectBottomWorldY / Game.TILE_SIZE;
         
         if(object.getSpeedX() < 0) {
-            objectLeftCol = (objectLeftWorldX + object.getSpeedX()) / Game.tileSize;
+            objectLeftCol = (objectLeftWorldX + object.getSpeedX()) / Game.TILE_SIZE;
 
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectLeftCol][objectBottomRow];
@@ -75,7 +75,7 @@ public class TileUtil {
         }
         
         if(object.getSpeedX() > 0) {
-            objectRightCol = (objectRightWorldX + object.getSpeedX()) / Game.tileSize;
+            objectRightCol = (objectRightWorldX + object.getSpeedX()) / Game.TILE_SIZE;
 
             tileNum1 = TileManager.mapTileNum[objectRightCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectBottomRow];
@@ -88,17 +88,17 @@ public class TileUtil {
         }
         
         if(object instanceof Player) { //check if player is infront of the store
-        	objectTopRow = (objectTopWorldY - 20) / Game.tileSize;
+        	objectTopRow = (objectTopWorldY - 20) / Game.TILE_SIZE;
 
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectTopRow];
             
         	if (TileManager.tile[tileNum1].isStore() || TileManager.tile[tileNum2].isStore()) 
             {
-                Game.tm.visible = true;
+                Game.tm.setVisible(true);
             }
             else {
-            	Game.tm.visible = false;
+            	Game.tm.setVisible(false);
             }
         }
     }

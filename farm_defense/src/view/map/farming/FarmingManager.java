@@ -19,26 +19,26 @@ import util.TxtFileUtil;
 
 public class FarmingManager 
 {
-	public static Crop[] crop;
-	public static int mapFarmland[][]; // map of all farmland in the map - 0: nothing, 1: empty farmland, any other number: crop (# is crop id)
-	public static int mapCropStage[][]; // map of the current stage of the crop in that tile - 0: no crop, 1: stage 1, etc.
+	private static Crop[] crop;
+	private static int mapFarmland[][]; // map of all farmland in the map - 0: nothing, 1: empty farmland, any other number: crop (# is crop id)
+	private static int mapCropStage[][]; // map of the current stage of the crop in that tile - 0: no crop, 1: stage 1, etc.
 	
-	public static int mouseX;
-	public static int mouseY;
-	public static int mouseWorldX;
-	public static int mouseWorldY;
+	private static int mouseX;
+	private static int mouseY;
+	private static int mouseWorldX;
+	private static int mouseWorldY;
 	
-	public BufferedImage farmlandImage;
+	private BufferedImage farmlandImage;
 	
-	public String[] lines;
+	private String[] lines;
 	
-	public int numCrops = 0;
+	private int numCrops = 0;
 	
 	public FarmingManager()
 	{
 		crop = new Crop[40];
-		mapFarmland = new int[Game.mapCol][Game.mapRow];
-		mapCropStage = new int[Game.mapCol][Game.mapRow];
+		mapFarmland = new int[Game.MAP_COL][Game.MAP_ROW];
+		mapCropStage = new int[Game.MAP_COL][Game.MAP_ROW];
 		
 		farmlandImage = ImageUtil.addImage(48, 48, "resources/farming/farmland.png");
 		
@@ -53,9 +53,9 @@ public class FarmingManager
 	{
 		// crop image numbers will be the same as the crop id in the inventory
 		crop [30] = new Crop();
-		crop [30].image1 = ImageUtil.addImage(24, 24, "resources/farming/carrot_stage1.png");
-		crop [30].image2 = ImageUtil.addImage(24, 24, "resources/farming/carrot_stage2.png");
-		crop [30].image3 = ImageUtil.addImage(24, 24, "resources/farming/carrot_stage3.png");
+		crop [30].setImage1(ImageUtil.addImage(24, 24, "resources/farming/carrot_stage1.png"));
+		crop [30].setImage2(ImageUtil.addImage(24, 24, "resources/farming/carrot_stage2.png"));
+		crop [30].setImage3(ImageUtil.addImage(24, 24, "resources/farming/carrot_stage3.png"));
 	}
 	
 	// loads the map of farmland/crops from the farmlandmap.txt file to mapFarmland[][]
@@ -66,15 +66,15 @@ public class FarmingManager
 			BufferedReader br = TxtFileUtil.readURL(url);
 			int col = 0;
 			int row = 0;
-			while (col < Game.mapCol && row < Game.mapRow) {
+			while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 				String line = br.readLine();
-				while (col < Game.mapCol) {
+				while (col < Game.MAP_COL) {
 					String numbers[] = line.split("\t");
 					int num = Integer.parseInt (numbers[col]);
 					mapFarmland[col][row] = num;
 					col++;
 				}
-				if (col == Game.mapCol) {
+				if (col == Game.MAP_COL) {
 					col = 0;
 					row++;
 				}
@@ -93,15 +93,15 @@ public class FarmingManager
 			BufferedReader br = TxtFileUtil.readURL(url);
 			int col = 0;
 			int row = 0;
-			while (col < Game.mapCol && row < Game.mapRow) {
+			while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 				String line = br.readLine ();
-				while (col < Game.mapCol) {
+				while (col < Game.MAP_COL) {
 					String numbers[] = line.split("\t");
 					int num = Integer.parseInt (numbers[col]);
 					mapCropStage[col][row] = num;
 					col++;
 				}
-				if (col == Game.mapCol) {
+				if (col == Game.MAP_COL) {
 					col = 0;
 					row++;
 				}
@@ -118,7 +118,7 @@ public class FarmingManager
 	{
 		int col = 0;
 		int row = 0;
-		while (col < Game.mapCol && row < Game.mapRow) {
+		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 			int tileNum = mapFarmland[col][row];
 			
 			int worldX = col * 48;
@@ -143,7 +143,7 @@ public class FarmingManager
 			
 			col++;
 			
-			if (col == Game.mapCol) {
+			if (col == Game.MAP_COL) {
 				col = 0;
 				row++;
 			}

@@ -36,7 +36,7 @@ public class LightManager {
 	}
 	
 	public static int getLightDistance(int x, int y) {
-		int distance = Game.mapCol;
+		int distance = Game.MAP_COL;
 		for(int i = 0; i < lightPositions.size(); i++) {
 			distance = Math.min(
 					(int) MathUtil.Distance(x, y, lightPositions.get(i)[0], lightPositions.get(i)[1]),

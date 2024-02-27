@@ -29,7 +29,7 @@ public class TileManager {
 		
 		tile = new Tile [30];
 		
-		mapTileNum = new int[Game.mapCol][Game.mapRow];
+		mapTileNum = new int[Game.MAP_COL][Game.MAP_ROW];
 		loadMap();
 		
 		getTileImage();
@@ -40,88 +40,88 @@ public class TileManager {
 		
 		// we now have 3 different grass tiles for variation
 		tile [0] = new Tile();
-		tile [0].image = ImageUtil.addImage(48, 48, "resources/tiles/grass_1.png");
+		tile [0].setImage(ImageUtil.addImage(48, 48, "resources/tiles/grass_1.png"));
 		tile [14] = new Tile();
-		tile [14].image = ImageUtil.addImage(48, 48, "resources/tiles/grass_2.png");
+		tile [14].setImage(ImageUtil.addImage(48, 48, "resources/tiles/grass_2.png"));
 		tile [15] = new Tile();
-		tile [15].image = ImageUtil.addImage(48, 48, "resources/tiles/grass_3.png");
+		tile [15].setImage(ImageUtil.addImage(48, 48, "resources/tiles/grass_3.png"));
 		
 		tile [1] = new Tile();
-		tile [1].image = ImageUtil.addImage(48, 48, "resources/tiles/water.png");
-		tile [1].collision = true;
+		tile [1].setImage(ImageUtil.addImage(48, 48, "resources/tiles/water.png"));
+		tile [1].setCollision(true);
 		
 		tile [2] = new Tile();
-		tile [2].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_left_water.png");
-		tile [2].collision = true;
+		tile [2].setImage(ImageUtil.addImage(48, 48, "resources/tiles/bottom_left_water.png"));
+		tile [2].setCollision(true);
 		
 		tile [3] = new Tile();
-		tile [3].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_right_water.png");
-		tile [3].collision = true;
+		tile [3].setImage(ImageUtil.addImage(48, 48, "resources/tiles/bottom_right_water.png"));
+		tile [3].setCollision(true);
 		
 		tile [4] = new Tile();
-		tile [4].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_water.png");
-		tile [4].collision = true;
+		tile [4].setImage(ImageUtil.addImage(48, 48, "resources/tiles/bottom_water.png"));
+		tile [4].setCollision(true);
 		
 		tile [5] = new Tile();
-		tile [5].image = ImageUtil.addImage(48, 48, "resources/tiles/left_water.png");
-		tile [5].collision = true;
+		tile [5].setImage(ImageUtil.addImage(48, 48, "resources/tiles/left_water.png"));
+		tile [5].setCollision(true);
 		
 		tile [6] = new Tile();
-		tile [6].image = ImageUtil.addImage(48, 48, "resources/tiles/right_water.png");
-		tile [6].collision = true;
+		tile [6].setImage(ImageUtil.addImage(48, 48, "resources/tiles/right_water.png"));
+		tile [6].setCollision(true);
 		
 		tile [7] = new Tile();
-		tile [7].image = ImageUtil.addImage(48, 48, "resources/tiles/top_left_water.png");
-		tile [7].collision = true;
+		tile [7].setImage(ImageUtil.addImage(48, 48, "resources/tiles/top_left_water.png"));
+		tile [7].setCollision(true);
 		
 		tile [8] = new Tile();
-		tile [8].image = ImageUtil.addImage(48, 48, "resources/tiles/top_right_water.png");
-		tile [8].collision = true;
+		tile [8].setImage(ImageUtil.addImage(48, 48, "resources/tiles/top_right_water.png"));
+		tile [8].setCollision(true);
 		
 		tile [9] = new Tile();
-		tile [9].image = ImageUtil.addImage(48, 48, "resources/tiles/top_water.png");
-		tile [9].collision = true;
+		tile [9].setImage(ImageUtil.addImage(48, 48, "resources/tiles/top_water.png"));
+		tile [9].setCollision(true);
 		
 		tile [10] = new Tile();
-		tile [10].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_left_corner_water.png");
-		tile [10].collision = true;
+		tile [10].setImage(ImageUtil.addImage(48, 48, "resources/tiles/bottom_left_corner_water.png"));
+		tile [10].setCollision(true);
 		
 		tile [11] = new Tile();
-		tile [11].image = ImageUtil.addImage(48, 48, "resources/tiles/bottom_right_corner_water.png");
-		tile [11].collision = true;
+		tile [11].setImage(ImageUtil.addImage(48, 48, "resources/tiles/bottom_right_corner_water.png"));
+		tile [11].setCollision(true);
 		
 		tile [12] = new Tile();
-		tile [12].image = ImageUtil.addImage(48, 48, "resources/tiles/brick.png");
-		tile [12].collision = true;
+		tile [12].setImage(ImageUtil.addImage(48, 48, "resources/tiles/brick.png"));
+		tile [12].setCollision(true);
 		
 		tile [13] = new Tile();
-		tile [13].image = ImageUtil.addImage(48, 48, "resources/tiles/gravestone.png");
+		tile [13].setImage(ImageUtil.addImage(48, 48, "resources/tiles/gravestone.png"));
 		
 		tile [16] = new Tile();
-		tile [16].image = ImageUtil.addImage(48, 48, "resources/tiles/store/wall.png");
-		tile [16].collision = true;
+		tile [16].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/wall.png"));
+		tile [16].setCollision(true);
 		
 		tile [17] = new Tile();
-		tile [17].image = ImageUtil.addImage(48, 48, "resources/tiles/store/roof.png");
-		tile [17].collision = true;
+		tile [17].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/roof.png"));
+		tile [17].setCollision(true);
 		
 		tile [18] = new Tile();
-		tile [18].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_left.png");
-		tile [18].collision = true;
-		tile [18].store = true;
+		tile [18].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_left.png"));
+		tile [18].setCollision(true);
+		tile [18].setStore(true);
 		
 		tile [19] = new Tile();
-		tile [19].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_right.png");
-		tile [19].collision = true;
-		tile [19].store = true;
+		tile [19].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_right.png"));
+		tile [19].setCollision(true);
+		tile [19].setStore(true);
 		
 		tile [20] = new Tile();
-		tile [20].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_left.png");
-		tile [20].collision = true;
+		tile [20].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_left.png"));
+		tile [20].setCollision(true);
 		
 		tile [21] = new Tile();
-		tile [21].image = ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_right.png");
-		tile [21].collision = true;
+		tile [21].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_right.png"));
+		tile [21].setCollision(true);
 		
 	}
 	
@@ -132,9 +132,9 @@ public class TileManager {
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			int col = 0;
 			int row = 0;
-			while (col < Game.mapCol && row < Game.mapRow) {
+			while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 				String line = br.readLine ();
-				while (col < Game.mapCol) {
+				while (col < Game.MAP_COL) {
 					String numbers[] = line.split("\t");
 					int num = Integer.parseInt (numbers[col]);
 					if(num == 0) {
@@ -144,7 +144,7 @@ public class TileManager {
 					mapTileNum[col][row] = num;
 					col++;
 				}
-				if (col == Game.mapCol) {
+				if (col == Game.MAP_COL) {
 					col = 0;
 					row++;
 				}
@@ -163,7 +163,7 @@ public class TileManager {
 	public void render (Graphics g) {
 		int col = 0;
 		int row = 0;
-		while (col < Game.mapCol && row < Game.mapRow) {
+		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 			int tileNum = mapTileNum[col][row];
 			int[][] buildingMap = Game.buildingManager.getBuildingMap();
 			
@@ -180,12 +180,12 @@ public class TileManager {
 					worldY < Game.player.getWorldY() + Game.HEIGHT/* &&
 					buildingMap[col][row] == 0*/) 
 			{
-				g.drawImage(tile[tileNum].image, screenX, screenY, 48, 48, null);
+				g.drawImage(tile[tileNum].getImage(), screenX, screenY, 48, 48, null);
 			}
 			
 			col++;
 			
-			if (col == Game.mapCol) {
+			if (col == Game.MAP_COL) {
 				col = 0;
 				row++;
 			}
@@ -196,7 +196,7 @@ public class TileManager {
 	public void renderNightFade (Graphics g) {
 		int col = 0;
 		int row = 0;
-		while (col < Game.mapCol && row < Game.mapRow) {
+		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 			int tileNum = mapTileNum[col][row];
 			
 			int worldX = col * 48;
@@ -228,7 +228,7 @@ public class TileManager {
 			
 			col++;
 			
-			if (col == Game.mapCol) {
+			if (col == Game.MAP_COL) {
 				col = 0;
 				row++;
 			}
@@ -239,7 +239,7 @@ public class TileManager {
 	public void renderNightConstant (Graphics g) {
 		int col = 0;
 		int row = 0;
-		while (col < Game.mapCol && row < Game.mapRow) {
+		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 			int tileNum = mapTileNum[col][row];
 			
 			int worldX = col * 48;
@@ -267,7 +267,7 @@ public class TileManager {
 			
 			col++;
 			
-			if (col == Game.mapCol) {
+			if (col == Game.MAP_COL) {
 				col = 0;
 				row++;
 			}

@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 
 public class InventoryItem 
 {
-	public BufferedImage image;
+	private BufferedImage image;
 	private int count;
-	public int ID;
+	private int ID;
 	private int price;
 	
 	public InventoryItem(int passedID, BufferedImage img, int itemCount)

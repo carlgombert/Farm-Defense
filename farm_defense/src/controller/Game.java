@@ -38,13 +38,15 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	public static final int WIDTH = 16 * 48, HEIGHT = 12 * 48;
 	
+	public static final int TILE_SIZE = 48;
+	
+	public static final int MAP_COL = 40;
+	public static final int MAP_ROW = 40;
+	
+	public static final Font DEFAULT_FONT = new Font("Lucida Grande", Font.PLAIN, 13);
+	
 	public static Handler handler;
 	public static HUD hud;
-	
-	public static int tileSize = 48;
-	
-	public static int mapCol = 40;
-	public static int mapRow = 40;
 	
 	public static Player player;
 	
@@ -55,8 +57,6 @@ public class Game extends Canvas implements Runnable{
 	public static MapEditorHelper mapHelper;
 	
 	public static Inventory inventory;
-	
-	public static Font defaultFont;
 	
 	public static TradeMenu tm;
 	public static TurretMenu turm;
@@ -96,8 +96,6 @@ public class Game extends Canvas implements Runnable{
 		turm = new TurretMenu();
 		
 		new Sound();
-		
-		defaultFont = new Font("Lucida Grande", Font.PLAIN, 13);
 		
 		this.addKeyListener(new KeyInput());
 		this.addMouseListener(new KeyInput());
@@ -205,7 +203,7 @@ public class Game extends Canvas implements Runnable{
 			handler.render(g);
 			
 			
-			if(tm.visible) {
+			if(tm.isVisible()) {
 				tm.render(g);
 			}
 			else if(turm.visible) {

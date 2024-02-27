@@ -11,11 +11,11 @@ import controller.Game;
 // farmlands, crops, tiles, etc.
 public class MapEditorHelper 
 {	
-	public int mouseX;
-	public int mouseY;
+	private int mouseX;
+	private int mouseY;
 	
-	public int mouseWorldX;
-	public int mouseWorldY;
+	private int mouseWorldX;
+	private int mouseWorldY;
 	
 	public void render(Graphics g)
 	{
@@ -43,7 +43,7 @@ public class MapEditorHelper
 			
 			if(Game.inventory.getCurrentImage() != null) {
 				// draw transparent inventory slot item by mouse
-				g.drawImage(Game.inventory.getCurrentImage(), mouseX + 10, mouseY + 10, Game.tileSize / 2, Game.tileSize / 2, null);
+				g.drawImage(Game.inventory.getCurrentImage(), mouseX + 10, mouseY + 10, Game.TILE_SIZE / 2, Game.TILE_SIZE / 2, null);
 			}
 		}
 	}

@@ -22,7 +22,7 @@ public class DeathMenu {
 		g.drawImage(deathIcon, (Game.WIDTH/2)-100, Game.HEIGHT/4, null);
 		
 		g.setColor(new Color(214, 56, 100));
-		g.setFont(Game.defaultFont);
+		g.setFont(Game.DEFAULT_FONT);
 		g.drawString("return to menu", menuButton.x+50, menuButton.y+23);
 	}
 	
