@@ -12,6 +12,7 @@ import model.Inventory.Inventory;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
 import view.HUD;
+import view.KeyInput;
 import view.MapEditorHelper;
 import view.Window;
 import view.fullMenu.DeathMenu;

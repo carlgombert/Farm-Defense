@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
+import controller.Game;
 import controller.Game.GameState;
 import controller.objectHandling.ID;
 import model.GameObject;
