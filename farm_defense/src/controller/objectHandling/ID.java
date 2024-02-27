@@ -10,5 +10,4 @@ public enum ID {
 	Projectile(),
 	ZombieSpawner(),
 	NPC()
-	
 }
