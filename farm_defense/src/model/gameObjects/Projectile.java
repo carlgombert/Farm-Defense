@@ -1,4 +1,4 @@
-package model.gameObjects.projectile;
+package model.gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,12 +10,16 @@ import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
 import model.Sound;
-import model.gameObjects.Zombie;
 import util.ImageUtil;
 
-public class TurretProjectile extends Projectile{
-	
+/**
+ * The Projectile class is used for in game bullets that move at a contant rate in a set direction
+ * these bullets will be removed when they come into contact with certain in game objects
+ */
+public class Projectile extends GameObject{
+		
 	private Color color = new Color(148, 141, 62);
+	protected double angle;
 	private int speed = 20;
 	
 	private boolean hitZombie = false; 
@@ -30,9 +34,9 @@ public class TurretProjectile extends Projectile{
 	private int animationCount = 0;
 	// used to limit how long the animation stays on screen
 	
-	public TurretProjectile(int x, int y, ID id, double angle) {
-		super(x, y, id, angle);
-
+	public Projectile(int x, int y, ID id, double angle) {
+		super(x, y, id);
+		this.angle = angle;
 	}
 
 	public void tick() 
@@ -59,16 +63,10 @@ public class TurretProjectile extends Projectile{
 					Sound.zombieDeathSound();
 					hitZombie = true;
 				}
-				if(this.getBounds().intersects(Game.player.getBounds()))
-				{
-					// don't get caught in the line of fire :)
-					Game.player.setHealth(Game.player.getHealth() - 5);
-					hitZombie = true;
-				}
 			}
 		
-			worldX += (int) (speed * Math.cos(super.angle));
-			worldY += (int) (speed * Math.sin(super.angle));
+			worldX += (int) (speed * Math.cos(angle));
+			worldY += (int) (speed * Math.sin(angle));
 		}
 		setScreenX(worldX - Game.player.getWorldX() + Game.player.getScreenX());
 		setScreenY(worldY - Game.player.getWorldY() + Game.player.getScreenY());

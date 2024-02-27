@@ -10,6 +10,9 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * The Sound class serves as an audioplayer for music and different in game events
+ */
 public class Sound {
 	
 	static Clip clip;

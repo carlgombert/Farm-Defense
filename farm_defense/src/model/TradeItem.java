@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * The TradeItem class holds information about items that can be sold in the
+ * in game shop
+ */
 public class TradeItem {
 	private String name;
 	private int cost;

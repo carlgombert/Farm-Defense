@@ -5,7 +5,9 @@ import java.awt.Rectangle;
 
 import controller.objectHandling.ID;
 
-// superclass of all in game objects
+/**
+ * The GameObject class serves as a superclass of all the in game objects
+ */
 public abstract class GameObject {
 	
 	// object identifier

@@ -5,8 +5,11 @@ import java.util.LinkedList;
 
 import model.GameObject;
 
-// handler handles adding, removing, rendering and updating all in game objects. this becomes important
-// when many in game objects are constantly being added, removed and moving at once.
+/**
+ * the Handler class handles adding, removing, rendering and updating all in game objects. 
+ * this becomes important when many in game objects are constantly being added,
+ * removed and moving at once.
+ */
 public class Handler {
 	
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();

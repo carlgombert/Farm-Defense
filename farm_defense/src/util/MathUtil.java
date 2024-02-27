@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * Utility functions for calculations
+ */
 public class MathUtil {
 
 	public static int clamp(int value, int min, int max) {

@@ -9,6 +9,9 @@ import controller.objectHandling.ID;
 import model.GameObject;
 import util.MathUtil;
 
+/**
+ * The ZombieSpawner class serves as the manager for adding zombies into the game
+ */
 public class ZombieSpawner extends GameObject
 {
 	private int spawnRate;

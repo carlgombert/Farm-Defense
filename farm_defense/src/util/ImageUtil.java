@@ -7,6 +7,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Utility functions for images
+ */
 public class ImageUtil {
 	
 	public static BufferedImage addImage(int width, int height, String file) {

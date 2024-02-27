@@ -14,7 +14,11 @@ import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
 
-
+/**
+ * The Zombie class represents the main enemy in the game. The zombie will move in the direction
+ * of a target and do damage when they touch. the zombie will be removed when it takes a certain
+ * amount of damage
+ */
 public class Zombie extends GameObject{
 	
 	HashMap<Integer, BufferedImage[]> zombieImages = new HashMap<Integer, BufferedImage[]>();

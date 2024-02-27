@@ -3,6 +3,9 @@ package util;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
+/**
+ * Utility functions for graphics
+ */
 public class GraphicsUtil {
 	public static void drawStringMultiLine(Graphics2D g, String text, int lineWidth, int x, int y) {
 	    FontMetrics m = g.getFontMetrics();

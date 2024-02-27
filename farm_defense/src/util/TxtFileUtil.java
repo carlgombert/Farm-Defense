@@ -11,6 +11,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+/**
+ * Utility functions text and txt files
+ */
 public class TxtFileUtil {
 
 	public static URL readFile(String file) {

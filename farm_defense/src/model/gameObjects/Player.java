@@ -15,6 +15,9 @@ import util.MathUtil;
 import util.TileUtil;
 import view.map.tile.TileManager;
 
+/**
+ * The Player class represents the user and contains all associated attributes
+ */
 public class Player extends GameObject{
 	
 	HashMap<Integer, BufferedImage[]> playerImages = new HashMap<Integer, BufferedImage[]>();

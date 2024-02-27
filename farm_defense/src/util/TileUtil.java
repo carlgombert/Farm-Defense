@@ -5,6 +5,9 @@ import model.GameObject;
 import model.gameObjects.Player;
 import view.map.tile.TileManager;
 
+/**
+ * Utility functions tiles. mainly used to check object-tile collisions
+ */
 public class TileUtil {
 	
 	public static void checkTileCollision(GameObject object) {

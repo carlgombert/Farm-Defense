@@ -17,14 +17,18 @@ import model.GameObject;
 import model.Sound;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
+import model.gameObjects.Projectile;
 import model.gameObjects.Turret;
 import model.gameObjects.Zombie;
-import model.gameObjects.projectile.Projectile;
 import util.MathUtil;
 import view.fullMenu.MainMenu;
+import view.fullMenu.PauseMenu;
 import view.map.LightManager;
 import view.map.tile.TileManager;
 
+/**
+ * The KeyInput class handles the mouse and key input from the user.
+ */
 public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionListener, ActionListener
 {
 	
@@ -156,6 +160,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		}
 		if(Game.gamestate == GameState.MainMenu) {
 			MainMenu.checkButton(e.getX(), e.getY());
+		}
+		if(Game.gamestate == GameState.Paused) {
+			PauseMenu.checkButton(e.getX(), e.getY());
 		}
 	}
 	

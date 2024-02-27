@@ -1,8 +1,10 @@
 package controller.objectHandling;
+
 import model.*;
 
-
-// ID is used to categorize and differentiate between different types of in game objects
+/**
+ * The ID enum is used to categorize and differentiate between different types of in game objects
+ */
 public enum ID {
 	Player(),
 	Zombie(),

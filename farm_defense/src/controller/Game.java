@@ -25,6 +25,7 @@ import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
 import view.fullMenu.MainMenu;
+import view.fullMenu.PauseMenu;
 import view.map.LightManager;
 import view.map.building.BuildingManager;
 import view.map.farming.FarmingManager;
@@ -32,6 +33,12 @@ import view.map.tile.TileManager;
 import view.sideMenu.TradeMenu;
 import view.sideMenu.TurretMenu;
 
+/**
+ * The Game class is a manager for the entire Game.
+ * This class is the highest level of manager and the startpoint, inililizing 
+ * every element of the game and containing the runtime algorithm which handles
+ * the rendering of graphics and updating of object data
+ */
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -5505267217615912489L;
@@ -211,6 +218,9 @@ public class Game extends Canvas implements Runnable{
 		}
 		if(gamestate == GameState.MainMenu) {
 			MainMenu.render(g);
+		}
+		if(gamestate == GameState.Paused) {
+			PauseMenu.render(g);
 		}
 		g.dispose();
 		bs.show();
