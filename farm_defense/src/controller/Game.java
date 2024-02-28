@@ -29,9 +29,6 @@ import view.sideMenu.TurretMenu;
  * This class is the highest level of manager and the startpoint, inililizing 
  * every element of the game and containing the runtime algorithm which handles
  * the rendering of graphics and updating of object data
- * 
- * @author Carl Gombert
- * @since 2024-01-28
  */
 public class Game extends Canvas implements Runnable{
 	
@@ -39,6 +36,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Thread thread;
 	private boolean running = false;
+	
 	public static final int WIDTH = 16 * 48, HEIGHT = 12 * 48;
 	
 	public static final int TILE_SIZE = 48;
