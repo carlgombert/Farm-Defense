@@ -31,7 +31,7 @@ public class Zombie extends GameObject{
 	
 	private double targetAngle;
 	
-	private int speed = 1;
+	private double speed = 1;
 	private double doubleSpeedX; // double versions of speedx & y
 	private double doubleSpeedY;
 
@@ -50,6 +50,9 @@ public class Zombie extends GameObject{
 		zombieImages.put(3, right);
 		
 		currImage = zombieImages.get(0)[0];
+		
+		speed = 1 + Game.nightCount/10;
+		health = 10 + 2*Game.nightCount;
 		
 	}
 
@@ -78,8 +81,8 @@ public class Zombie extends GameObject{
 		{
 			targetAngle = MathUtil.angleBetweenPoints(this.getWorldX(), this.getWorldY(), Game.player.getWorldX(), Game.player.getWorldY());
 					
-			doubleSpeedX = ((double)speed * Math.cos(targetAngle));
-			doubleSpeedY = ((double)speed * Math.sin(targetAngle));
+			doubleSpeedX = (speed * Math.cos(targetAngle));
+			doubleSpeedY = (speed * Math.sin(targetAngle));
 						
 			speedX = (int)Math.round(doubleSpeedX);
 			speedY = (int)Math.round(doubleSpeedY);
@@ -133,19 +136,26 @@ public class Zombie extends GameObject{
 		
 	}
 	
-	public double getHealth()
-	{
+	public double getHealth() {
 		return health;
 	}
 	
-	public void setHealth(double h)
-	{
+	public void setHealth(double h) {
 		health = h;
+	}
+	
+	public double getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 	public int getSpeedX() {
 		return speedX;
 	}
+	
 	public int getSpeedY() {
 		return speedY;
 	}

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 
 import model.GameObject;
+import model.gameObjects.Zombie;
 
 /**
  * the Handler class handles adding, removing, rendering and updating all in game objects. 

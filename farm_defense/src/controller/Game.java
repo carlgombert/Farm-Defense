@@ -63,7 +63,8 @@ public class Game extends Canvas implements Runnable{
 	public static TurretMenu turm;
 	
 	public static boolean night;
-	public static int nightTimer = 0;
+	public static int nightTimer = 9990;
+	public static double nightCount = 0;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
@@ -174,6 +175,7 @@ public class Game extends Canvas implements Runnable{
 			if(nightTimer >= 10000) {
 				nightTimer = 0;
 				night = !night;
+				nightCount += 0.5;
 				player.setHealth(400);
 			}
 			handler.tick();
