@@ -202,62 +202,14 @@ public class BuildingManager
 		int col = mouseWorldX / 48;
 		int row = mouseWorldY / 48;
 		
-		
-		
-		// checks to make sure the tile that the player is trying to build on is empty
-		if (mapBuildingNum[col][row] == 0)
+		// checks to make sure the tile that the player is trying to build on is empty (no building, no farmland)
+		if (mapBuildingNum[col][row] == 0 && Game.farmingManager.getFarmland()[col][row] == 0)
 		{
 			// subtract 1 from the num of buildings in the player's inventory
 			Game.inventory.minusItem(1);
-			
-			
-			try 
-			{
-
 				
-				URL url = getClass().getClassLoader().getResource("resources/maps/buildingmap.txt");
-				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-				
-				String line = br.readLine();;
-				lines = new String[45]; // string array of every line in the buildingmap.txt file
-				
-				int arrayNum = 0;
-				
-				while (line != null)
-				{
-					lines[arrayNum] = line;
-					arrayNum++;
-					line = br.readLine();
-				}
-				
-				// calculates what the building should be based on what the buildings are around it
-				//
-				// col + col accounts for the tabs in between the numbers, because each line is read
-				// as a full string
-				recalculateTile(col + col, row);
-		
-				// once the tiles are all fully calculated, rewrite the buildingmap.txt file
-				String newFile = "";
-				
-				for(int i = 0; i < 40; i++)
-				{
-					newFile += lines[i];
-					if (i != 39) newFile += "\n";
-				}
-				
-				FileWriter writer = new FileWriter(new File(url.getFile()));
-				
-				writer.write(newFile);
-				
-				br.close();
-				writer.close();
-				
-				// reloads the map once the file is rewritten
-				Game.buildingManager.loadBuildingMap();
-	 		} catch (Exception e) 
-			{
-				System.out.println(e);
-			}
+			// calculates what the building should be based on what the buildings are around it
+			recalculateTile(col, row);
 		}
 	}
 	
@@ -270,12 +222,8 @@ public class BuildingManager
 	// to be updated. this can be fixed later if needed for optimization
 	public void recalculateTile(int col, int row)
 	{
-		int charIndex = col; // index of building being updated
-		int leftIndex = charIndex - 2; // index of building to the left
-		int rightIndex = charIndex + 2; // index of building to the right
-		
-		// current building number in the .txt file
-		int currentNum = Integer.parseInt(String.valueOf(lines[row].charAt(charIndex)));
+		// current building number in the mapBuildingNum array
+		int buildingNum = mapBuildingNum[col][row];
 		
 		// integers representing if there is a building next to the current building in the
 		// specified direction. 0 = false; 1 = true
@@ -286,191 +234,121 @@ public class BuildingManager
 		int up = 0;
 		int down = 0;
 		
-		String firstHalf; // substring of the first half of the whole line of text before the building index
-		String secondHalf; // substring of the rest of the string
-		String newString; // a new string representing the whole row of text with the updated building
-		
 		// sets variables to 1 if there is a building next to the current building in the 
 		// specified direction
-		if (!(lines[row].charAt(leftIndex) == '0')) left = 1;
-		if (!(lines[row].charAt(rightIndex) == '0')) right = 1;
-		if (!(lines[row-1].charAt(charIndex) == '0')) up = 1;
-		if (!(lines[row+1].charAt(charIndex) == '0')) down = 1;
+		if (mapBuildingNum[col-1][row] != 0) left = 1;
+		if (mapBuildingNum[col+1][row] != 0) right = 1;
+		if (mapBuildingNum[col][row-1] != 0) up = 1;
+		if (mapBuildingNum[col][row+1] != 0) down = 1;
 		
 		int connections = up + down + left + right; // total number of connections to adjacent buildings
 		
 		// exits the function if the building doesn't need to be updated
-		if ((currentNum != 0) && (connections == building[currentNum].getConnections())) return;
+		if ((buildingNum != 0) && (connections == building[buildingNum].getConnections())) return;
 		
 		if (connections == 4) // 4 buildings connected to it
 		{
-			// rewrites the number at this building's index to 4 using substrings
-			firstHalf = lines[row].substring(0, charIndex);
-			secondHalf = lines[row].substring(charIndex + 1, lines[row].length());
-			newString = firstHalf + "4" + secondHalf;
-			lines[row] = newString; // global string array with all lines of text in the .txt file
+			// rewrites the number at this building's index to 4
+			mapBuildingNum[col][row] = 4;
 			
 			// rewrites this buildings rotation to 0 because it has 4 connections, so no rotation necessary
-			rewriteRotation(charIndex, row, 0);
+			mapRotationNum[col][row] = 0;
 			
 			// calls the recalculateTile() function for all buildings around it 
-			recalculateTile(leftIndex, row);
-			recalculateTile(rightIndex, row);
-			recalculateTile(charIndex, row-1);
-			recalculateTile(charIndex, row+1);
+			recalculateTile(col-1, row);
+			recalculateTile(col+1, row);
+			recalculateTile(col, row-1);
+			recalculateTile(col, row+1);
 		}
 		else if (connections == 3) // 3 buildings connected to it
 		{
-			// rewrites the number at this building's index to 3 using substrings
-			firstHalf = lines[row].substring(0, charIndex);
-			secondHalf = lines[row].substring(charIndex + 1, lines[row].length());
-			newString = firstHalf + "3" + secondHalf;
-			lines[row] = newString;
+			// rewrites the number at this building's index to 3
+			mapBuildingNum[col][row] = 3;
 			
 			// rewrites this building's rotation based on which sides its connections are on
 			if (up == 1)
 			{
-				if (left == 1 && right == 1) rewriteRotation(charIndex, row, 2);
-				else if (left == 1 && down == 1) rewriteRotation(charIndex, row, 3);
-				else rewriteRotation(charIndex, row, 1);
+				if (left == 1 && right == 1) mapRotationNum[col][row] = 2;
+				else if (left == 1 && down == 1) mapRotationNum[col][row] = 3;
+				else mapRotationNum[col][row] = 1;
 			}
-			else rewriteRotation(charIndex, row, 0);
+			else mapRotationNum[col][row] = 0;
 			
 			// calls the recalculateTile() function for all buildings around it 
-			if (up == 1) recalculateTile(charIndex, row-1);
-			if (down == 1) recalculateTile(charIndex, row+1);
-			if (left == 1) recalculateTile(leftIndex, row);
-			if (right == 1) recalculateTile(rightIndex, row);
+			if (up == 1) recalculateTile(col, row-1);
+			if (down == 1) recalculateTile(col, row+1);
+			if (left == 1) recalculateTile(col-1, row);
+			if (right == 1) recalculateTile(col+1, row);
 		}
 		else if (connections == 2) // 2 buildings connected to it
 		{
-			// grabs the substrings of the text all around the building's index
-			firstHalf = lines[row].substring(0, charIndex);
-			secondHalf = lines[row].substring(charIndex + 1, lines[row].length());
-			
 			// need to differentiate between buildings with 2 connections that look
 			// like "|" or ones that look like "L"
 			if (up - down == 0 || left - right == 0) // checks if it should be a line building
 			{
 				// rewrites the number at this building's index to 6
-				newString = firstHalf + "6" + secondHalf;
+				mapBuildingNum[col][row] = 6;
 				
 				// rewrites this building's rotation; only 2 possibilities: | or -
-				if (up == 1 && down == 1) rewriteRotation(charIndex, row, 1);
-				else rewriteRotation(charIndex, row, 0);
+				if (up == 1 && down == 1) mapRotationNum[col][row] = 1;
+				else mapRotationNum[col][row] = 0;
 			}
 			else // if not a line, must be an L building
 			{
 				// rewrites the number at this building's index to 2
-				newString = firstHalf + "2" + secondHalf;
+				mapBuildingNum[col][row] = 2;
 				
 				// rewrites this building's rotation based on which sides its connections are on
 				if (up == 1)
 				{
-					if (right == 1) rewriteRotation(charIndex, row, 1);
-					else rewriteRotation(charIndex, row, 2);
+					if (right == 1) mapRotationNum[col][row] = 1;
+					else mapRotationNum[col][row] = 2;
 				}
 				else
 				{
-					if (left == 1) rewriteRotation(charIndex, row, 3);
-					else rewriteRotation(charIndex, row, 0);
+					if (left == 1) mapRotationNum[col][row] = 3;
+					else mapRotationNum[col][row] = 0;
 				}
 			}
 			
-			lines[row] = newString;
-			
 			// calls the recalculateTile() function for all buildings around it 
-			if (up == 1) recalculateTile(charIndex, row-1);
-			if (down == 1) recalculateTile(charIndex, row+1);
-			if (left == 1) recalculateTile(leftIndex, row);
-			if (right == 1) recalculateTile(rightIndex, row);
+			if (up == 1) recalculateTile(col, row-1);
+			if (down == 1) recalculateTile(col, row+1);
+			if (left == 1) recalculateTile(col-1, row);
+			if (right == 1) recalculateTile(col+1, row);
 		}
 		else if (connections == 1) // 1 building connected to it
 		{
-			// rewrites the number at this building's index to 1 using substrings
-			firstHalf = lines[row].substring(0, charIndex);
-			secondHalf = lines[row].substring(charIndex + 1, lines[row].length());
-			newString = firstHalf + "1" + secondHalf;
-			lines[row] = newString;
+			// rewrites the number at this building's index to 1
+			mapBuildingNum[col][row] = 1;
 			
 			// rewrite current building's rotation and recalculates connected tile
 			if (up == 1) 
 			{
-				rewriteRotation(charIndex, row, 2);
-				recalculateTile(charIndex, row-1);
+				mapRotationNum[col][row] = 2;
+				recalculateTile(col, row-1);
 			}
 			if (down == 1) 
 			{
-				rewriteRotation(charIndex, row, 0);
-				recalculateTile(charIndex, row+1);
+				mapRotationNum[col][row] = 0;
+				recalculateTile(col, row+1);
 			}
 			if (left == 1) 
 			{
-				rewriteRotation(charIndex, row, 3);
-				recalculateTile(leftIndex, row);
+				mapRotationNum[col][row] = 3;
+				recalculateTile(col-1, row);
 			}
 			if (right == 1) 
 			{
-				rewriteRotation(charIndex, row, 1);
-				recalculateTile(rightIndex, row);
+				mapRotationNum[col][row] = 1;
+				recalculateTile(col+1, row);
 			}
 		}
 		else // no buildings connected
 		{
 			// rewrites the building number at this index to 5, nothing else needed
-			firstHalf = lines[row].substring(0, charIndex);
-			secondHalf = lines[row].substring(charIndex + 1, lines[row].length());
-			newString = firstHalf + "5" + secondHalf;
-			lines[row] = newString;
-		}
-	}
-	
-	// rewrites the rotation of the tile based on the arguments passed:
-	// col and row self explanatory, rot is the rotation number to be written
-	public void rewriteRotation(int col, int row, int rot)
-	{
-		try
-		{	
-			URL url = getClass().getClassLoader().getResource("resources/maps/buildingrotationmap.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-			
-			String line = br.readLine();
-			String[] rotationLines = new String[45];
-			
-			int arrayNum = 0;
-			
-			while (line != null)
-			{
-				rotationLines[arrayNum] = line;
-				arrayNum++;
-				line = br.readLine();
-			}
-			
-			FileWriter writer = new FileWriter(new File(url.getFile()));
-			
-			String firstHalf = rotationLines[row].substring(0, col);
-			String secondHalf = rotationLines[row].substring(col + 1, rotationLines[row].length());
-			String newString = firstHalf + rot + secondHalf;
-			rotationLines[row] = newString;
-			
-			String newFile = "";
-			
-			for(int i = 0; i < 40; i++)
-			{
-				newFile += rotationLines[i];
-				if (i != 39) newFile += "\n";
-			}
-			
-			writer.write(newFile);
-			
-			br.close();
-			writer.close();
-			
-			// reload building rotation array
-			Game.buildingManager.loadBuildingRotation();
-		} catch (Exception e) 
-		{
-			System.out.println(e);
+			mapBuildingNum[col][row] = 5;
+			mapRotationNum[col][row] = 0;
 		}
 	}
 	
@@ -666,6 +544,7 @@ public class BuildingManager
 		}
 	}
 	
+	
 	// returns the bounds of a building at its corresponding row and col
 	public Rectangle getBuildingBounds(int col, int row)
 	{	
@@ -694,6 +573,7 @@ public class BuildingManager
 		
 		return returnRectangle;
 	}
+	
 	
 	public int[][] getBuildingMap()
 	{
