@@ -2,19 +2,10 @@ package view.map.tile;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Random;
-
 import controller.Game;
-import model.Sound;
 import util.ImageUtil;
 import util.MathUtil;
 import view.map.LightManager;
@@ -165,7 +156,6 @@ public class TileManager {
 		int row = 0;
 		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
 			int tileNum = mapTileNum[col][row];
-			int[][] buildingMap = Game.buildingManager.getBuildingMap();
 			
 			int worldX = col * 48;
 			int worldY = row * 48;
@@ -197,7 +187,6 @@ public class TileManager {
 		int col = 0;
 		int row = 0;
 		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
-			int tileNum = mapTileNum[col][row];
 			
 			int worldX = col * 48;
 			int worldY = row * 48;
@@ -240,7 +229,6 @@ public class TileManager {
 		int col = 0;
 		int row = 0;
 		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
-			int tileNum = mapTileNum[col][row];
 			
 			int worldX = col * 48;
 			int worldY = row * 48;

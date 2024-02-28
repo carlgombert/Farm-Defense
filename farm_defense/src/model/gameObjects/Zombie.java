@@ -9,7 +9,6 @@ import java.util.HashMap;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
-import model.Sound;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
@@ -132,16 +131,6 @@ public class Zombie extends GameObject{
 			//g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 		
-	}
-	
-	private void collision() {
-		for(int i = 0; i < Game.handler.getObject().size(); i++) {
-			GameObject tempObject = Game.handler.getObject().get(i);
-			
-			if(getBounds().intersects(tempObject.getBounds())){
-				
-			}
-		}
 	}
 	
 	public double getHealth()
