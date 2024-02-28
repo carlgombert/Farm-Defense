@@ -63,8 +63,8 @@ public class Game extends Canvas implements Runnable{
 	public static TurretMenu turm;
 	
 	public static boolean night;
-	public static int nightTimer = 9990;
-	public static double nightCount = 0;
+	public static int nightTimer = 0;
+	public static double nightCount = 30;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable{
 		hud = new HUD(player);
 		inventory = new Inventory();
 		
-		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
+		handler.addObject(new NPC(48*16, (int) (48*5.5), ID.NPC));
 		
 		tm = new TradeMenu();
 		

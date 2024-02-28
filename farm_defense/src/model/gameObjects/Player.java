@@ -30,7 +30,7 @@ public class Player extends GameObject{
 	
 	private int health = 400;
 	
-	private int coins = 100;
+	private int coins = 10000;
 	
 	// variables used when get hit by a zombie
 	private boolean hitByZombie = false;
