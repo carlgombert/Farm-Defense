@@ -97,7 +97,7 @@ public class Inventory
 		if(ID > 29 && ID < 50) {
 			seedCropCount += count;
 			if(seedCropCount > 0) {
-				Game.badInventory = false;
+				Game.player.setBadInventory(false);
 			}
 		}
 	}
@@ -114,6 +114,14 @@ public class Inventory
 			{
 				inventory[i].changeCount(count);
 				setSelected(selected);
+				
+				if(ID > 29 && ID < 50) {
+					seedCropCount += count;
+					if(seedCropCount > 0) {
+						Game.player.setBadInventory(false);
+					}
+					System.out.println(seedCropCount);
+				}
 				return;
 			}
 		}
@@ -136,7 +144,7 @@ public class Inventory
 		if(ID > 29 && ID < 50) {
 			seedCropCount += count;
 			if(seedCropCount > 0) {
-				Game.badInventory = false;
+				Game.player.setBadInventory(false);
 			}
 		}
 	}
@@ -149,7 +157,7 @@ public class Inventory
 			if(inventory[selected].getID() > 29 && inventory[selected].getID() < 50) {
 				seedCropCount -= inventory[selected].getCount();
 				if(seedCropCount <= 0) {
-					Game.badInventory = true;
+					Game.player.setBadInventory(true);
 				}
 			}
 			
@@ -163,7 +171,7 @@ public class Inventory
 			if(inventory[selected].getID() > 29 && inventory[selected].getID() < 50) {
 				seedCropCount -= amt;
 				if(seedCropCount <= 0) {
-					Game.badInventory = true;
+					Game.player.setBadInventory(true);
 				}
 			}
 		}
@@ -182,7 +190,7 @@ public class Inventory
 		if(ID > 29 && ID < 50) {
 			seedCropCount -= count;
 			if(seedCropCount <= 0) {
-				Game.badInventory = true;
+				Game.player.setBadInventory(true);
 			}
 		}
 		

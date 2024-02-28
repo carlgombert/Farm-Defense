@@ -14,7 +14,6 @@ import controller.objectHandling.ID;
 import model.GameObject;
 import model.Sound;
 import model.gameObjects.NPC;
-import model.gameObjects.Player;
 import model.gameObjects.Projectile;
 import model.gameObjects.Turret;
 import view.fullMenu.DeathMenu;
@@ -26,10 +25,7 @@ import view.map.LightManager;
  * The KeyInput class handles the mouse and key input from the user.
  */
 public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionListener, ActionListener
-{
-	
-	private Player player;
-	
+{	
 	private boolean canShoot = true;
 	private boolean canReload = true;
 	
@@ -44,15 +40,15 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	private int mouseX;
 	private int mouseY;
 	
-	public KeyInput() 
-	{
-		this.player = Game.player;
-	}
+	public KeyInput() {}
 	
 	public void mouseClicked(MouseEvent e) {
 		
 	}
 	
+	/**
+     * After mouse release, Resets flags for various actions to allow them in the next frame.
+     */
 	public void mouseReleased(MouseEvent e) 
 	{
 		canShoot = true;
@@ -66,21 +62,21 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	public void mousePressed(MouseEvent e) 
 	{
 		if(Game.gamestate == GameState.Running) {
-			if (player.getWeaponState() == player.stateGun()) // only shoots if the player's weapon state is 'Gun'
+			if (Game.player.getWeaponState() == Game.player.stateGun()) // only shoots if the Game.player's weapon state is 'Gun'
 			{
-				if (canShoot == true && player.getAmmo() != 0)
+				if (canShoot == true && Game.player.getAmmo() != 0)
 				{
-					int offset = 35; // for some reason getWorldX/Y is offset from the player, this counteracts that
+					int offset = 35; // for some reason getWorldX/Y is offset from the Game.player, this counteracts that
 					
 					// creates spawn variables for where the bullet should spawn
-					int spawnx = player.getWorldX() + offset;
-					int spawny = player.getWorldY() + offset;
+					int spawnx = Game.player.getWorldX() + offset;
+					int spawny = Game.player.getWorldY() + offset;
 					
-					// calculates the mouse X and Y relative to the player
-					mouseX = (e.getX() - player.getScreenX() - offset);
-					mouseY = (e.getY() - player.getScreenY() - offset);
+					// calculates the mouse X and Y relative to the Game.player
+					mouseX = (e.getX() - Game.player.getScreenX() - offset);
+					mouseY = (e.getY() - Game.player.getScreenY() - offset);
 					
-					// calculates the angle between the player and the current mouse location
+					// calculates the angle between the Game.player and the current mouse location
 					double angle = Math.atan2(mouseY, mouseX); // atan2 seems to work better than atan, idk why
 		
 					// create bullet
@@ -88,11 +84,11 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 					Sound.pistolSound();
 					Game.handler.addObject(bullet);
 					
-					canShoot = false; // prevents the player from being able to shoot infinitely fast by holding down the mouse button
-					player.setAmmo(player.getAmmo() - 1); // remove 1 from the player's ammo
+					canShoot = false; // prevents the Game.player from being able to shoot infinitely fast by holding down the mouse button
+					Game.player.setAmmo(Game.player.getAmmo() - 1); // remove 1 from the Game.player's ammo
 				}
 			}
-			else if (player.getWeaponState() == player.stateBuild() && canBuild)
+			else if (Game.player.getWeaponState() == Game.player.stateBuild() && canBuild)
 			{
 				canBuild = false;
 				
@@ -102,7 +98,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				// tells buildingManager to create a building
 				Game.buildingManager.createBuilding();
 			}
-			else if (player.getWeaponState() == player.stateTilling() && canFarm)
+			else if (Game.player.getWeaponState() == Game.player.stateTilling() && canFarm)
 			{
 				canFarm = false;
 				
@@ -112,7 +108,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				// tells farmingManager to create a farmland tile
 				Game.farmingManager.tillFarmland();
 			}
-			else if (player.getWeaponState() == player.statePlanting() && canPlant)
+			else if (Game.player.getWeaponState() == Game.player.statePlanting() && canPlant)
 			{
 				canPlant = false;
 				
@@ -122,7 +118,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				// tells farmingManager to plant a seed on selected farmland tile
 				Game.farmingManager.plantSeed();
 			}
-			else if (player.getWeaponState() == player.stateTurret() && canTurret)
+			else if (Game.player.getWeaponState() == Game.player.stateTurret() && canTurret)
 			{
 				canTurret = false;
 				
@@ -142,13 +138,13 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				
 				Game.inventory.minusItem(1);
 			}
-			else if (player.getWeaponState() == player.stateTorch() && canTorch)
+			else if (Game.player.getWeaponState() == Game.player.stateTorch() && canTorch)
 			{
 				canTorch = false;
 				
 				LightManager.addLight(
-						e.getX() - player.getScreenX() + player.getWorldX(), 
-						e.getY() - player.getScreenY() + player.getWorldY());
+						e.getX() - Game.player.getScreenX() + Game.player.getWorldX(), 
+						e.getY() - Game.player.getScreenY() + Game.player.getWorldY());
 				
 				Game.inventory.minusItem(1);
 			}
@@ -169,19 +165,19 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		if(Game.gamestate == GameState.Running) {
 			int key = e.getKeyCode();
 				
-			if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W) player.setUp(-5);
-			if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) player.setDown(5);
-			if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) player.setLeft(-5);
-			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) player.setRight(5);
+			if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W) Game.player.setUp(-5);
+			if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) Game.player.setDown(5);
+			if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) Game.player.setLeft(-5);
+			if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) Game.player.setRight(5);
 			
-			if(key == KeyEvent.VK_R && canReload == true) // player reload
+			if(key == KeyEvent.VK_R && canReload == true) // Game.player reload
 			{
-				player.setAmmo(10);
+				Game.player.setAmmo(10);
 				canReload = false;
 				Sound.reloadSound();
 			}
 			
-			// checks the handler for NPCs within the player's hitbox, and sets their interaction boolean to true.
+			// checks the handler for NPCs within the Game.player's hitbox, and sets their interaction boolean to true.
 			// this allows us to handle what happens when the npc is interacted with within the npc object rather
 			// than in here.
 			if(key == KeyEvent.VK_E && !interactionBoolean)
@@ -210,8 +206,8 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				}
 			}
 			
-			if (key == KeyEvent.VK_F) Game.inventory.addItem(30, 5); // adds 5 carrot seeds to the players inventory (for now)
-			if (key == KeyEvent.VK_G) Game.inventory.addItem(20, 5); // adds 5 wood walls to the players inventory (for now)
+			if (key == KeyEvent.VK_F) Game.inventory.addItem(30, 5); // adds 5 carrot seeds to the Game.players inventory (for now)
+			if (key == KeyEvent.VK_G) Game.inventory.addItem(20, 5); // adds 5 wood walls to the Game.players inventory (for now)
 			if (key == KeyEvent.VK_H) Game.farmingManager.advanceAllStages(); // advances the stage of all the crops on the map (for now)
 			
 			
@@ -255,10 +251,10 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if((key == KeyEvent.VK_UP || key == KeyEvent.VK_W)) player.setUp(0);
-		if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) player.setDown(0);
-		if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) player.setLeft(0);
-		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) player.setRight(0);
+		if((key == KeyEvent.VK_UP || key == KeyEvent.VK_W)) Game.player.setUp(0);
+		if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) Game.player.setDown(0);
+		if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) Game.player.setLeft(0);
+		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) Game.player.setRight(0);
 		
 		if(key == KeyEvent.VK_R) canReload = true;
 		if(key == KeyEvent.VK_E) interactionBoolean = false;

@@ -29,6 +29,9 @@ import view.sideMenu.TurretMenu;
  * This class is the highest level of manager and the startpoint, inililizing 
  * every element of the game and containing the runtime algorithm which handles
  * the rendering of graphics and updating of object data
+ * 
+ * @author Carl Gombert
+ * @since 2024-01-28
  */
 public class Game extends Canvas implements Runnable{
 	
@@ -65,13 +68,6 @@ public class Game extends Canvas implements Runnable{
 	public static int nightTimer = 0;
 	
 	public static GameState gamestate = GameState.MainMenu;
-	
-	// the following are the 3 conditions for the player to go bankrupt. 
-	// noCoins will be changes by player, noCrops by farming manager and
-	// badInventory by inventory.
-	public static boolean noCoins = false; // not actually no coins but not enough to buy seeds
-	public static boolean badInventory = false; // if the player doesn't have seeds or crops
-	public static boolean noCrops = false; // if there aren't crops planted
 	
 	public enum GameState {
 		Paused(),
@@ -116,12 +112,18 @@ public class Game extends Canvas implements Runnable{
 		new Game();
 	}
 	
+	/**
+     * Starts the game loop by creating and starting a new thread.
+     */
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
 	
+	/**
+     * Stops the game loop by joining the thread.
+     */
 	public synchronized void stop() {
 		try {
 			thread.join();
@@ -131,6 +133,9 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+     * The main game loop responsible for updating and rendering the game.
+     */
 	public void run() {
 		this.requestFocus();
 		long lastTime = System.nanoTime();
@@ -161,7 +166,10 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	
-	// tick method updates data of in game objects
+	 /**
+     * Updates in-game objects' data
+     * Manages day/night cycle
+     */
 	private void tick() {
 		if(gamestate == GameState.Running) {
 			nightTimer++;
@@ -170,14 +178,14 @@ public class Game extends Canvas implements Runnable{
 				night = !night;
 				player.setHealth(400);
 			}
-			if(badInventory && (noCoins && noCrops)) { // check if the player is bankrupt
-				gamestate = GameState.Dead;
-			}
 			handler.tick();
 		}
 	}
 	
-	// render method displays in game objects on the screen
+	/**
+     * Renders in-game objects on the screen during the game.
+     * Manages different rendering states based on the game state.
+     */
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
@@ -197,9 +205,8 @@ public class Game extends Canvas implements Runnable{
 			// renders the highlight on the tiles when player is building/farming, needs to be rendered last (in terms of map renders)
 			mapHelper.render(g);
 			
-			//tileManager.renderNightFade(g);
 			LightManager.render(g);
-			//rendering handler renders all gameobjects
+			
 			handler.render(g);
 			
 			
@@ -211,7 +218,7 @@ public class Game extends Canvas implements Runnable{
 			}
 			
 			if(night) {
-				tileManager.renderNightConstant(g);
+				tileManager.renderNight(g);
 			}
 			
 			hud.render(g);

@@ -15,6 +15,17 @@ import util.ImageUtil;
 // im not gonna waste time commenting this file, so if u want to understand it ask me
 public class NPC extends GameObject
 {
+	private final int BOX_PADDING = Game.WIDTH / 68;
+	
+	private final Rectangle DIALOGUE_BOX = new Rectangle(Game.WIDTH / 20, Game.HEIGHT - 3 * (Game.HEIGHT / 10), Game.WIDTH - 2 * (Game.WIDTH / 20), 2 * (Game.HEIGHT / 10));
+	private final Rectangle OUTER_BOX = new Rectangle(DIALOGUE_BOX.x - BOX_PADDING, DIALOGUE_BOX.y - BOX_PADDING, DIALOGUE_BOX.width + (2 * BOX_PADDING), DIALOGUE_BOX.height + (2 * BOX_PADDING));
+	
+	private final int TEXT_X = DIALOGUE_BOX.x + DIALOGUE_BOX.height + BOX_PADDING*2;
+	private final int TEXT_Y = DIALOGUE_BOX.y + BOX_PADDING*3;
+	
+	private final Color DARK_BROWN = new Color(127, 72, 0);
+	private final Color LIGHT_BROWN = new Color(222, 160, 79);
+	
 	private boolean talking = false;
 	private boolean interaction = false;
 	
@@ -29,24 +40,6 @@ public class NPC extends GameObject
 	private int currLetter1 = 0;
 	private int currLetter2 = 0;
 	private int currLetter3 = 0;
-	
-	private int dialogueBoxX = Game.WIDTH / 20;
-	private int dialogueBoxY = Game.HEIGHT - 3 * (Game.HEIGHT / 10);
-	private int dialogueBoxWidth = Game.WIDTH - 2 * (Game.WIDTH / 20);
-	private int dialogueBoxHeight = 2 * (Game.HEIGHT / 10);
-	
-	private int boxPadding = Game.WIDTH / 68;
-	
-	private int outerBoxX = dialogueBoxX - boxPadding;
-	private int outerBoxY = dialogueBoxY - boxPadding;
-	private int outerBoxWidth = dialogueBoxWidth + (2 * boxPadding);
-	private int outerBoxHeight = dialogueBoxHeight + (2 * boxPadding);
-	
-	private int textX = dialogueBoxX + dialogueBoxHeight + boxPadding*2;
-	private int textY = dialogueBoxY + boxPadding*3;
-	
-	private Color darkBrown = new Color(127, 72, 0);
-	private Color lightBrown = new Color(222, 160, 79);
 	
 	public Image currImage;
 	public Image headshotImage;
@@ -132,18 +125,18 @@ public class NPC extends GameObject
 			if (talking)
 			{
 				// talking box
-				g.setColor(darkBrown);
-				g.fillRoundRect(outerBoxX, outerBoxY, outerBoxWidth, outerBoxHeight, boxPadding, boxPadding); // outer border
-				g.setColor(lightBrown);
-				g.fillRect(dialogueBoxX, dialogueBoxY, dialogueBoxWidth, dialogueBoxHeight); // inner text box
-				g.setColor(darkBrown);
-				g.fillRoundRect(outerBoxX, outerBoxY, dialogueBoxHeight + boxPadding*2, dialogueBoxHeight + boxPadding*2, boxPadding, boxPadding);
-				g.drawImage(headshotImage, dialogueBoxX, dialogueBoxY, dialogueBoxHeight, dialogueBoxHeight, null);
+				g.setColor(DARK_BROWN);
+				g.fillRoundRect(OUTER_BOX.x, OUTER_BOX.y, OUTER_BOX.width, OUTER_BOX.height, BOX_PADDING, BOX_PADDING); // outer border
+				g.setColor(LIGHT_BROWN);
+				g.fillRect(DIALOGUE_BOX.x, DIALOGUE_BOX.y, DIALOGUE_BOX.width, DIALOGUE_BOX.height); // inner text box
+				g.setColor(DARK_BROWN);
+				g.fillRoundRect(OUTER_BOX.x, OUTER_BOX.y, DIALOGUE_BOX.height + BOX_PADDING*2, DIALOGUE_BOX.height + BOX_PADDING*2, BOX_PADDING, BOX_PADDING);
+				g.drawImage(headshotImage, DIALOGUE_BOX.x, DIALOGUE_BOX.y, DIALOGUE_BOX.height, DIALOGUE_BOX.height, null);
 				g.setColor(Color.white);
-				g.setFont(new Font("TimesRoman", Font.PLAIN, dialogueBoxHeight / 4)); 
-				g.drawString(currDialogue1, textX, textY);
-				g.drawString(currDialogue2, textX, textY + dialogueBoxHeight / 4);
-				g.drawString(currDialogue3, textX, textY + 2*(dialogueBoxHeight / 4));
+				g.setFont(new Font("TimesRoman", Font.PLAIN, DIALOGUE_BOX.height / 4)); 
+				g.drawString(currDialogue1, TEXT_X, TEXT_Y);
+				g.drawString(currDialogue2, TEXT_X, TEXT_Y + DIALOGUE_BOX.height / 4);
+				g.drawString(currDialogue3, TEXT_X, TEXT_Y + 2*(DIALOGUE_BOX.height / 4));
 				g.setFont(null);
 			}
 		}

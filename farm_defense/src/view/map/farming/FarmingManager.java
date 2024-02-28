@@ -36,7 +36,7 @@ public class FarmingManager
 		loadCropStageMap();
 		getCropImage();
 		
-		Game.noCrops = true;
+		Game.player.setNoCrops(true);
 	}
 	
 	public void getCropImage()
@@ -160,7 +160,7 @@ public class FarmingManager
 			numCrops--;
 			
 			if(numCrops <= 0) {
-				Game.noCrops = true;
+				Game.player.setNoCrops(true);
 			}
 		}
 		
@@ -203,8 +203,8 @@ public class FarmingManager
 			Game.inventory.minusItem(1);
 			
 			// since a crop is added make sure the game knows the player has crops planted
-			if(Game.noCrops) {
-				Game.noCrops = false;
+			if(Game.player.isNoCrops()) {
+				Game.player.setNoCrops(false);
 			}
 			
 			numCrops++;

@@ -44,6 +44,13 @@ public class Player extends GameObject{
 	
 	private boolean locked = false; // used to lock the player in place for several reasons
 	
+	// the following are the 3 conditions for the player to go bankrupt. 
+	// noCoins will be changed by this, noCrops by farming manager and
+	// badInventory by inventory.
+	private boolean noCoins = false; // not actually no coins but not enough to buy seeds
+	private boolean badInventory = false; // if the player doesn't have seeds or crops
+	private boolean noCrops = false; // if there aren't crops planted
+	
 	public enum w_State // used to determine the weapon state of the player
 	{
 		Gun(),
@@ -144,10 +151,13 @@ public class Player extends GameObject{
 			Game.gamestate = GameState.Dead;
 		}
 		
-		if(coins < 50 && !Game.noCoins) {
-			Game.noCoins = true;
+		if(coins < 50 && !noCoins) {
+			noCoins = true;
 		}
 		
+		if(badInventory && (noCoins && noCrops)) { // check if the player is bankrupt
+			Game.gamestate = GameState.Dead;
+		}
 	}
 	
 	public void zombieCollision(GameObject zombie)
@@ -271,6 +281,30 @@ public class Player extends GameObject{
 
 	public void setCoins(int coins) {
 		this.coins = coins;
+	}
+
+	public boolean isNoCoins() {
+		return noCoins;
+	}
+
+	public void setNoCoins(boolean noCoins) {
+		this.noCoins = noCoins;
+	}
+
+	public boolean isBadInventory() {
+		return badInventory;
+	}
+
+	public void setBadInventory(boolean badInventory) {
+		this.badInventory = badInventory;
+	}
+
+	public boolean isNoCrops() {
+		return noCrops;
+	}
+
+	public void setNoCrops(boolean noCrops) {
+		this.noCrops = noCrops;
 	}
 }
 	

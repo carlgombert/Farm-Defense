@@ -182,50 +182,8 @@ public class TileManager {
 		}
 	}
 	
-	// filter to put over map. the map gets darker further from the player
-	public void renderNightFade (Graphics g) {
-		int col = 0;
-		int row = 0;
-		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
-			
-			int worldX = col * 48;
-			int worldY = row * 48;
-			
-			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
-			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
-			
-			// if the tile is outside of the players view, do not render.
-			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
-					worldX < Game.player.getWorldX() + Game.WIDTH &&
-					worldY > Game.player.getWorldY() - Game.HEIGHT &&
-					worldY < Game.player.getWorldY() + Game.HEIGHT) {
-				// set color to yellow with %50 opacity. this will create a warm glow around the player
-				Color color = new Color(225, 202, 0, 127);
-				g.setColor(color);
-				// overlay the yellow over the current tile
-				g.fillRect(screenX, screenY, 48, 48);
-				//create opacity for the dark brown tile that will get stronger the greater the distance the tile is
-				//from the player
-				int alpha = (int) MathUtil.Distance(worldX, worldY, Game.player.getWorldX(), Game.player.getWorldY()); 
-				//make sure alpha doesn't exceed limit
-				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 253);
-				color = new Color(27, 5, 0, alpha);
-				g.setColor(color);
-				//overlay dark brown over current tile
-				g.fillRect(screenX, screenY, 48, 48);
-			}
-			
-			col++;
-			
-			if (col == Game.MAP_COL) {
-				col = 0;
-				row++;
-			}
-		}
-	}
-	
-	// filter to put over map. the map is darker than normal
-	public void renderNightConstant (Graphics g) {
+	// filter to put over map at night
+	public void renderNight (Graphics g) {
 		int col = 0;
 		int row = 0;
 		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
@@ -242,14 +200,17 @@ public class TileManager {
 					worldY > Game.player.getWorldY() - Game.HEIGHT &&
 					worldY < Game.player.getWorldY() + Game.HEIGHT) {
 				
-				//set color to a dark brown with an opacity of %50
+				//get an opacity value for the tile relative to the distance from light
 				int alpha = LightManager.getLightDistance(col, row) * 50; 
-				//make sure alpha doesn't exceed limit
+				
+				//make sure opacity doesn't exceed limit
 				alpha = MathUtil.clamp((int)(alpha * 0.75), 0, 230);
 				
+				//create dark brown color with opacity
 				Color color = new Color(27, 5, 0, alpha);
 				g.setColor(color);
-				//pverlay the current tile with the color
+				
+				//overlay the current tile with the color
 				g.fillRect(screenX, screenY, 48, 48);
 			}
 			
