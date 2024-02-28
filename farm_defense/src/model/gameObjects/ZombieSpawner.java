@@ -2,8 +2,6 @@ package model.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.Random;
-
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
@@ -15,8 +13,6 @@ import util.MathUtil;
 public class ZombieSpawner extends GameObject
 {
 	private int spawnRate;
-	private Random random = new Random(); // random number generator
-	
 	private long lastSpawn;
 	private boolean spawn = true;
 	

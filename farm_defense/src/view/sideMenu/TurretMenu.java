@@ -5,13 +5,11 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import controller.Game;
-import model.TradeItem;
 import model.gameObjects.Turret;
 
 public class TurretMenu {
 public boolean visible = true;
 	
-	private Color darkBrown = new Color(127, 72, 0);
 	private Color lightBrown = new Color(222, 160, 79);
 	
 	private ArrayList<String> upgrades = new ArrayList<String>(); // list of upgrade options

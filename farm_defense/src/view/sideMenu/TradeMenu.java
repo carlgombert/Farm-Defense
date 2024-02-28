@@ -2,14 +2,7 @@ package view.sideMenu;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 import controller.Game;
 import model.TradeItem;
@@ -18,7 +11,6 @@ public class TradeMenu {
 	
 	private boolean visible = true;
 	
-	private Color darkBrown = new Color(127, 72, 0);
 	private Color lightBrown = new Color(222, 160, 79);
 	
 	private static ArrayList<TradeItem> items = new ArrayList<TradeItem>();

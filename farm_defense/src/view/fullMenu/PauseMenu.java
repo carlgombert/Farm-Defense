@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.stream.Collectors;
 
 import controller.Game;
 import controller.Game.GameState;
 import util.GraphicsUtil;
-import util.ImageUtil;
 import util.TxtFileUtil;
 
 public class PauseMenu {

@@ -18,7 +18,6 @@ import util.ImageUtil;
  */
 public class Projectile extends GameObject{
 		
-	private Color color = new Color(148, 141, 62);
 	protected double angle;
 	private int speed = 20;
 	

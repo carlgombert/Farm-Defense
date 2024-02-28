@@ -1,19 +1,11 @@
 package view.map.farming;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
 import java.net.URL;
 
 import controller.Game;
-import model.GameObject;
 import util.ImageUtil;
 import util.TxtFileUtil;
 
@@ -29,8 +21,6 @@ public class FarmingManager
 	private static int mouseWorldY;
 	
 	private BufferedImage farmlandImage;
-	
-	private String[] lines;
 	
 	private int numCrops = 0;
 	
@@ -119,7 +109,6 @@ public class FarmingManager
 		int col = 0;
 		int row = 0;
 		while (col < Game.MAP_COL && row < Game.MAP_ROW) {
-			int tileNum = mapFarmland[col][row];
 			
 			int worldX = col * 48;
 			int worldY = row * 48;

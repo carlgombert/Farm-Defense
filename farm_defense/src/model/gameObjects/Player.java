@@ -1,6 +1,5 @@
 package model.gameObjects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -14,7 +13,6 @@ import model.GameObject;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
-import view.map.tile.TileManager;
 
 /**
  * The Player class represents the user and contains all associated attributes
@@ -150,18 +148,6 @@ public class Player extends GameObject{
 			Game.noCoins = true;
 		}
 		
-	}
-	
-	private void collision() {
-		for(int i = 0; i < Game.handler.getObject().size(); i++) {
-			GameObject tempObject = Game.handler.getObject().get(i);
-			
-			if(getBounds().intersects(tempObject.getBounds())){
-				if(tempObject.getId() == ID.Zombie) {
-					// Zombie collision
-				}
-			}
-		}
 	}
 	
 	public void zombieCollision(GameObject zombie)
