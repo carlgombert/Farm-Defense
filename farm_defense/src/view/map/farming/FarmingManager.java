@@ -237,6 +237,19 @@ public class FarmingManager
 		}
 	}
 	
+	public void advanceAllStages(int increase)
+	{
+		for (int i = 0; i < 40; i++)
+		{
+			for (int j = 0; j < 40; j++)
+			{
+				if (mapCropStage[j][i] != 0 && mapCropStage[j][i] < 3) {
+					mapCropStage[j][i] = MathUtil.clamp(mapCropStage[j][i] + increase, 0, 3);
+				}
+			}
+		}
+	}
+	
 	/**
     * find the closest crop square to a given point
     *

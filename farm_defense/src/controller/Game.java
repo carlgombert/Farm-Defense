@@ -178,6 +178,7 @@ public class Game extends Canvas implements Runnable{
 				night = !night;
 				nightCount += 0.5;
 				player.setHealth(400);
+				farmingManager.advanceAllStages(3);
 			}
 			handler.tick();
 		}

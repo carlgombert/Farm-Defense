@@ -206,10 +206,6 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				}
 			}
 			
-			if (key == KeyEvent.VK_F) Game.inventory.addItem(30, 5); // adds 5 carrot seeds to the Game.players inventory (for now)
-			if (key == KeyEvent.VK_G) Game.inventory.addItem(20, 5); // adds 5 wood walls to the Game.players inventory (for now)
-			if (key == KeyEvent.VK_H) Game.farmingManager.advanceAllStages(); // advances the stage of all the crops on the map (for now)
-			
 			
 			if(Game.tm.isVisible() && !Game.night) { //if trade menu is open, number key bindings swap to buying items
 				if (key == KeyEvent.VK_1) Game.tm.buy(1);;
