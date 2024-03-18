@@ -12,6 +12,12 @@ public class LightManager {
 	private static ArrayList<int[]> lightPositions = new ArrayList<int[]>();
 	private static BufferedImage torch = ImageUtil.addImage(48, 48, "resources/tiles/torch.png");
 	
+	/**
+    * add a light to the map
+    *
+    * @param  x x coordinate of light position
+    * @param  y y coordinate of light position
+    */
 	public static void addLight(int worldX, int worldY) {
 		lightPositions.add(new int[]{(worldX-worldX%48)/48, (worldY-worldY%48)/48});
 	}
@@ -35,6 +41,13 @@ public class LightManager {
 		}
 	}
 	
+	/**
+    * find the closest light to a given point
+    *
+    * @param  x x coordinate of given point (given as tile coordinate)
+    * @param  y y coordinate of given point (given as tile coordinate)
+    * @return         returns the distance of the closest light
+    */
 	public static int getLightDistance(int x, int y) {
 		int distance = Game.MAP_COL;
 		for(int i = 0; i < lightPositions.size(); i++) {

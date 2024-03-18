@@ -63,11 +63,12 @@ public class Game extends Canvas implements Runnable{
 	public static TurretMenu turm;
 	
 	public static boolean night;
-	public static int nightTimer = 0;
-	public static double nightCount = 30;
+	public static int nightTimer = 9000;
+	public static double nightCount = 0;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
+	// options for the current state of the game
 	public enum GameState {
 		Paused(),
 		Running(),

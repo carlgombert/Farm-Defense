@@ -1,12 +1,14 @@
 package view.map.farming;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.net.URL;
 
 import controller.Game;
 import util.ImageUtil;
+import util.MathUtil;
 import util.TxtFileUtil;
 
 public class FarmingManager 
@@ -232,6 +234,48 @@ public class FarmingManager
 					mapCropStage[j][i] =  mapCropStage[j][i] + 1;
 				}
 			}
+		}
+	}
+	
+	/**
+    * find the closest crop square to a given point
+    *
+    * @param  x x coordinate of given point
+    * @param  y y coordinate of given point
+    * @return         returns a rectangle representing the position of the closest crop
+    */
+	public static Rectangle closestCrop(int x, int y) {
+		
+		double minDistance = 4000;
+		int minRow = -1;
+		int minCol = -1;
+		
+		for(int row = 0; row < mapCropStage.length; row++) {
+			for(int col = 0; col < mapCropStage[row].length; col++) {
+				if(mapCropStage[row][col] != 0) {
+					double distance = MathUtil.Distance(x, y, row*48+24, col*48+24);
+					if(distance < minDistance) {
+						minDistance = distance;
+						minRow = row;
+						minCol = col;
+					}
+				}
+			}
+		}
+		if(minDistance == 4000) {
+			return null;
+		}
+		return new Rectangle(minRow*48, minCol*48, 48, 48);
+	}
+	
+	public static void attackCrop(int x, int y) {
+		int row = x/48;
+		int col = y/48;
+		if(mapCropStage[row][col] != 0) {
+			mapCropStage[row][col] = mapCropStage[row][col] - 1;
+		}
+		else {
+			System.out.println("wrong tile");
 		}
 	}
 	

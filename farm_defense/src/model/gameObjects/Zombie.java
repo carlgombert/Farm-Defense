@@ -12,6 +12,7 @@ import model.GameObject;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
+import view.map.farming.FarmingManager;
 
 /**
  * The Zombie class represents the main enemy in the game. The zombie will move in the direction
@@ -29,11 +30,17 @@ public class Zombie extends GameObject{
 	private int stepTimer = 0;
 	private int step = 0;
 	
+	private int eatTimer = 0;
+	
 	private double targetAngle;
 	
 	private double speed = 1;
 	private double doubleSpeedX; // double versions of speedx & y
 	private double doubleSpeedY;
+	
+	private boolean cropSeeking = false;
+	private boolean cropEating = false;
+	
 
 	public Zombie(int x, int y, ID id) {
 		super(x, y, id);
@@ -54,6 +61,10 @@ public class Zombie extends GameObject{
 		speed = 1 + Game.nightCount/10;
 		health = 10 + 2*Game.nightCount;
 		
+		if(MathUtil.randomNumber(0, 100) < 50) {
+			cropSeeking = true;
+		}
+		
 	}
 
 	public void tick() 
@@ -69,26 +80,72 @@ public class Zombie extends GameObject{
 		TileUtil.checkTileCollision(this);
 		Game.buildingManager.checkBuildingCollision(this);
 		
+		
+		int targetX = Game.player.getWorldX();
+		int targetY = Game.player.getWorldY();
+		
+		if(cropSeeking && !cropEating) {
+			Rectangle targetCrop = FarmingManager.closestCrop(worldX, worldY);
+			if(targetCrop != null) {
+				targetX = targetCrop.x-24;
+				targetY = targetCrop.y-24;
+			}
+			else {
+				cropSeeking = false;
+				cropEating = false;
+			}
+			if(MathUtil.Distance(worldX, worldY, targetX, targetY) == 0) {
+				cropSeeking = false;
+				cropEating = true;
+			}
+		}
+		
+		if(cropEating && !cropSeeking) {
+			Rectangle targetCrop = FarmingManager.closestCrop(worldX, worldY);
+			if(targetCrop == null) {
+				cropSeeking = true;
+				cropEating = false;
+			}
+			else if(MathUtil.Distance(worldX, worldY, targetCrop.x-24, targetCrop.y-24) != 0) {
+				cropSeeking = true;
+				cropEating = false;
+			}
+			else {
+				eatTimer++;
+				if(eatTimer > 15) {
+					FarmingManager.attackCrop(worldX+24, worldY+24);
+					eatTimer = 0;
+				}
+			}
+		}
+		
 		// if the zombie is in the same x plane as the character, the angle between
 		// points function will try to divide by zero
-		if (this.getWorldX() == Game.player.getWorldX() && !YtileCollision)
-		{
-			doubleSpeedX = 0;
-			doubleSpeedY = speed * Math.signum(Game.player.getWorldY() - this.getWorldY());
-			worldY += speedY;
-		}
-		else // finds closest angle to a player, will probably add another 
-		{
-			targetAngle = MathUtil.angleBetweenPoints(this.getWorldX(), this.getWorldY(), Game.player.getWorldX(), Game.player.getWorldY());
-					
-			doubleSpeedX = (speed * Math.cos(targetAngle));
-			doubleSpeedY = (speed * Math.sin(targetAngle));
+		if(!cropEating) {
+			if (this.getWorldX() == targetX && !YtileCollision && !cropSeeking)
+			{
+				doubleSpeedX = 0;
+				doubleSpeedY = speed * Math.signum(targetY - this.getWorldY());
+				worldY += speedY;
+			}
+			else // finds closest angle to a player, will probably add another 
+			{
+				targetAngle = MathUtil.angleBetweenPoints(this.getWorldX(), this.getWorldY(), targetX, targetY);
+				
 						
-			speedX = (int)Math.round(doubleSpeedX);
-			speedY = (int)Math.round(doubleSpeedY);
-			
-			if (!XtileCollision) worldX += speedX;
-			if (!YtileCollision) worldY += speedY;
+				doubleSpeedX = (speed * Math.cos(targetAngle));
+				doubleSpeedY = (speed * Math.sin(targetAngle));
+							
+				speedX = (int)Math.round(doubleSpeedX);
+				speedY = (int)Math.round(doubleSpeedY);
+				
+				if (!XtileCollision) worldX += speedX;
+				if (!YtileCollision) worldY += speedY;
+			}
+		}
+		else {
+			speedX = 0;
+			speedY = 0;
 		}
 		
 		if ((speedX != 0 || speedY != 0)) 

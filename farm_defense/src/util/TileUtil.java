@@ -18,11 +18,6 @@ public class TileUtil {
 		int objectTopWorldY = object.getWorldY() + object.getBounds().y - object.getScreenY();
 		int objectBottomWorldY = object.getWorldY() + object.getBounds().y + object.getBounds().height - object.getScreenY();
 		
-		//int objectLeftWorldX = object.getWorldX() + object.getSize().x;
-        //int objectRightWorldX = object.getWorldX() + object.getSize().x + object.getSize().width;
-        //int objectTopWorldY = object.getWorldY() + object.getSize().y;
-        //int objectBottomWorldY = object.getWorldY() + object.getSize().y + object.getSize().height;
-
         int objectLeftCol = objectLeftWorldX / Game.TILE_SIZE;
         int objectRightCol = objectRightWorldX / Game.TILE_SIZE;
         int objectTopRow = objectTopWorldY / Game.TILE_SIZE;

@@ -11,6 +11,14 @@ import javax.imageio.ImageIO;
  */
 public class ImageUtil {
 	
+	/**
+    * creates an image with the given file
+    *
+    * @param  width width of the image
+    * @param  height height of the image
+    * @param  file path to image file starting with the root of the src package
+    * @return 	returns image created from file
+    */
 	public static BufferedImage addImage(int width, int height, String file) {
 		BufferedImage image = null;
 		try {
