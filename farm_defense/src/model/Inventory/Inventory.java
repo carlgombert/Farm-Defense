@@ -30,6 +30,7 @@ public class Inventory
 		addItem(20, 5, 6);
 		addItem(50, 5);
 		addItem(51, 5);
+		addItem(21, 500);
 		
 		setSelected(0);
 	}
@@ -46,11 +47,12 @@ public class Inventory
 		itemImages[10] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_sword.png");
 		
 		// ids in the 20s will be walls
-		itemImages[20] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_wall_wood.png");
+		itemImages[20] = ImageUtil.addImage(16, 16, "resources/inventory/walls/inventory_wall_wood.png");
+		itemImages[21] = ImageUtil.addImage(16, 16, "resources/inventory/walls/inventory_wall_stone.png");
 		
 		// ids in the 30s will be seeds
-		itemImages[30] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_seeds_carrot.png");
-		itemImages[31] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_seeds_corn.png");
+		itemImages[30] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_carrot.png");
+		itemImages[31] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_corn.png");
 		
 		// ids in the 40s will be grown crops
 		itemImages[40] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_carrot.png");

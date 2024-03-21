@@ -11,6 +11,7 @@ import model.Sound;
 import model.Inventory.Inventory;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
+import model.gameObjects.Zombie;
 import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
@@ -90,6 +91,7 @@ public class Game extends Canvas implements Runnable{
 		inventory = new Inventory();
 		
 		handler.addObject(new NPC(48*15, 48*20, ID.NPC));
+		handler.addObject(new Zombie(48*15, 48*20, ID.Zombie));
 		
 		tm = new TradeMenu();
 		
