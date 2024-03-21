@@ -103,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 		farmingManager = new FarmingManager();
 		mapHelper = new MapEditorHelper();
 		
-		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
+		handler.addObject(new ZombieSpawner(2, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}

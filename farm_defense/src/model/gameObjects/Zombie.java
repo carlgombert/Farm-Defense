@@ -124,12 +124,12 @@ public class Zombie extends GameObject{
 		
 		// if the zombie is in the same x plane as the character, the angle between
 		// points function will try to divide by zero
-		if(!cropEating) {
+		if(!cropEating) 
+		{
 			if (this.getWorldX() == targetX && !YtileCollision && !cropSeeking)
 			{
 				doubleSpeedX = 0;
 				doubleSpeedY = speed * Math.signum(targetY - this.getWorldY());
-				worldY += speedY;
 			}
 			else // finds closest angle to a player, will probably add another 
 			{
@@ -138,30 +138,24 @@ public class Zombie extends GameObject{
 						
 				doubleSpeedX = (speed * Math.cos(targetAngle));
 				doubleSpeedY = (speed * Math.sin(targetAngle));
-							
-				speedX = (int)Math.round(doubleSpeedX);
-				speedY = (int)Math.round(doubleSpeedY);
-				
-				if (!XtileCollision) worldX += speedX;
-				if (!YtileCollision) worldY += speedY;
 			}
+			speedX = (int)Math.round(doubleSpeedX);
+			speedY = (int)Math.round(doubleSpeedY);
 		}
-		else {
+		else 
+		{
 			speedX = 0;
 			speedY = 0;
 		}
 		
-		speedX = (int)Math.round(doubleSpeedX);
-		speedY = (int)Math.round(doubleSpeedY);
-		
 		TileUtil.checkTileCollision(this);
 		Game.buildingManager.checkBuildingCollision(this);
 		
-		if (!XtileCollision && !destroyingBuilding)
+		if (!XtileCollision && !destroyingBuilding && !cropEating)
 			{
 				worldX += speedX;
 			}
-		if (!YtileCollision && !destroyingBuilding) 
+		if (!YtileCollision && !destroyingBuilding && !cropEating) 
 			{
 				worldY += speedY;
 			}
