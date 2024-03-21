@@ -1,5 +1,6 @@
 package model.gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -41,6 +42,10 @@ public class Zombie extends GameObject{
 	private boolean cropSeeking = false;
 	private boolean cropEating = false;
 	
+	private boolean destroyingBuilding = false;
+	private int destroyBuildingCol;
+	private int destroyBuildingRow;
+	private long destroyBuildingCounter = 0;
 
 	public Zombie(int x, int y, ID id) {
 		super(x, y, id);
@@ -77,8 +82,6 @@ public class Zombie extends GameObject{
 		
 		XtileCollision = false;
 		YtileCollision = false;
-		TileUtil.checkTileCollision(this);
-		Game.buildingManager.checkBuildingCollision(this);
 		
 		
 		int targetX = Game.player.getWorldX();
@@ -148,7 +151,37 @@ public class Zombie extends GameObject{
 			speedY = 0;
 		}
 		
-		if ((speedX != 0 || speedY != 0)) 
+		speedX = (int)Math.round(doubleSpeedX);
+		speedY = (int)Math.round(doubleSpeedY);
+		
+		TileUtil.checkTileCollision(this);
+		Game.buildingManager.checkBuildingCollision(this);
+		
+		if (!XtileCollision && !destroyingBuilding)
+			{
+				worldX += speedX;
+			}
+		if (!YtileCollision && !destroyingBuilding) 
+			{
+				worldY += speedY;
+			}
+		
+		if (destroyingBuilding)
+		{
+			if (destroyBuildingCounter == 0) destroyBuildingCounter = System.currentTimeMillis();
+			
+			if (destroyBuildingCounter + 2000 < System.currentTimeMillis())
+			{
+				Game.buildingManager.damageBuilding(destroyBuildingCol, destroyBuildingRow, 10);
+				destroyBuildingCounter = System.currentTimeMillis();
+			}
+		}
+		else
+		{
+			destroyBuildingCounter = 0;
+		}
+		
+		if ((speedX != 0 || speedY != 0) && !destroyingBuilding) 
 		{
 			stepTimer++;
 			if(stepTimer > 10) {
@@ -188,7 +221,7 @@ public class Zombie extends GameObject{
 			g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 			
 			//show hitbox
-			//g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+			g.setColor(Color.white); g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 		
 	}
@@ -215,6 +248,23 @@ public class Zombie extends GameObject{
 	
 	public int getSpeedY() {
 		return speedY;
+	}
+	
+	public void setDestroyingBuilding(boolean b, int col, int row)
+	{
+		destroyingBuilding = b;
+		
+		
+		if (destroyingBuilding)
+		{
+			destroyBuildingCol = col;
+			destroyBuildingRow = row;
+		}
+	}
+	
+	public boolean getDestroyingBuilding()
+	{
+		return destroyingBuilding;
 	}
 
 	@Override

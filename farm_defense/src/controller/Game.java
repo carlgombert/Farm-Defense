@@ -11,6 +11,7 @@ import model.Sound;
 import model.Inventory.Inventory;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
+import model.gameObjects.Zombie;
 import view.HUD;
 import view.MapEditorHelper;
 import view.Window;

@@ -96,7 +96,7 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				Game.buildingManager.setMouseY(e.getY());
 				
 				// tells buildingManager to create a building
-				Game.buildingManager.createBuilding();
+				Game.buildingManager.createBuilding(Game.inventory.getCurrentID());
 			}
 			else if (Game.player.getWeaponState() == Game.player.stateTilling() && canFarm)
 			{
