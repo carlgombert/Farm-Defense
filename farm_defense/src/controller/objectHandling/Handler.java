@@ -14,6 +14,7 @@ import model.gameObjects.Zombie;
 public class Handler {
 	
 	private LinkedList<GameObject> object = new LinkedList<GameObject>();
+	private int zombiesKilled;
 	
 	public void tick() {
 		for(int i = 0; i < getObject().size(); i++) {
@@ -40,6 +41,9 @@ public class Handler {
 	}
 	
 	public void removeObject(GameObject removedObject) {
+		if(removedObject.getId() == ID.Zombie) {
+			zombiesKilled++;
+		}
 		this.getObject().remove(removedObject);
 	}
 
@@ -49,5 +53,13 @@ public class Handler {
 
 	public void setObject(LinkedList<GameObject> object) {
 		this.object = object;
+	}
+
+	public int getZombiesKilled() {
+		return zombiesKilled;
+	}
+
+	public void setZombiesKilled(int zombiesKilled) {
+		this.zombiesKilled = zombiesKilled;
 	}
 }

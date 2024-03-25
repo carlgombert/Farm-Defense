@@ -23,6 +23,11 @@ public class DeathMenu {
 		
 		g.setColor(new Color(214, 56, 100));
 		g.setFont(Game.DEFAULT_FONT);
+		
+		g.drawString("Total coins earned: " + Game.player.getCoinsEarned(), (Game.WIDTH/2)-170, Game.HEIGHT/4+160);
+		
+		g.drawString("Zombies killed: " + Game.handler.getZombiesKilled(), (Game.WIDTH/2)-170, Game.HEIGHT/4+180);
+		
 		g.drawString("return to menu", menuButton.x+50, menuButton.y+23);
 	}
 	

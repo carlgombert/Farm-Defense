@@ -16,6 +16,7 @@ import model.Sound;
 import model.gameObjects.NPC;
 import model.gameObjects.Projectile;
 import model.gameObjects.Turret;
+import view.fullMenu.BankruptMenu;
 import view.fullMenu.DeathMenu;
 import view.fullMenu.MainMenu;
 import view.fullMenu.PauseMenu;
@@ -159,6 +160,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		if(Game.gamestate == GameState.Dead) {
 			DeathMenu.checkButton(e.getX(), e.getY());
 		}
+		if(Game.gamestate == GameState.Bankrupt) {
+			BankruptMenu.checkButton(e.getX(), e.getY());
+		}
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -236,10 +240,6 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				if (key == KeyEvent.VK_8) Game.inventory.setSelected(7);;
 				if (key == KeyEvent.VK_9) Game.inventory.setSelected(8);;
 				if (key == KeyEvent.VK_0) Game.inventory.setSelected(9);;
-			}
-				
-			if(key == KeyEvent.VK_ESCAPE) {
-				System.exit(1);
 			}
 		}
 	}

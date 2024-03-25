@@ -30,7 +30,8 @@ public class Player extends GameObject{
 	
 	private int health = 400;
 	
-	private int coins = 10000;
+	private int coins = 00;
+	private int coinsEarned = 0;
 	
 	// variables used when get hit by a zombie
 	private boolean hitByZombie = false;
@@ -156,7 +157,7 @@ public class Player extends GameObject{
 		}
 		
 		if(badInventory && (noCoins && noCrops)) { // check if the player is bankrupt
-			Game.gamestate = GameState.Dead;
+			Game.gamestate = GameState.Bankrupt;
 		}
 	}
 	
@@ -280,6 +281,8 @@ public class Player extends GameObject{
 	}
 
 	public void setCoins(int coins) {
+		setCoinsEarned(getCoinsEarned() - this.coins);
+		setCoinsEarned(getCoinsEarned() + coins);
 		this.coins = coins;
 	}
 
@@ -305,6 +308,14 @@ public class Player extends GameObject{
 
 	public void setNoCrops(boolean noCrops) {
 		this.noCrops = noCrops;
+	}
+
+	public int getCoinsEarned() {
+		return coinsEarned;
+	}
+
+	public void setCoinsEarned(int coinsEarned) {
+		this.coinsEarned = coinsEarned;
 	}
 }
 	

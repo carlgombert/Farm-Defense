@@ -14,6 +14,7 @@ import model.gameObjects.Player;
 import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
+import view.fullMenu.BankruptMenu;
 import view.fullMenu.DeathMenu;
 import view.fullMenu.MainMenu;
 import view.fullMenu.PauseMenu;
@@ -73,7 +74,8 @@ public class Game extends Canvas implements Runnable{
 		Paused(),
 		Running(),
 		MainMenu(),
-		Dead()
+		Dead(),
+		Bankrupt()
 	}
 	
 	public Game() {
@@ -233,6 +235,9 @@ public class Game extends Canvas implements Runnable{
 		}
 		if(gamestate == GameState.Dead) {
 			DeathMenu.render(g);
+		}
+		if(gamestate == GameState.Bankrupt) {
+			BankruptMenu.render(g);
 		}
 		g.dispose();
 		bs.show();
