@@ -11,6 +11,7 @@ import model.Sound;
 import model.Inventory.Inventory;
 import model.gameObjects.NPC;
 import model.gameObjects.Player;
+import model.gameObjects.Zombie;
 import view.HUD;
 import view.MapEditorHelper;
 import view.Window;
@@ -104,7 +105,7 @@ public class Game extends Canvas implements Runnable{
 		farmingManager = new FarmingManager();
 		mapHelper = new MapEditorHelper();
 		
-		handler.addObject(new ZombieSpawner(10, ID.ZombieSpawner));
+		handler.addObject(new ZombieSpawner(2, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}

@@ -1,4 +1,3 @@
 # Farm Defense (In Progress)
-
-## Progress video 2/22/24
-[<img src="https://github.com/carlgombert/Farm-Defense/blob/main/screenshots/Screenshot%202024-02-22.png" width="50%">](https://youtu.be/ssrpH2ZOoDk)
+Built by [Carl Gombert](https://github.com/carlgombert) and [Zander McGinley](https://github.com/zandermmcg).  
+2D base defense and farming game written in Java.  

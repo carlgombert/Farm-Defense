@@ -1,5 +1,6 @@
 package view.map.building;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -10,7 +11,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import controller.Game;
+import controller.objectHandling.ID;
 import model.GameObject;
+import model.gameObjects.Zombie;
 import util.ImageUtil;
 
 public class BuildingManager 
@@ -18,6 +21,7 @@ public class BuildingManager
 	private static Building[] building;
 	private static int mapBuildingNum[][];
 	private static int mapRotationNum[][];
+	private static int mapHealthNum[][];
 	
 	private static int mouseX;
 	private static int mouseY;
@@ -39,6 +43,7 @@ public class BuildingManager
 		building = new Building[20];
 		mapBuildingNum = new int[Game.MAP_COL][Game.MAP_ROW];
 		mapRotationNum = new int[Game.MAP_COL][Game.MAP_ROW];
+		mapHealthNum = new int[Game.MAP_COL][Game.MAP_ROW];
 		
 		// resets the building map, deleting this will save the player's buildings across games
 		resetBuildingMap();
@@ -48,50 +53,86 @@ public class BuildingManager
 		getBuildingImage();
 	}
 	
+	/*  
+	 *  creates new building based on the id of the building seen in the .txt file
+	 *
+	 *  different images (image0, image1, etc) for the same building corresponds to different
+	 *  rotations of the building
+	 *
+	 *  setConnections sets the amount of other buildings that this building is connected to
+	 *  useful for other calculations in the future
+	 */
 	public void getBuildingImage()
 	{
-		/*  
-		 *  creates new building based on the id of the building seen in the .txt file
-		 *
-		 *  different images (image0, image1, etc) for the same building corresponds to different
-		 *  rotations of the building
-		 *
-		 *  setConnections sets the amount of other buildings that this building is connected to
-		 *  useful for other calculations in the future
-		 */
+		// wood buildings
 		building [1] = new Building();
-		building [1].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_0.png"));
-		building [1].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_1.png"));
-		building [1].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_2.png"));
-		building [1].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_1_3.png"));
+		building [1].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_1_0.png"));
+		building [1].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_1_1.png"));
+		building [1].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_1_2.png"));
+		building [1].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_1_3.png"));
 		building [1].setConnections(1);
 		
 		building [2] = new Building();
-		building [2].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_0.png"));
-		building [2].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_1.png"));
-		building [2].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_2.png"));
-		building [2].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_2_3.png"));
+		building [2].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_2_0.png"));
+		building [2].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_2_1.png"));
+		building [2].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_2_2.png"));
+		building [2].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_2_3.png"));
 		building [2].setConnections(2);
 		
 		building [3] = new Building();
-		building [3].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_0.png"));
-		building [3].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_1.png"));
-		building [3].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_2.png"));
-		building [3].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_3_3.png"));
+		building [3].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_3_0.png"));
+		building [3].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_3_1.png"));
+		building [3].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_3_2.png"));
+		building [3].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_3_3.png"));
 		building [3].setConnections(3);
 		
 		building [4] = new Building();
-		building [4].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_4.png"));
+		building [4].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_4.png"));
 		building [4].setConnections(4);
 		
 		building [5] = new Building();
-		building [5].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_corner_0.png"));
+		building [5].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_corner_0.png"));
 		building [5].setConnections(0);
 		
 		building [6] = new Building();
-		building [6].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wall_side_0.png"));
-		building [6].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wall_side_1.png"));
+		building [6].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_side_0.png"));
+		building [6].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/wood/wall_side_1.png"));
 		building [6].setConnections(2);
+		
+		// stone buildings
+		building [11] = new Building();
+		building [11].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_1_0.png"));
+		building [11].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_1_1.png"));
+		building [11].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_1_2.png"));
+		building [11].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_1_3.png"));
+		building [11].setConnections(1);
+		
+		building [12] = new Building();
+		building [12].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_2_0.png"));
+		building [12].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_2_1.png"));
+		building [12].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_2_2.png"));
+		building [12].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_2_3.png"));
+		building [12].setConnections(2);
+		
+		building [13] = new Building();
+		building [13].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_3_0.png"));
+		building [13].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_3_1.png"));
+		building [13].setImage2(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_3_2.png"));
+		building [13].setImage3(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_3_3.png"));
+		building [13].setConnections(3);
+		
+		building [14] = new Building();
+		building [14].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_4.png"));
+		building [14].setConnections(4);
+		
+		building [15] = new Building();
+		building [15].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_corner_0.png"));
+		building [15].setConnections(0);
+		
+		building [16] = new Building();
+		building [16].setImage0(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_side_0.png"));
+		building [16].setImage1(ImageUtil.addImage(48, 48, "resources/buildings/stone/wall_stone_side_1.png"));
+		building [16].setConnections(2);
 	}
 	
 	// loads mapBuildingNum[][] with the building numbers from the buildingmap.txt file
@@ -149,6 +190,33 @@ public class BuildingManager
 		}
 	}
 	
+	public void loadBuildingHealth()
+	{
+		try 
+		{
+			URL url = getClass().getClassLoader().getResource("resources/maps/buildinghealthmap.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+			int col = 0;
+			int row = 0;
+			while (col < Game.MAP_COL && row < Game.MAP_ROW) {
+				String line = br.readLine();
+				while (col < Game.MAP_COL) {
+					String numbers[] = line.split("\t");
+					int num = Integer.parseInt (numbers[col]);
+					mapHealthNum[col][row] = num;
+					col++;
+				}
+				if (col == Game.MAP_COL) {
+					col = 0;
+					row++;
+				}
+			}
+			br.close () ;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
 	public void render (Graphics g) {
 		int col = 0;
 		int row = 0;
@@ -178,6 +246,26 @@ public class BuildingManager
 				if (rotation == 3) image = building[tileNum].getImage3();
 				
 				g.drawImage(image, screenX, screenY, 48, 48, null);
+				
+				int buildingMaxHealth = mapHealthNum[col][row];
+				
+				switch (getBuildingID(mapBuildingNum[col][row]))
+				{
+					case 20:
+						buildingMaxHealth = 30;
+						break;
+					case 21:
+						buildingMaxHealth = 50;
+						break;
+				}
+				
+				if (mapHealthNum[col][row] > 0 && mapHealthNum[col][row] != buildingMaxHealth)
+				{	
+					g.setColor(Color.red);
+					g.fillRect(screenX + (Game.TILE_SIZE / 8), screenY + (int)(Game.TILE_SIZE * (3.0/4.0)), (int)(Game.TILE_SIZE * (3.0/4.0)), 4);
+					g.setColor(Color.green);
+					g.fillRect(screenX + (Game.TILE_SIZE / 8), screenY + (int)(Game.TILE_SIZE * (3.0/4.0)), (int)((mapHealthNum[col][row] / (double)buildingMaxHealth) * (Game.TILE_SIZE * (3.0/4.0))), 4);
+				}
 			}
 			
 			col++;
@@ -190,7 +278,7 @@ public class BuildingManager
 	}
 	
 	// creates a building based on where the mouse is on the screen
-	public void createBuilding()
+	public void createBuilding(int id)
 	{
 		// reverts the screen mouse coordinates to world coordinates 
 		mouseWorldX = mouseX + Game.player.getWorldX() - Game.player.getScreenX();
@@ -203,11 +291,22 @@ public class BuildingManager
 		// checks to make sure the tile that the player is trying to build on is empty (no building, no farmland)
 		if (mapBuildingNum[col][row] == 0 && Game.farmingManager.getFarmland()[col][row] == 0)
 		{
+			// set the building's health
+			switch (Game.inventory.getCurrentID())
+			{
+				case 20:
+					mapHealthNum[col][row] = 30;
+					break;
+				case 21:
+					mapHealthNum[col][row] = 50;
+					break;
+			}
+			
 			// subtract 1 from the num of buildings in the player's inventory
 			Game.inventory.minusItem(1);
 				
 			// calculates what the building should be based on what the buildings are around it
-			recalculateTile(col, row);
+			recalculateTile(col, row, id);
 		}
 	}
 	
@@ -218,7 +317,7 @@ public class BuildingManager
 	//
 	// as of now, it calls recalculate on every tile regardless of whether or not it needs
 	// to be updated. this can be fixed later if needed for optimization
-	public void recalculateTile(int col, int row)
+	public void recalculateTile(int col, int row, int buildingID)
 	{
 		// current building number in the mapBuildingNum array
 		int buildingNum = mapBuildingNum[col][row];
@@ -246,22 +345,22 @@ public class BuildingManager
 		
 		if (connections == 4) // 4 buildings connected to it
 		{
-			// rewrites the number at this building's index to 4
-			mapBuildingNum[col][row] = 4;
+			// rewrites the number at this building's index
+			mapBuildingNum[col][row] = calculateBuildingNumber(buildingID, connections, false);
 			
 			// rewrites this buildings rotation to 0 because it has 4 connections, so no rotation necessary
 			mapRotationNum[col][row] = 0;
 			
 			// calls the recalculateTile() function for all buildings around it 
-			recalculateTile(col-1, row);
-			recalculateTile(col+1, row);
-			recalculateTile(col, row-1);
-			recalculateTile(col, row+1);
+			recalculateTile(col-1, row, getBuildingID(mapBuildingNum[col-1][row]));
+			recalculateTile(col+1, row, getBuildingID(mapBuildingNum[col+1][row]));
+			recalculateTile(col, row-1, getBuildingID(mapBuildingNum[col][row-1]));
+			recalculateTile(col, row+1, getBuildingID(mapBuildingNum[col][row+1]));
 		}
 		else if (connections == 3) // 3 buildings connected to it
 		{
-			// rewrites the number at this building's index to 3
-			mapBuildingNum[col][row] = 3;
+			// rewrites the number at this building's index
+			mapBuildingNum[col][row] = calculateBuildingNumber(buildingID, connections, false);
 			
 			// rewrites this building's rotation based on which sides its connections are on
 			if (up == 1)
@@ -273,10 +372,10 @@ public class BuildingManager
 			else mapRotationNum[col][row] = 0;
 			
 			// calls the recalculateTile() function for all buildings around it 
-			if (up == 1) recalculateTile(col, row-1);
-			if (down == 1) recalculateTile(col, row+1);
-			if (left == 1) recalculateTile(col-1, row);
-			if (right == 1) recalculateTile(col+1, row);
+			if (up == 1) recalculateTile(col, row-1, getBuildingID(mapBuildingNum[col][row-1]));
+			if (down == 1) recalculateTile(col, row+1, getBuildingID(mapBuildingNum[col][row+1]));
+			if (left == 1) recalculateTile(col-1, row, getBuildingID(mapBuildingNum[col-1][row]));
+			if (right == 1) recalculateTile(col+1, row, getBuildingID(mapBuildingNum[col+1][row]));
 		}
 		else if (connections == 2) // 2 buildings connected to it
 		{
@@ -284,8 +383,8 @@ public class BuildingManager
 			// like "|" or ones that look like "L"
 			if (up - down == 0 || left - right == 0) // checks if it should be a line building
 			{
-				// rewrites the number at this building's index to 6
-				mapBuildingNum[col][row] = 6;
+				// rewrites the number at this building's index
+				mapBuildingNum[col][row] = calculateBuildingNumber(buildingID, connections, true);
 				
 				// rewrites this building's rotation; only 2 possibilities: | or -
 				if (up == 1 && down == 1) mapRotationNum[col][row] = 1;
@@ -293,8 +392,8 @@ public class BuildingManager
 			}
 			else // if not a line, must be an L building
 			{
-				// rewrites the number at this building's index to 2
-				mapBuildingNum[col][row] = 2;
+				// rewrites the number at this building's index
+				mapBuildingNum[col][row] = calculateBuildingNumber(buildingID, connections, false);
 				
 				// rewrites this building's rotation based on which sides its connections are on
 				if (up == 1)
@@ -310,42 +409,42 @@ public class BuildingManager
 			}
 			
 			// calls the recalculateTile() function for all buildings around it 
-			if (up == 1) recalculateTile(col, row-1);
-			if (down == 1) recalculateTile(col, row+1);
-			if (left == 1) recalculateTile(col-1, row);
-			if (right == 1) recalculateTile(col+1, row);
+			if (up == 1) recalculateTile(col, row-1, getBuildingID(mapBuildingNum[col][row-1]));
+			if (down == 1) recalculateTile(col, row+1, getBuildingID(mapBuildingNum[col][row+1]));
+			if (left == 1) recalculateTile(col-1, row, getBuildingID(mapBuildingNum[col-1][row]));
+			if (right == 1) recalculateTile(col+1, row, getBuildingID(mapBuildingNum[col+1][row]));
 		}
 		else if (connections == 1) // 1 building connected to it
 		{
-			// rewrites the number at this building's index to 1
-			mapBuildingNum[col][row] = 1;
+			// rewrites the number at this building's index
+			mapBuildingNum[col][row] = calculateBuildingNumber(buildingID, connections, false);
 			
 			// rewrite current building's rotation and recalculates connected tile
 			if (up == 1) 
 			{
 				mapRotationNum[col][row] = 2;
-				recalculateTile(col, row-1);
+				recalculateTile(col, row-1, getBuildingID(mapBuildingNum[col][row-1]));
 			}
 			if (down == 1) 
 			{
 				mapRotationNum[col][row] = 0;
-				recalculateTile(col, row+1);
+				recalculateTile(col, row+1, getBuildingID(mapBuildingNum[col][row+1]));
 			}
 			if (left == 1) 
 			{
 				mapRotationNum[col][row] = 3;
-				recalculateTile(col-1, row);
+				recalculateTile(col-1, row, getBuildingID(mapBuildingNum[col-1][row]));
 			}
 			if (right == 1) 
 			{
 				mapRotationNum[col][row] = 1;
-				recalculateTile(col+1, row);
+				recalculateTile(col+1, row, getBuildingID(mapBuildingNum[col+1][row]));
 			}
 		}
 		else // no buildings connected
 		{
-			// rewrites the building number at this index to 5, nothing else needed
-			mapBuildingNum[col][row] = 5;
+			// rewrites the building number at this index, nothing else needed
+			mapBuildingNum[col][row] = calculateBuildingNumber(buildingID, connections, false);
 			mapRotationNum[col][row] = 0;
 		}
 	}
@@ -357,8 +456,10 @@ public class BuildingManager
 		{
 			URL url1 = getClass().getClassLoader().getResource("resources/maps/buildingmap.txt");
 			URL url2 = getClass().getClassLoader().getResource("resources/maps/buildingrotationmap.txt");
+			URL url3 = getClass().getClassLoader().getResource("resources/maps/buildinghealthmap.txt");
 			FileWriter writer1 = new FileWriter(new File(url1.getFile()));
 			FileWriter writer2 = new FileWriter(new File(url2.getFile()));
+			FileWriter writer3 = new FileWriter(new File(url3.getFile()));
 			
 			String blankLine = "";
 			String blankFile = "";
@@ -377,9 +478,11 @@ public class BuildingManager
 			
 			writer1.write(blankFile);
 			writer2.write(blankFile);
+			writer3.write(blankFile);
 			
 			writer1.close();
 			writer2.close();
+			writer3.close();
 		} catch (Exception e) 
 		{
 			System.out.println(e);
@@ -450,6 +553,13 @@ public class BuildingManager
 			// represents X and Y values that the object will be stopped at
 			int setX = -1;
 			int setY = -1;
+			
+			// collision behaves differently with zombies; switching to different function
+			if (object.getId() == ID.Zombie && (buildingsToCheck[0] != null || buildingsToCheck[1] != null || buildingsToCheck[2] != null || buildingsToCheck[3] != null))
+			{
+				checkZombie((Zombie)object, buildingsToCheck);
+				return;
+			}
 			
 			for (Rectangle bound : buildingsToCheck) // iterates through for each rectangle/"bound"
 			{
@@ -540,8 +650,62 @@ public class BuildingManager
 			if (setX != -1) object.setWorldX(setX);
 			if (setY != -1) object.setWorldY(setY);
 		}
+		else if (object.getId() == ID.Zombie)
+		{
+			Zombie obj_zombie = (Zombie)object;
+			obj_zombie.setDestroyingBuilding(false, 0, 0);
+		}
 	}
 	
+	public void checkZombie(Zombie zomb, Rectangle[] buildings)
+	{
+		for (Rectangle bound : buildings)
+		{
+			Rectangle zombieFutureBound = new Rectangle(zomb.getBounds().x + zomb.getSpeedX() - Game.player.getSpeedX(), zomb.getBounds().y + zomb.getSpeedY() - Game.player.getSpeedY(), zomb.getBounds().width, zomb.getBounds().height);
+			
+			boolean localDestroyingBuilding = false;
+			
+			if (bound != null)
+			{
+				if (zombieFutureBound.intersects(bound))
+				{
+					int col = (bound.x + (bound.width / 2) + Game.player.getWorldX() - Game.player.getScreenX()) / Game.TILE_SIZE;
+					int row = (bound.y + (bound.height / 2) + Game.player.getWorldY() - Game.player.getScreenY()) / Game.TILE_SIZE;
+					
+					localDestroyingBuilding = true;
+					
+					if (!zomb.getDestroyingBuilding())
+					{
+						zomb.setDestroyingBuilding(true, col, row);
+					}
+					return;
+				}
+			}
+			
+			if (!localDestroyingBuilding)
+			{
+				zomb.setDestroyingBuilding(false, 0, 0);
+			}
+		}
+	}
+	
+	public void damageBuilding(int col, int row, int dmg)
+	{
+		int currentBuildingHealth = mapHealthNum[col][row] - dmg;
+		
+		if (currentBuildingHealth > 0) mapHealthNum[col][row] = currentBuildingHealth;
+		else
+		{
+			mapHealthNum[col][row] = 0;
+			mapBuildingNum[col][row] = 0;
+			mapRotationNum[col][row] = 0;
+			
+			if (mapBuildingNum[col][row-1] != 0) recalculateTile(col, row-1, getBuildingID(mapBuildingNum[col][row-1]));
+			if (mapBuildingNum[col][row+1] != 0) recalculateTile(col, row+1, getBuildingID(mapBuildingNum[col][row+1]));
+			if (mapBuildingNum[col-1][row] != 0) recalculateTile(col-1, row, getBuildingID(mapBuildingNum[col-1][row]));
+			if (mapBuildingNum[col+1][row] != 0) recalculateTile(col+1, row, getBuildingID(mapBuildingNum[col+1][row]));
+		}
+	}
 	
 	// returns the bounds of a building at its corresponding row and col
 	public Rectangle getBuildingBounds(int col, int row)
@@ -572,6 +736,41 @@ public class BuildingManager
 		return returnRectangle;
 	}
 	
+	public int getBuildingID(int buildingNum)
+	{
+		if (buildingNum < 10) return 20;
+		else if (buildingNum < 20) return 21;
+		else return 0;
+	}
+	
+	public int calculateBuildingNumber(int type, int connections, boolean line)
+	{
+		if (type == 20) // wood
+		{
+			if (connections == 1) return 1;
+			else if (connections == 2)
+			{
+				if (line) return 6;
+				else return 2;
+			}
+			else if (connections == 3) return 3;
+			else if (connections == 4) return 4;
+			else return 5;
+		}
+		else if (type == 21) // stone
+		{
+			if (connections == 1) return 11;
+			else if (connections == 2)
+			{
+				if (line) return 16;
+				else return 12;
+			}
+			else if (connections == 3) return 13;
+			else if (connections == 4) return 14;
+			else return 15;
+		}
+		return 0;
+	}
 	
 	public int[][] getBuildingMap()
 	{
