@@ -9,15 +9,11 @@ import model.TradeItem;
 
 public class TradeMenu {
 	
-	private boolean visible = true;
-	
 	private Color lightBrown = new Color(222, 160, 79);
 	
 	private static ArrayList<TradeItem> items = new ArrayList<TradeItem>();
 	
 	public TradeMenu() {
-		setVisible(false);
-		
 		items.add(new TradeItem("Wall", 50, 20));
 		items.add(new TradeItem("Turret", 100, 50));
 		items.add(new TradeItem("Carrot Seeds", 50, 30));
@@ -75,13 +71,5 @@ public class TradeMenu {
 			Game.inventory.addItem(ID, 1);
 			Game.player.setCoins(Game.player.getCoins() -  items.get(i-1).getCost());
 		}
-	}
-
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
 	}
 }

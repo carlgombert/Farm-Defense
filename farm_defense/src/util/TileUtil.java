@@ -88,12 +88,11 @@ public class TileUtil {
             tileNum1 = TileManager.mapTileNum[objectLeftCol][objectTopRow];
             tileNum2 = TileManager.mapTileNum[objectRightCol][objectTopRow];
             
-        	if (TileManager.tile[tileNum1].isStore() || TileManager.tile[tileNum2].isStore()) 
-            {
-                Game.tm.setVisible(true);
-            }
-            else {
-            	Game.tm.setVisible(false);
+            if(object.getSpeedY() < 0) {
+	        	if (TileManager.tile[tileNum1].isStore() || TileManager.tile[tileNum2].isStore()) 
+	            {
+	                Game.gamestate = Game.GameState.Store;
+	            }
             }
         }
     }

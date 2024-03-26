@@ -20,6 +20,7 @@ import view.fullMenu.BankruptMenu;
 import view.fullMenu.DeathMenu;
 import view.fullMenu.MainMenu;
 import view.fullMenu.PauseMenu;
+import view.fullMenu.StoreMenu;
 import view.map.LightManager;
 
 /**
@@ -163,6 +164,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 		if(Game.gamestate == GameState.Bankrupt) {
 			BankruptMenu.checkButton(e.getX(), e.getY());
 		}
+		if(Game.gamestate == GameState.Store) {
+			StoreMenu.checkButton(e.getX(), e.getY());
+		}
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -211,36 +215,16 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 			}
 			
 			
-			if(Game.tm.isVisible() && !Game.night) { //if trade menu is open, number key bindings swap to buying items
-				if (key == KeyEvent.VK_1) Game.tm.buy(1);;
-				if (key == KeyEvent.VK_2) Game.tm.buy(2);;
-				if (key == KeyEvent.VK_3) Game.tm.buy(3);;
-				if (key == KeyEvent.VK_4) Game.tm.buy(4);;
-				if (key == KeyEvent.VK_5) Game.tm.buy(5);;
-				if (key == KeyEvent.VK_6) Game.tm.buy(6);;
-				if (key == KeyEvent.VK_7) Game.tm.buy(7);;
-				if (key == KeyEvent.VK_8) Game.tm.buy(8);;
-				if (key == KeyEvent.VK_9) Game.tm.buy(9);;
-				if (key == KeyEvent.VK_0) Game.tm.buy(10);;
-				if (key == KeyEvent.VK_Q) Game.tm.sell();;
-			}
-			else if(Game.turm.visible) { // if turret upgrade menu is open, number key bindings swap to upgrading
-				if (key == KeyEvent.VK_1) Game.turm.buy(1);;
-				if (key == KeyEvent.VK_2) Game.turm.buy(2);;
-				if (key == KeyEvent.VK_3) Game.turm.buy(3);;
-			}
-			else {
-				if (key == KeyEvent.VK_1) Game.inventory.setSelected(0);;
-				if (key == KeyEvent.VK_2) Game.inventory.setSelected(1);;
-				if (key == KeyEvent.VK_3) Game.inventory.setSelected(2);;
-				if (key == KeyEvent.VK_4) Game.inventory.setSelected(3);;
-				if (key == KeyEvent.VK_5) Game.inventory.setSelected(4);;
-				if (key == KeyEvent.VK_6) Game.inventory.setSelected(5);;
-				if (key == KeyEvent.VK_7) Game.inventory.setSelected(6);;
-				if (key == KeyEvent.VK_8) Game.inventory.setSelected(7);;
-				if (key == KeyEvent.VK_9) Game.inventory.setSelected(8);;
-				if (key == KeyEvent.VK_0) Game.inventory.setSelected(9);;
-			}
+			if (key == KeyEvent.VK_1) Game.inventory.setSelected(0);;
+			if (key == KeyEvent.VK_2) Game.inventory.setSelected(1);;
+			if (key == KeyEvent.VK_3) Game.inventory.setSelected(2);;
+			if (key == KeyEvent.VK_4) Game.inventory.setSelected(3);;
+			if (key == KeyEvent.VK_5) Game.inventory.setSelected(4);;
+			if (key == KeyEvent.VK_6) Game.inventory.setSelected(5);;
+			if (key == KeyEvent.VK_7) Game.inventory.setSelected(6);;
+			if (key == KeyEvent.VK_8) Game.inventory.setSelected(7);;
+			if (key == KeyEvent.VK_9) Game.inventory.setSelected(8);;
+			if (key == KeyEvent.VK_0) Game.inventory.setSelected(9);;
 		}
 	}
 	

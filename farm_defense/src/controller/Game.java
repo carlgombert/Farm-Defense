@@ -19,6 +19,7 @@ import view.fullMenu.BankruptMenu;
 import view.fullMenu.DeathMenu;
 import view.fullMenu.MainMenu;
 import view.fullMenu.PauseMenu;
+import view.fullMenu.StoreMenu;
 import view.map.LightManager;
 import view.map.building.BuildingManager;
 import view.map.farming.FarmingManager;
@@ -62,7 +63,6 @@ public class Game extends Canvas implements Runnable{
 	public static Inventory inventory;
 	
 	public static TradeMenu tm;
-	public static TurretMenu turm;
 	
 	public static boolean night;
 	public static int nightTimer = 9000;
@@ -76,7 +76,8 @@ public class Game extends Canvas implements Runnable{
 		Running(),
 		MainMenu(),
 		Dead(),
-		Bankrupt()
+		Bankrupt(),
+		Store()
 	}
 	
 	public Game() {
@@ -91,8 +92,6 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(new NPC(48*16, (int) (48*5.5), ID.NPC));
 		
 		tm = new TradeMenu();
-		
-		turm = new TurretMenu();
 		
 		new Sound();
 		
@@ -214,14 +213,6 @@ public class Game extends Canvas implements Runnable{
 			
 			handler.render(g);
 			
-			
-			if(tm.isVisible()) {
-				tm.render(g);
-			}
-			else if(turm.visible) {
-				turm.render(g);
-			}
-			
 			if(night) {
 				tileManager.renderNight(g);
 			}
@@ -239,6 +230,9 @@ public class Game extends Canvas implements Runnable{
 		}
 		if(gamestate == GameState.Bankrupt) {
 			BankruptMenu.render(g);
+		}
+		if(gamestate == GameState.Store) {
+			StoreMenu.render(g);
 		}
 		g.dispose();
 		bs.show();
