@@ -109,6 +109,7 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}
 	
+
 	public static void main(String[] args) 
 	{
 		new Game();

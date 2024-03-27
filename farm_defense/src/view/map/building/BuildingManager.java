@@ -310,6 +310,24 @@ public class BuildingManager
 		}
 	}
 	
+	public void removeBuilding() {
+		// reverts the screen mouse coordinates to world coordinates 
+		mouseWorldX = mouseX + Game.player.getWorldX() - Game.player.getScreenX();
+		mouseWorldY = mouseY + Game.player.getWorldY() - Game.player.getScreenY();
+		
+		// grabs the col and row of the tile that the mouse is hovering over
+		int col = mouseWorldX / 48;
+		int row = mouseWorldY / 48;
+		
+		// checks to make sure the tile that the player is trying to remove has a building
+		if (mapBuildingNum[col][row] != 0)
+		{
+			mapBuildingNum[col][row] = 0;
+			
+			recalculateTile(col, row, 0);
+		}
+	}
+	
 	// calculates what building should be on the tile based on the buildings around it
 	//
 	// this function will call recacalulateTile() on all of the tiles around it to 
