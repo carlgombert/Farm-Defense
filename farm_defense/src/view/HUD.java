@@ -23,6 +23,8 @@ public class HUD {
 	
 	private final int INVENTORY_START_Y = (Game.HEIGHT - INVENTORY_HEIGHT) / 2;
 	
+	private final Rectangle INVENTORY_BOUNDS = new Rectangle(0, INVENTORY_START_Y, INVENTORY_WIDTH, INVENTORY_HEIGHT);
+	
 	private final Font FONT = TxtFileUtil.createFont("resources/fonts/menuFont.ttf", 24);
 	
 	// the small distance between the edge of the light brown and the edge of the dark brown in the inventory
@@ -120,12 +122,21 @@ public class HUD {
 		inventorySelected = s;
 	}
 	
-	public void checkButton(int x, int y) {
+	public boolean checkButton(int x, int y) {
 		if(PAUSE_BUTTON.contains(x, y)) {
 			Game.gamestate = GameState.Paused;
+			return true;
 		}
 		if(START_NIGHT_BUTTON.contains(x, y) && !Game.night) {
 			Game.night = true;
+			return true;
 		}
+		if(INVENTORY_BOUNDS.contains(x, y)) {
+			y -= INVENTORY_START_Y;
+			int slotClicked = y / INVENTORY_WIDTH;
+			Game.inventory.setSelected(slotClicked);
+			return true;
+		}
+		return false;
 	}
 }

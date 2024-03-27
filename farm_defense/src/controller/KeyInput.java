@@ -65,93 +65,94 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 	{
 		if(Game.gamestate == GameState.Running) {
 			if(e.getButton() == MouseEvent.BUTTON1) {
-				if (Game.player.getWeaponState() == Game.player.stateGun()) // only shoots if the Game.player's weapon state is 'Gun'
-				{
-					if (canShoot == true && Game.player.getAmmo() != 0)
+				if(!Game.hud.checkButton(e.getX(), e.getY())) {
+					if (Game.player.getWeaponState() == Game.player.stateGun()) // only shoots if the Game.player's weapon state is 'Gun'
 					{
-						int offset = 35; // for some reason getWorldX/Y is offset from the Game.player, this counteracts that
+						if (canShoot == true && Game.player.getAmmo() != 0)
+						{
+							int offset = 35; // for some reason getWorldX/Y is offset from the Game.player, this counteracts that
+							
+							// creates spawn variables for where the bullet should spawn
+							int spawnx = Game.player.getWorldX() + offset;
+							int spawny = Game.player.getWorldY() + offset;
+							
+							// calculates the mouse X and Y relative to the Game.player
+							mouseX = (e.getX() - Game.player.getScreenX() - offset);
+							mouseY = (e.getY() - Game.player.getScreenY() - offset);
+							
+							// calculates the angle between the Game.player and the current mouse location
+							double angle = Math.atan2(mouseY, mouseX); // atan2 seems to work better than atan, idk why
+				
+							// create bullet
+							Projectile bullet = new Projectile(spawnx, spawny, ID.Projectile, angle);
+							Sound.pistolSound();
+							Game.handler.addObject(bullet);
+							
+							canShoot = false; // prevents the Game.player from being able to shoot infinitely fast by holding down the mouse button
+							Game.player.setAmmo(Game.player.getAmmo() - 1); // remove 1 from the Game.player's ammo
+						}
+					}
+					else if (Game.player.getWeaponState() == Game.player.stateBuild() && canBuild)
+					{
+						canBuild = false;
 						
-						// creates spawn variables for where the bullet should spawn
-						int spawnx = Game.player.getWorldX() + offset;
-						int spawny = Game.player.getWorldY() + offset;
+						Game.buildingManager.setMouseX(e.getX());
+						Game.buildingManager.setMouseY(e.getY());
 						
-						// calculates the mouse X and Y relative to the Game.player
-						mouseX = (e.getX() - Game.player.getScreenX() - offset);
-						mouseY = (e.getY() - Game.player.getScreenY() - offset);
+						// tells buildingManager to create a building
+						Game.buildingManager.createBuilding(Game.inventory.getCurrentID());
+					}
+					else if (Game.player.getWeaponState() == Game.player.stateTilling() && canFarm)
+					{
+						canFarm = false;
 						
-						// calculates the angle between the Game.player and the current mouse location
-						double angle = Math.atan2(mouseY, mouseX); // atan2 seems to work better than atan, idk why
-			
-						// create bullet
-						Projectile bullet = new Projectile(spawnx, spawny, ID.Projectile, angle);
-						Sound.pistolSound();
-						Game.handler.addObject(bullet);
+						Game.farmingManager.setMouseX(e.getX());
+						Game.farmingManager.setMouseY(e.getY());
 						
-						canShoot = false; // prevents the Game.player from being able to shoot infinitely fast by holding down the mouse button
-						Game.player.setAmmo(Game.player.getAmmo() - 1); // remove 1 from the Game.player's ammo
+						// tells farmingManager to create a farmland tile
+						Game.farmingManager.tillFarmland();
+					}
+					else if (Game.player.getWeaponState() == Game.player.statePlanting() && canPlant)
+					{
+						canPlant = false;
+						
+						Game.farmingManager.setMouseX(e.getX());
+						Game.farmingManager.setMouseY(e.getY());
+						
+						// tells farmingManager to plant a seed on selected farmland tile
+						Game.farmingManager.plantSeed();
+					}
+					else if (Game.player.getWeaponState() == Game.player.stateTurret() && canTurret)
+					{
+						canTurret = false;
+						
+						// reverts the screen mouse coordinates to world coordinates 
+						int mouseWorldX = e.getX() + Game.player.getWorldX() - Game.player.getScreenX();
+						int mouseWorldY = e.getY() + Game.player.getWorldY() - Game.player.getScreenY();
+						
+						// adjust turret coordinates to fit in tile
+						int turretX = (mouseWorldX - (mouseWorldX%48));
+						int turretY = (mouseWorldY - (mouseWorldY%48));
+						
+						//center turret coordinates in tile
+						turretX += 4;
+						turretY += 4;
+						
+						Game.handler.addObject(new Turret(turretX, turretY, ID.Turret));
+						
+						Game.inventory.minusItem(1);
+					}
+					else if (Game.player.getWeaponState() == Game.player.stateTorch() && canTorch)
+					{
+						canTorch = false;
+						
+						LightManager.addLight(
+								e.getX() - Game.player.getScreenX() + Game.player.getWorldX(), 
+								e.getY() - Game.player.getScreenY() + Game.player.getWorldY());
+						
+						Game.inventory.minusItem(1);
 					}
 				}
-				else if (Game.player.getWeaponState() == Game.player.stateBuild() && canBuild)
-				{
-					canBuild = false;
-					
-					Game.buildingManager.setMouseX(e.getX());
-					Game.buildingManager.setMouseY(e.getY());
-					
-					// tells buildingManager to create a building
-					Game.buildingManager.createBuilding(Game.inventory.getCurrentID());
-				}
-				else if (Game.player.getWeaponState() == Game.player.stateTilling() && canFarm)
-				{
-					canFarm = false;
-					
-					Game.farmingManager.setMouseX(e.getX());
-					Game.farmingManager.setMouseY(e.getY());
-					
-					// tells farmingManager to create a farmland tile
-					Game.farmingManager.tillFarmland();
-				}
-				else if (Game.player.getWeaponState() == Game.player.statePlanting() && canPlant)
-				{
-					canPlant = false;
-					
-					Game.farmingManager.setMouseX(e.getX());
-					Game.farmingManager.setMouseY(e.getY());
-					
-					// tells farmingManager to plant a seed on selected farmland tile
-					Game.farmingManager.plantSeed();
-				}
-				else if (Game.player.getWeaponState() == Game.player.stateTurret() && canTurret)
-				{
-					canTurret = false;
-					
-					// reverts the screen mouse coordinates to world coordinates 
-					int mouseWorldX = e.getX() + Game.player.getWorldX() - Game.player.getScreenX();
-					int mouseWorldY = e.getY() + Game.player.getWorldY() - Game.player.getScreenY();
-					
-					// adjust turret coordinates to fit in tile
-					int turretX = (mouseWorldX - (mouseWorldX%48));
-					int turretY = (mouseWorldY - (mouseWorldY%48));
-					
-					//center turret coordinates in tile
-					turretX += 4;
-					turretY += 4;
-					
-					Game.handler.addObject(new Turret(turretX, turretY, ID.Turret));
-					
-					Game.inventory.minusItem(1);
-				}
-				else if (Game.player.getWeaponState() == Game.player.stateTorch() && canTorch)
-				{
-					canTorch = false;
-					
-					LightManager.addLight(
-							e.getX() - Game.player.getScreenX() + Game.player.getWorldX(), 
-							e.getY() - Game.player.getScreenY() + Game.player.getWorldY());
-					
-					Game.inventory.minusItem(1);
-				}
-				Game.hud.checkButton(e.getX(), e.getY());
 			}
 			else {
 				if (Game.player.getWeaponState() == Game.player.stateBuild() && canBuild)

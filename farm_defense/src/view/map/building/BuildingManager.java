@@ -324,6 +324,23 @@ public class BuildingManager
 		{
 			mapBuildingNum[col][row] = 0;
 			
+			int id = Game.inventory.getCurrentID();
+			int fullHealth = 100;
+			switch (id)
+			{
+				case 20:
+					fullHealth = 30;
+					break;
+				case 21:
+					fullHealth = 50;
+					break;
+			}
+			
+			// if wall is undamaged, add back to player inventory
+			if(mapHealthNum[col][row] == fullHealth) { 
+				Game.inventory.addItem(id, 1);
+			}
+			
 			recalculateTile(col, row, 0);
 		}
 	}
