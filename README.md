@@ -2,4 +2,4 @@
 Built by [Carl Gombert](https://github.com/carlgombert) and [Zander McGinley](https://github.com/zandermmcg).  
 2D base defense and farming game written in Java.  
 
-find tasks to complete on the [task board](https://github.com/users/carlgombert/projects/4/views/1)
+find tasks to complete on the [task board](https://github.com/users/carlgombert/projects/4/views/1) or [issues tab](https://github.com/carlgombert/Farm-Defense/issues)
