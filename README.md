@@ -2,4 +2,4 @@
 Built by [Carl Gombert](https://github.com/carlgombert) and [Zander McGinley](https://github.com/zandermmcg).  
 2D base defense and farming game written in Java.  
 
-The tasks labeled as MVP in the issues tab take priority
+find tasks to complete on the [task board](https://github.com/users/carlgombert/projects/4/views/1)
