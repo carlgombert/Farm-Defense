@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import controller.Game;
+import model.items.ItemManager;
 import util.ImageUtil;
 
 public class Inventory 
@@ -14,14 +15,11 @@ public class Inventory
 	// once an item is encountered, it is added to the map of ID's mapped to the item
 	private HashMap<Integer, InventoryItem> items = new HashMap<Integer, InventoryItem>();
 	
-	// image list of every possible image that the inventory item could be
-	private BufferedImage[] itemImages = new BufferedImage[60];
-	
 	private int seedCropCount;
 	
 	public Inventory()
 	{
-		loadInventoryImages();
+		ItemManager.loadItems();
 		
 		addItem(1, 1, 1);
 		addItem(10, 1, 2);
@@ -31,37 +29,9 @@ public class Inventory
 		addItem(50, 5);
 		addItem(51, 5);
 		addItem(21, 500);
+		addItem(40, 20);
 		
 		setSelected(0);
-	}
-	
-	public void loadInventoryImages()
-	{
-		// item id 0 is the hoe
-		itemImages[0] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_hoe.png");
-		
-		// ids 1-9 will be guns
-		itemImages[1] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_gun.png");
-		
-		// ids in the 10s will be melee weapons
-		itemImages[10] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_sword.png");
-		
-		// ids in the 20s will be walls
-		itemImages[20] = ImageUtil.addImage(16, 16, "resources/inventory/walls/inventory_wall_wood.png");
-		itemImages[21] = ImageUtil.addImage(16, 16, "resources/inventory/walls/inventory_wall_stone.png");
-		
-		// ids in the 30s will be seeds
-		itemImages[30] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_carrot.png");
-		itemImages[31] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_corn.png");
-		
-		// ids in the 40s will be grown crops
-		itemImages[40] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_carrot.png");
-		
-		// id 50 will be turret
-		itemImages[50] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_turret.png");
-		
-		// id 51 will be torch
-		itemImages[51] = ImageUtil.addImage(16, 16, "resources/tiles/torch.png");
 	}
 	
 	public void setSelected(int s)
@@ -93,8 +63,8 @@ public class Inventory
 	// add an item to the player's inventory at the specified slot, see above for item IDs
 	public void addItem(int ID, int count, int slot)
 	{
-		getItems().put(ID, new InventoryItem(ID, itemImages[ID], count));
-		inventory[slot - 1] = new InventoryItem(ID, itemImages[ID], count);
+		getItems().put(ID, new InventoryItem(ItemManager.getItem(ID), count));
+		inventory[slot - 1] = new InventoryItem(ItemManager.getItem(ID), count);
 		
 		if(ID > 29 && ID < 50) {
 			seedCropCount += count;
@@ -108,7 +78,7 @@ public class Inventory
 	// add an item to the player's inventory at the next empty slot, or stacks if some of the item is alr in the inventory
 	public void addItem(int ID, int count)
 	{
-		getItems().put(ID, new InventoryItem(ID, itemImages[ID], count));
+		getItems().put(ID, new InventoryItem(ItemManager.getItem(ID), count));
 		// first check if should be stacked with items already in the inventory
 		for (int i = 0; i < 10; i++)
 		{
@@ -138,7 +108,7 @@ public class Inventory
 		
 		if (emptySlot != -1)
 		{
-			inventory[emptySlot] = new InventoryItem(ID, itemImages[ID], count);
+			inventory[emptySlot] = new InventoryItem(ItemManager.getItem(ID), count);
 			setSelected(selected);
 		}
 		// else statement here for what to do if the player tries to buy something with a full inventory
@@ -199,10 +169,17 @@ public class Inventory
 		return count;
 	}
 	
+	public InventoryItem getItem(int id) {
+		return items.get(id);	
+	}
+	
 	
 	public BufferedImage getCurrentImage()
 	{
-		return inventory[selected].getImage();
+		if(inventory[selected] != null) {
+			return inventory[selected].getImage();
+		}
+		return null;
 	}
 	
 	public int getCurrentID()

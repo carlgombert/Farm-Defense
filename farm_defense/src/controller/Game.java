@@ -177,11 +177,7 @@ public class Game extends Canvas implements Runnable{
 		if(gamestate == GameState.Running) {
 			nightTimer++;
 			if(nightTimer >= 10000) {
-				nightTimer = 0;
-				night = !night;
-				nightCount += 0.5;
-				player.setHealth(400);
-				farmingManager.advanceAllStages(3);
+				switchNight();
 			}
 			handler.tick();
 		}
@@ -237,5 +233,13 @@ public class Game extends Canvas implements Runnable{
 		}
 		g.dispose();
 		bs.show();
+	}
+	
+	public static void switchNight() {
+		nightTimer = 0;
+		night = !night;
+		nightCount += 0.5;
+		player.setHealth(400);
+		farmingManager.advanceAllStages(3);
 	}
 }

@@ -32,7 +32,7 @@ public class HUD {
 	
 	private final Rectangle PAUSE_BUTTON = new Rectangle(Game.WIDTH-30, 0, 30, 30);
 	
-	private final Rectangle START_NIGHT_BUTTON = new Rectangle(Game.WIDTH-70, Game.HEIGHT-60, 60, 25);
+	private final Rectangle START_NIGHT_BUTTON = new Rectangle(Game.WIDTH-90, Game.HEIGHT-60, 80, 25);
 	
 	private int inventorySelected = 0;
 	
@@ -107,7 +107,12 @@ public class HUD {
 		}
 		
 		if(!Game.night) {
+			g.setColor(Color.red.darker());	
 			g.fillRect(START_NIGHT_BUTTON.x, START_NIGHT_BUTTON.y, START_NIGHT_BUTTON.width, START_NIGHT_BUTTON.height);
+			
+			g.setFont(Game.DEFAULT_FONT);
+			g.setColor(Color.WHITE);
+			g.drawString("Start Night", START_NIGHT_BUTTON.x+6, START_NIGHT_BUTTON.y+17);
 		}
 	}
 	
@@ -128,7 +133,7 @@ public class HUD {
 			return true;
 		}
 		if(START_NIGHT_BUTTON.contains(x, y) && !Game.night) {
-			Game.night = true;
+			Game.switchNight();
 			return true;
 		}
 		if(INVENTORY_BOUNDS.contains(x, y)) {
