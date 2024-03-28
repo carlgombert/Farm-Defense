@@ -117,10 +117,16 @@ public class Player extends GameObject{
 		else if (hitByZombie) // when player gets hit by zombie, they wont be able to move & they get knocked back
 		{
 			health--;
-			if (hitTimer < 25)
+			if (hitTimer < 16)
 			{
-				worldX += (Math.round(Math.cos(angleFromZombie)) * 3);
-				worldY += (Math.round(Math.sin(angleFromZombie)) * 3);
+				speedX = (int)(Math.round(Math.cos(angleFromZombie)) * 5);
+				speedY = (int)(Math.round(Math.sin(angleFromZombie)) * 5);
+				
+				TileUtil.checkTileCollision(this);
+				Game.buildingManager.checkBuildingCollision(this);
+				
+				if (!XtileCollision) worldX += speedX;
+				if (!YtileCollision) worldY += speedY;
 				hitTimer++;
 			}
 			else
