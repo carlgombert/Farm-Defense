@@ -109,35 +109,37 @@ public class NPC extends GameObject
 
 	public void render(Graphics g) 
 	{
-		if(worldX > Game.player.getWorldX() - Game.WIDTH &&
-				worldX < Game.player.getWorldX() + Game.WIDTH &&
-				worldY > Game.player.getWorldY() - Game.HEIGHT &&
-				worldY < Game.player.getWorldY() + Game.HEIGHT) 
-		{
-			setScreenX(worldX - Game.player.getWorldX() + Game.player.getScreenX());
-			setScreenY(worldY - Game.player.getWorldY() + Game.player.getScreenY());
-			
-			g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
-			
-			//show hitbox
-			//g.setColor(Color.white); g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
-			
-			if (talking)
+		if(!Game.night) {
+			if(worldX > Game.player.getWorldX() - Game.WIDTH &&
+					worldX < Game.player.getWorldX() + Game.WIDTH &&
+					worldY > Game.player.getWorldY() - Game.HEIGHT &&
+					worldY < Game.player.getWorldY() + Game.HEIGHT) 
 			{
-				// talking box
-				g.setColor(DARK_BROWN);
-				g.fillRoundRect(OUTER_BOX.x, OUTER_BOX.y, OUTER_BOX.width, OUTER_BOX.height, BOX_PADDING, BOX_PADDING); // outer border
-				g.setColor(LIGHT_BROWN);
-				g.fillRect(DIALOGUE_BOX.x, DIALOGUE_BOX.y, DIALOGUE_BOX.width, DIALOGUE_BOX.height); // inner text box
-				g.setColor(DARK_BROWN);
-				g.fillRoundRect(OUTER_BOX.x, OUTER_BOX.y, DIALOGUE_BOX.height + BOX_PADDING*2, DIALOGUE_BOX.height + BOX_PADDING*2, BOX_PADDING, BOX_PADDING);
-				g.drawImage(headshotImage, DIALOGUE_BOX.x, DIALOGUE_BOX.y, DIALOGUE_BOX.height, DIALOGUE_BOX.height, null);
-				g.setColor(Color.white);
-				g.setFont(new Font("TimesRoman", Font.PLAIN, DIALOGUE_BOX.height / 4)); 
-				g.drawString(currDialogue1, TEXT_X, TEXT_Y);
-				g.drawString(currDialogue2, TEXT_X, TEXT_Y + DIALOGUE_BOX.height / 4);
-				g.drawString(currDialogue3, TEXT_X, TEXT_Y + 2*(DIALOGUE_BOX.height / 4));
-				g.setFont(null);
+				setScreenX(worldX - Game.player.getWorldX() + Game.player.getScreenX());
+				setScreenY(worldY - Game.player.getWorldY() + Game.player.getScreenY());
+				
+				g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
+				
+				//show hitbox
+				//g.setColor(Color.white); g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+				
+				if (talking)
+				{
+					// talking box
+					g.setColor(DARK_BROWN);
+					g.fillRoundRect(OUTER_BOX.x, OUTER_BOX.y, OUTER_BOX.width, OUTER_BOX.height, BOX_PADDING, BOX_PADDING); // outer border
+					g.setColor(LIGHT_BROWN);
+					g.fillRect(DIALOGUE_BOX.x, DIALOGUE_BOX.y, DIALOGUE_BOX.width, DIALOGUE_BOX.height); // inner text box
+					g.setColor(DARK_BROWN);
+					g.fillRoundRect(OUTER_BOX.x, OUTER_BOX.y, DIALOGUE_BOX.height + BOX_PADDING*2, DIALOGUE_BOX.height + BOX_PADDING*2, BOX_PADDING, BOX_PADDING);
+					g.drawImage(headshotImage, DIALOGUE_BOX.x, DIALOGUE_BOX.y, DIALOGUE_BOX.height, DIALOGUE_BOX.height, null);
+					g.setColor(Color.white);
+					g.setFont(new Font("TimesRoman", Font.PLAIN, DIALOGUE_BOX.height / 4)); 
+					g.drawString(currDialogue1, TEXT_X, TEXT_Y);
+					g.drawString(currDialogue2, TEXT_X, TEXT_Y + DIALOGUE_BOX.height / 4);
+					g.drawString(currDialogue3, TEXT_X, TEXT_Y + 2*(DIALOGUE_BOX.height / 4));
+					g.setFont(null);
+				}
 			}
 		}
 	}
