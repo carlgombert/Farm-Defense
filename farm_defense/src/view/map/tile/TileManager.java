@@ -114,6 +114,24 @@ public class TileManager {
 		tile [21].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_right.png"));
 		tile [21].setCollision(true);
 		
+		tile [22] = new Tile();
+		tile [22].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_left_night.png"));
+		tile [22].setCollision(true);
+		tile [22].setStore(true);
+		
+		tile [23] = new Tile();
+		tile [23].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_bottom_right_night.png"));
+		tile [23].setCollision(true);
+		tile [23].setStore(true);
+		
+		tile [24] = new Tile();
+		tile [24].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_left_night.png"));
+		tile [24].setCollision(true);
+		
+		tile [25] = new Tile();
+		tile [25].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_right_night.png"));
+		tile [25].setCollision(true);
+		
 	}
 	
 	//loads in map as txt files and reads in numbers as their specified tile type
@@ -162,6 +180,10 @@ public class TileManager {
 			
 			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
 			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
+			
+			if(Game.night && tileNum >= 18) {
+				tileNum+=4;
+			}
 			
 			// if the tile is outside of the players view, do not render.
 			if(worldX > Game.player.getWorldX() - Game.WIDTH &&

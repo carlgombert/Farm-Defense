@@ -92,8 +92,10 @@ public class TileUtil {
             if(object.getSpeedY() < 0) {
 	        	if (TileManager.tile[tileNum1].isStore() || TileManager.tile[tileNum2].isStore()) 
 	            {
-	                Game.gamestate = Game.GameState.Store;
-	                Sound.enterStoreSound();
+	        		if(!Game.night) {
+		                Game.gamestate = Game.GameState.Store;
+		                Sound.enterStoreSound();
+	        		}
 	            }
             }
         }
