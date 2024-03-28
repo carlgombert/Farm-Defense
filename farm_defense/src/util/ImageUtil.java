@@ -1,6 +1,8 @@
 package util;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -29,5 +31,23 @@ public class ImageUtil {
 		}
 		image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		return image;
+	}
+	
+	/**
+    * creates a resized version of the given image
+    *
+    * @param  img buffered image to be resized
+    * @param  newW desired image width
+    * @param  newH desired image height
+    * @return 	new image of desired size
+    */
+	public static BufferedImage resize(BufferedImage img, int newW, int newH) {  
+	    int w = img.getWidth();  
+	    int h = img.getHeight();  
+	    BufferedImage dimg = new BufferedImage(newW, newH, img.getType());  
+	    Graphics2D g = dimg.createGraphics();  
+	    g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);  
+	    g.dispose();  
+	    return dimg;  
 	}
 }

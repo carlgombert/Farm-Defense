@@ -24,7 +24,7 @@ public class FarmingManager
 	
 	private BufferedImage farmlandImage;
 	
-	private int numCrops = 0;
+	private static int numCrops = 0;
 	
 	public FarmingManager()
 	{
@@ -285,6 +285,11 @@ public class FarmingManager
 		int row = x/48;
 		int col = y/48;
 		if(mapCropStage[row][col] != 0) {
+			numCrops--;
+			
+			if(numCrops <= 0) {
+				Game.player.setNoCrops(true);
+			}
 			mapCropStage[row][col] = mapCropStage[row][col] - 1;
 		}
 		else {

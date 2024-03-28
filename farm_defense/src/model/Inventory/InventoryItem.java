@@ -2,34 +2,23 @@ package model.Inventory;
 
 import java.awt.image.BufferedImage;
 
-public class InventoryItem 
+import model.items.Item;
+import util.ImageUtil;
+
+public class InventoryItem extends Item
 {
-	private BufferedImage image;
 	private int count;
-	private int ID;
-	private int price;
 	
-	public InventoryItem(int passedID, BufferedImage img, int itemCount)
+	public InventoryItem(int passedID, BufferedImage img, int itemCount, String name)
 	{
-		ID = passedID;
-		image = img;
-		count = itemCount;
-		
-		switch(ID) {
-			case 40: // carrot
-				price = 90;
-			case 41: // corn
-				price = 102;
-			case 42: // cauliflower
-				price = 127;
-			case 43: // potato
-				price = 151;
-		}
+		super(passedID, img, name);
+		this.count = itemCount;
 	}
 	
-	public BufferedImage getImage()
+	public InventoryItem(Item item, int itemCount)
 	{
-		return image;
+		super(item.getID(), item.getImage(), item.getName());
+		this.count = itemCount;
 	}
 	
 	public int getCount()
@@ -45,18 +34,5 @@ public class InventoryItem
 	public void changeCount(int amt)
 	{
 		count += amt;
-	}
-	
-	public int getID()
-	{
-		return ID;
-	}
-	
-	public int getPrice() {
-		return price;
-	}
-	
-	public void setPrice(int price) {
-		this.price = price;
 	}
 }
