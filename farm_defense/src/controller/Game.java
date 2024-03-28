@@ -36,7 +36,7 @@ import view.sideMenu.TurretMenu;
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -5505267217615912489L;
-	//hello
+
 	private Thread thread;
 	private boolean running = false;
 	
