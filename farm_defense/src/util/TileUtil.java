@@ -2,6 +2,7 @@ package util;
 
 import controller.Game;
 import model.GameObject;
+import model.Sound;
 import model.gameObjects.Player;
 import view.map.tile.TileManager;
 
@@ -92,6 +93,7 @@ public class TileUtil {
 	        	if (TileManager.tile[tileNum1].isStore() || TileManager.tile[tileNum2].isStore()) 
 	            {
 	                Game.gamestate = Game.GameState.Store;
+	                Sound.enterStoreSound();
 	            }
             }
         }

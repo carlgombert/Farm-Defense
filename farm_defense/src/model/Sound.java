@@ -30,6 +30,7 @@ public class Sound {
 		soundFile[2] = Sound.class.getClassLoader().getResource("resources/sound/effects/reload.wav");
 		soundFile[3] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombiedeath.wav");
 		soundFile[4] = Sound.class.getClassLoader().getResource("resources/sound/effects/burstRifle.wav");
+		soundFile[5] = Sound.class.getClassLoader().getResource("resources/sound/effects/storeEntrance.wav");
 		System.out.println(soundFile[0]);
 	}
 	
@@ -78,6 +79,11 @@ public class Sound {
 	
 	public static void reloadSound() {
 		setFile(2);
+		play();
+	}
+	
+	public static void enterStoreSound() {
+		setFile(5);
 		play();
 	}
 	
