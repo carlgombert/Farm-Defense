@@ -62,4 +62,8 @@ public class LightManager {
 		}
 		return distance;
 	}
+	
+	public static void reset() {
+		lightPositions = new ArrayList<int[]>();
+	}
 }

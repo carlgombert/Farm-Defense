@@ -109,6 +109,33 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
 	}
 	
+	public static void restart() {
+		
+		night = false;
+		
+		LightManager.reset();
+		
+		nightTimer = 0;
+		nightCount = 0;
+		
+		handler = new Handler();
+		
+		player = new Player(ID.Player);
+		handler.addObject(player);
+		
+		hud = new HUD(player);
+		inventory = new Inventory();
+		
+		handler.addObject(new NPC(48*16, (int) (48*5.5), ID.NPC));
+		
+		tileManager = new TileManager();
+		buildingManager = new BuildingManager();
+		farmingManager = new FarmingManager();
+		mapHelper = new MapEditorHelper();
+		
+		handler.addObject(new ZombieSpawner(2, ID.ZombieSpawner));
+	}
+	
 
 	public static void main(String[] args) 
 	{

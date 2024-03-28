@@ -35,6 +35,7 @@ public class BankruptMenu {
 	
 	public static void checkButton(int x, int y) {
 		if(menuButton.contains(x, y)) {
+			Game.restart();
 			Game.gamestate = GameState.MainMenu;
 		}
 	}
