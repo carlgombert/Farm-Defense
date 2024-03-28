@@ -151,4 +151,12 @@ public class StoreMenu {
 		}
 		displaysLoaded = true;
 	}
+	
+	public static void setCrop(Item crop) {
+		items[3] = crop;
+	}
+	
+	public static void setWall(Item wall) {
+		items[0] = wall;
+	}
 }
