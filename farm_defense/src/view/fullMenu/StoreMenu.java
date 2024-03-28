@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import controller.Game;
 import controller.Game.GameState;
+import model.Sound;
 import model.TradeItem;
 import model.Inventory.InventoryItem;
 import model.items.Item;
@@ -26,8 +27,6 @@ public class StoreMenu {
 	
 	private final static Color BACKGROUND_COLOR = new Color(222, 160, 79);
 	private final static Color DARK_BROWN = new Color(127, 72, 0);
-	private final static Color BUTTON_COLOR = new Color(54, 52, 17);
-	private final static Color TEXT_COLOR = new Color(240, 236, 225);
 	
 	private final static Rectangle[] displays = new Rectangle[8];
 	
@@ -108,24 +107,28 @@ public class StoreMenu {
 		}
 		if(BUY_1_BUTTON.contains(x, y)) {
 			if(items[0].getCost() <= Game.player.getCoins()) {
+				Sound.buySound();
 				Game.inventory.addItem(items[0].getID(), 1);
 				Game.player.setCoins(Game.player.getCoins() -  items[0].getCost());
 			}
 		}
 		if(BUY_2_BUTTON.contains(x, y)) {
 			if(items[1].getCost() <= Game.player.getCoins()) {
+				Sound.buySound();
 				Game.inventory.addItem(items[1].getID(), 1);
 				Game.player.setCoins(Game.player.getCoins() -  items[1].getCost());
 			}
 		}
 		if(BUY_3_BUTTON.contains(x, y)) {
 			if(items[2].getCost() <= Game.player.getCoins()) {
+				Sound.buySound();
 				Game.inventory.addItem(items[2].getID(), 1);
 				Game.player.setCoins(Game.player.getCoins() -  items[2].getCost());
 			}
 		}
 		if(BUY_4_BUTTON.contains(x, y)) {
 			if(items[3].getCost() <= Game.player.getCoins()) {
+				Sound.buySound();
 				Game.inventory.addItem(items[3].getID(), 1);
 				Game.player.setCoins(Game.player.getCoins() -  items[3].getCost());
 			}
@@ -133,6 +136,7 @@ public class StoreMenu {
 		if(SELL_BUTTON.contains(x, y)) {
 			for(int i = 40; i < 50; i++) {
 				if(Game.inventory.getItems().containsKey(i)) {
+					Sound.sellSound();
 					int price = Game.inventory.getItems().get(i).getPrice();
 					Game.player.setCoins(Game.player.getCoins() + Game.inventory.clearItem(i) * price);
 				}

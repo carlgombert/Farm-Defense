@@ -31,7 +31,8 @@ public class Sound {
 		soundFile[3] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombiedeath.wav");
 		soundFile[4] = Sound.class.getClassLoader().getResource("resources/sound/effects/burstRifle.wav");
 		soundFile[5] = Sound.class.getClassLoader().getResource("resources/sound/effects/storeEntrance.wav");
-		System.out.println(soundFile[0]);
+		soundFile[6] = Sound.class.getClassLoader().getResource("resources/sound/effects/buy.wav");
+		soundFile[7] = Sound.class.getClassLoader().getResource("resources/sound/effects/sell.wav");
 	}
 	
 	public static void setFile(int i) {
@@ -84,6 +85,16 @@ public class Sound {
 	
 	public static void enterStoreSound() {
 		setFile(5);
+		play();
+	}
+	
+	public static void buySound() {
+		setFile(6);
+		play();
+	}
+	
+	public static void sellSound() {
+		setFile(7);
 		play();
 	}
 	
