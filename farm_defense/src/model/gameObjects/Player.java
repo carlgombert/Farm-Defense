@@ -287,8 +287,10 @@ public class Player extends GameObject{
 	}
 
 	public void setCoins(int coins) {
-		setCoinsEarned(getCoinsEarned() - this.coins);
-		setCoinsEarned(getCoinsEarned() + coins);
+		if(coins > this.coins) {
+			setCoinsEarned(getCoinsEarned() - this.coins);
+			setCoinsEarned(getCoinsEarned() + coins);
+		}
 		this.coins = coins;
 	}
 

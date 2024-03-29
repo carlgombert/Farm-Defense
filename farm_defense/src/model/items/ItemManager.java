@@ -30,6 +30,8 @@ public class ItemManager {
 		
 		// ids in the 40s will be grown crops
 		itemImages[40] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_carrot.png");
+		itemImages[41] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_corn.png");
+		itemImages[42] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_cauliflower.png");
 		
 		// id 50 will be turret
 		itemImages[50] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_turret.png");
@@ -51,6 +53,8 @@ public class ItemManager {
 		itemNames[31] = "Corn Seeds";
 		
 		itemNames[40] = "Carrot";
+		itemNames[41] = "Corn";
+		itemNames[42] = "Cauliflower";
 		
 		itemNames[50] = "Turret";
 		itemNames[51] = "Torch";
