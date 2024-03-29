@@ -204,6 +204,51 @@ public class TileManager {
 		}
 	}
 	
+	
+	public void renderEvening (Graphics g, int gameMinutes) {
+		if(gameMinutes > 600) {
+			gameMinutes -= 600;
+			double nightPercentage = ((double)gameMinutes)/(double)120;
+			int col = 0;
+			int row = 0;
+			while (col < Game.MAP_COL && row < Game.MAP_ROW) {
+				
+				int worldX = col * 48;
+				int worldY = row * 48;
+				
+				int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
+				int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
+				
+				// if the tile is outside of the players view, do not render.
+				if(worldX > Game.player.getWorldX() - Game.WIDTH &&
+						worldX < Game.player.getWorldX() + Game.WIDTH &&
+						worldY > Game.player.getWorldY() - Game.HEIGHT &&
+						worldY < Game.player.getWorldY() + Game.HEIGHT) {
+					
+					//get an opacity value for the tile relative to the distance from light
+					int alpha = LightManager.getLightDistance(col, row) * 50; 
+					
+					//make sure opacity doesn't exceed limit
+					alpha = MathUtil.clamp((int)(alpha * 0.75), 0, (int)Math.round(230.0*nightPercentage));
+					
+					//create dark brown color with opacity
+					Color color = new Color(27, 5, 0, alpha);
+					g.setColor(color);
+					
+					//overlay the current tile with the color
+					g.fillRect(screenX, screenY, 48, 48);
+				}
+				
+				col++;
+				
+				if (col == Game.MAP_COL) {
+					col = 0;
+					row++;
+				}
+			}
+		}
+	}
+	
 	// filter to put over map at night
 	public void renderNight (Graphics g) {
 		int col = 0;

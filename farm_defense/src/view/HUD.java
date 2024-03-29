@@ -34,6 +34,8 @@ public class HUD {
 	
 	private final Rectangle START_NIGHT_BUTTON = new Rectangle(Game.WIDTH-90, Game.HEIGHT-60, 80, 25);
 	
+	private final Rectangle CLOCK = new Rectangle(7*48, 0, 2*48, 48);
+	
 	private int inventorySelected = 0;
 	
 	public HUD(Player player) {
@@ -113,6 +115,26 @@ public class HUD {
 			g.setFont(Game.DEFAULT_FONT);
 			g.setColor(Color.WHITE);
 			g.drawString("Start Night", START_NIGHT_BUTTON.x+6, START_NIGHT_BUTTON.y+17);
+		}
+		
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(CLOCK.x+5, CLOCK.y+5, CLOCK.width-10, CLOCK.height-10);
+		
+		g.setFont(Game.DEFAULT_FONT_LARGE);
+		g.setColor(Color.red);
+		if(Game.timeHours < 10) {
+			g.drawString("0"+Game.timeHours, CLOCK.x+13, CLOCK.y+32);
+		}
+		else {
+			g.drawString(""+Game.timeHours, CLOCK.x+13, CLOCK.y+32);
+		}
+		g.drawString(":", CLOCK.x+48-3, CLOCK.y+32);
+		
+		if(Game.timeMinutes < 10) {
+			g.drawString("0"+Game.timeMinutes, CLOCK.x+48+3, CLOCK.y+32);
+		}
+		else {
+			g.drawString(""+Game.timeMinutes, CLOCK.x+48+3, CLOCK.y+32);
 		}
 	}
 	

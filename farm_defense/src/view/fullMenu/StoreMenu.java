@@ -25,8 +25,8 @@ public class StoreMenu {
 	private final static Font FONT_LARGE = TxtFileUtil.createFont("resources/fonts/menuFont.ttf", 24);
 	private final static Font FONT_SMALL = TxtFileUtil.createFont("resources/fonts/menuFont.ttf", 14);
 	
-	private final static Color BACKGROUND_COLOR = new Color(222, 160, 79);
 	private final static Color DARK_BROWN = new Color(127, 72, 0);
+	private final static Color BACKGROUND_COLOR = new Color(222, 160, 79);
 	
 	private final static Rectangle[] displays = new Rectangle[8];
 	

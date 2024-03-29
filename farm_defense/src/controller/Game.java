@@ -48,6 +48,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int MAP_ROW = 40;
 	
 	public static final Font DEFAULT_FONT = new Font("Lucida Grande", Font.PLAIN, 13);
+	public static final Font DEFAULT_FONT_LARGE = new Font("Lucida Grande", Font.PLAIN, 26);
 	
 	public static Handler handler;
 	public static HUD hud;
@@ -67,6 +68,9 @@ public class Game extends Canvas implements Runnable{
 	public static boolean night;
 	public static int nightTimer = 0;
 	public static double nightCount = 0;
+	
+	public static int timeMinutes = 0;
+	public static int timeHours = 8;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
@@ -203,7 +207,14 @@ public class Game extends Canvas implements Runnable{
 	private void tick() {
 		if(gamestate == GameState.Running) {
 			nightTimer++;
-			if(nightTimer >= 10000) {
+			if(nightTimer % 14 == 0) {
+				timeMinutes++;
+			}
+			if(timeMinutes == 60) {
+				timeMinutes = 0;
+				timeHours++;
+			}
+			if(timeHours == 12) {
 				switchNight();
 			}
 			handler.tick();
@@ -240,6 +251,9 @@ public class Game extends Canvas implements Runnable{
 			if(night) {
 				tileManager.renderNight(g);
 			}
+			else {
+				tileManager.renderEvening(g, timeMinutes + 60*timeHours);
+			}
 			
 			hud.render(g);
 		}
@@ -268,5 +282,7 @@ public class Game extends Canvas implements Runnable{
 		nightCount += 0.5;
 		player.setHealth(400);
 		farmingManager.advanceAllStages(3);
+		timeMinutes = 0;
+		timeHours = 0;
 	}
 }
