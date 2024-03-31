@@ -70,7 +70,7 @@ public class Game extends Canvas implements Runnable{
 	public static double nightCount = 0;
 	
 	public static int timeMinutes = 0;
-	public static int timeHours = 8;
+	public static int timeHours = 0;
 	
 	public static GameState gamestate = GameState.MainMenu;
 	
@@ -121,6 +121,9 @@ public class Game extends Canvas implements Runnable{
 		
 		nightTimer = 0;
 		nightCount = 0;
+		
+		timeMinutes = 0;
+		timeHours = 0;
 		
 		handler = new Handler();
 		
@@ -284,5 +287,6 @@ public class Game extends Canvas implements Runnable{
 		farmingManager.advanceAllStages(3);
 		timeMinutes = 0;
 		timeHours = 0;
+		StoreMenu.updateItems();
 	}
 }

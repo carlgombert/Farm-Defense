@@ -152,6 +152,16 @@ public class StoreMenu {
 		displaysLoaded = true;
 	}
 	
+	public static void updateItems() {
+		int days = (int)Math.round(Game.nightCount);
+		if(days == 2) {
+			items[0] = ItemManager.getItem(21);
+		}
+		if(days < 3) {
+			items[3] = ItemManager.getItem(30+days);
+		}
+	}
+	
 	public static void setCrop(Item crop) {
 		items[3] = crop;
 	}

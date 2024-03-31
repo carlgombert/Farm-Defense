@@ -34,6 +34,9 @@ public class Item
 			case 31: // corn seed
 				cost = 60;
 				break;
+			case 32: // cauliflower seed
+				cost = 80;
+				break;
 			case 40: // carrot
 				price = 90;
 				break;
