@@ -5,14 +5,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
 import util.ImageUtil;
 
-// !!!README!!! all of the code in this file is temporary and very poorly organized
-// i will probably make a better system for this in the future, but for now this will work
-// im not gonna waste time commenting this file, so if u want to understand it ask me
 public class NPC extends GameObject
 {
 	private final int BOX_PADDING = Game.WIDTH / 68;
@@ -28,6 +30,10 @@ public class NPC extends GameObject
 	
 	private boolean talking = false;
 	private boolean interaction = false;
+	
+	private ArrayList<String> currentScript = new ArrayList<String>();
+	private String currentScriptName = "";
+	private int scriptPointer = 0;
 	
 	private String dialogue1 = "";
 	private String dialogue2 = "";
@@ -48,9 +54,8 @@ public class NPC extends GameObject
 	{
 		super(x, y, id);
 		
-		dialogue1 = "Hello I'm an NPC";
-		dialogue2 = "Test Test Test";
-		dialogue3 = "get the fuck away from me!";
+		loadScript("resources/npcscripts/script_introduction.txt");
+		
 		currImage = ImageUtil.addImage(75, 75, "resources/npc/cowboy_front.png");
 		headshotImage = ImageUtil.addImage(48, 48, "resources/npc/cowboy_headshot.png");
 	}
@@ -83,18 +88,38 @@ public class NPC extends GameObject
 			}
 			else
 			{
-					if (interaction)
+				if (interaction)
+				{
+					currLetter1 = 0;
+					currLetter2 = 0;
+					currLetter3 = 0;
+					currDialogue1 = "";
+					currDialogue2 = "";
+					currDialogue3 = "";
+					interaction = false;
+					
+					if (scriptPointer + 1 == currentScript.size())
 					{
+						// switch scripts if the player has heard the introduction
+						if (currentScriptName.equals("resources/npcscripts/script_introduction.txt"))
+							loadScript("resources/npcscripts/script_introduction_standby.txt");
+						
+						advanceDialogue(-1);
+						
 						talking = false;
-						currLetter1 = 0;
-						currLetter2 = 0;
-						currLetter3 = 0;
-						currDialogue1 = "";
-						currDialogue2 = "";
-						currDialogue3 = "";
-						interaction = false;
 						Game.player.setLocked(false);
 					}
+					else
+					{
+						if (currentScript.get(scriptPointer).equals("--"))
+						{
+							talking = false;
+							Game.player.setLocked(false);
+						}
+						
+						advanceDialogue(scriptPointer);
+					}		
+				}
 			}
 			
 			if (interaction)
@@ -147,6 +172,89 @@ public class NPC extends GameObject
 	public void setInteraction(boolean i)
 	{
 		interaction = i;
+	}
+	
+  /**
+	 * Loads global ArrayList<String> currentScript with the string of each
+	 * line in the script .txt file. 
+	 * 
+	 * @param script (string) filepath of the script to be loaded
+	 */
+	public void loadScript(String script)
+	{
+		try {
+			URL url = getClass().getClassLoader().getResource(script);
+			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+			
+			currentScript.clear();
+			currentScriptName = script;
+			
+			String line = br.readLine();
+			while (line != null)
+			{
+				currentScript.add(line);
+				line = br.readLine();
+			}
+			
+			advanceDialogue(-1);
+			
+			br.close () ;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+  /**
+	 * Determines what the next dialogue that the NPC will say will be
+	 * based on the passed pointer.
+	 * 
+	 * @param pointer integer represent a custom user-defined pointer to the index of the arraylist
+	 * 				  to start calculating the next dialogue. Use private variable scriptPointer
+	 * 				  if the NPC should continue within the regular script. Use -1 if resetting to
+	 * 				  beginning of the script.
+	 */
+	public void advanceDialogue(int pointer)
+	{
+		int currentDialogueSwitching = 1;
+		
+		for (int i = 1; i <= 4; i++)
+		{
+			if (currentScript.get(pointer + i).equals("-") || currentScript.get(pointer + i).equals("--"))
+			{
+				scriptPointer = pointer + i;
+				
+				switch (currentDialogueSwitching)
+				{
+					case 2:
+						dialogue2 = "";
+						dialogue3 = "";
+						break;
+					case 3:
+						dialogue3 = "";
+						break;
+				}
+				
+				break; // exit loop
+			}
+			else
+			{
+				switch (currentDialogueSwitching)
+				{
+					case 1:
+						dialogue1 = currentScript.get(pointer + i);
+						currentDialogueSwitching++;
+						break;
+					case 2:
+						dialogue2 = currentScript.get(pointer + i);
+						currentDialogueSwitching++;
+						break;
+					case 3:
+						dialogue3 = currentScript.get(pointer + i);
+						currentDialogueSwitching++;
+						break;
+				}
+			}
+		}
 	}
 	
 	public void setDialogue(String d1, String d2, String d3)
