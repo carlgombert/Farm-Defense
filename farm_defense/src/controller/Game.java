@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 import controller.objectHandling.Handler;
 import controller.objectHandling.ID;
 import model.gameObjects.ZombieSpawner;
+import model.skin.SkinManager;
 import model.Sound;
 import model.Inventory.Inventory;
 import model.gameObjects.NPC;
@@ -71,6 +72,8 @@ public class Game extends Canvas implements Runnable{
 	
 	public static int timeMinutes = 0;
 	public static int timeHours = 0;
+	
+	public static SkinManager sm = new SkinManager();
 	
 	public static GameState gamestate = GameState.MainMenu;
 	

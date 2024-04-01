@@ -10,6 +10,7 @@ import controller.Game;
 import controller.Game.GameState;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.skin.Skin;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
@@ -19,7 +20,7 @@ import util.TileUtil;
  */
 public class Player extends GameObject{
 	
-	HashMap<Integer, BufferedImage[]> playerImages = new HashMap<Integer, BufferedImage[]>();
+	private Skin skin;
 	
 	public Image currImage;
 	
@@ -71,17 +72,9 @@ public class Player extends GameObject{
 		
 		setWeaponState(w_State.Gun); // starting state as gun
 		
-		BufferedImage[] front = {ImageUtil.addImage(75, 75, "resources/player/front_right.png"), ImageUtil.addImage(75, 75, "resources/player/front_left.png")};
-		BufferedImage[] back = {ImageUtil.addImage(75, 75, "resources/player/back_right.png"), ImageUtil.addImage(75, 75, "resources/player/back_left.png")};
-		BufferedImage[] left = {ImageUtil.addImage(75, 75, "resources/player/left_right.png"), ImageUtil.addImage(75, 75, "resources/player/left_left.png")};
-		BufferedImage[] right = {ImageUtil.addImage(75, 75, "resources/player/right_right.png"), ImageUtil.addImage(75, 75, "resources/player/right_left.png")};
+		skin = Game.sm.getSkin("old");
 		
-		playerImages.put(0, front);
-		playerImages.put(1, back);
-		playerImages.put(2, left);
-		playerImages.put(3, right);
-		
-		currImage = playerImages.get(0)[0];
+		currImage = skin.getImage(0)[0];
 		
 		setScreenX((Game.WIDTH / 2) - (75/2));
 		setScreenY((Game.HEIGHT / 2) - (75/2));
@@ -136,7 +129,7 @@ public class Player extends GameObject{
 			}
 		}
 		
-		currImage = playerImages.get(super.getDirection())[step];
+		currImage = skin.getImage(super.getDirection())[step];
 		if((speedX != 0 || speedY != 0) && !locked) {
 			stepTimer++;
 			if(stepTimer > 10) {
