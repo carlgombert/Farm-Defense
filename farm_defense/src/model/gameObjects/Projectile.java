@@ -43,9 +43,9 @@ public class Projectile extends GameObject{
 		if(!hitZombie) { // If zombie has not been hit, continue to check for collisions and move bullet
 			zombies = new LinkedList<Zombie>();
 			
-			for(int i = 0; i < Game.handler.getObject().size(); i++) 
+			for(int i = 0; i < Game.handler.getObjects().size(); i++) 
 			{
-				GameObject tempObject = Game.handler.getObject().get(i);
+				GameObject tempObject = Game.handler.getObjects().get(i);
 				if (tempObject.getId() == ID.Zombie) 
 				{
 					zombies.add((Zombie)tempObject);

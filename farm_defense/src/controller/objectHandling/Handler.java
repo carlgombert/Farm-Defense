@@ -17,8 +17,8 @@ public class Handler {
 	private int zombiesKilled;
 	
 	public void tick() {
-		for(int i = 0; i < getObject().size(); i++) {
-			GameObject tempObject = getObject().get(i);
+		for(int i = 0; i < getObjects().size(); i++) {
+			GameObject tempObject = getObjects().get(i);
 			
 			tempObject.tick();
 		}
@@ -26,28 +26,28 @@ public class Handler {
 	
 	public void render(Graphics g) 
 	{
-		for(int i = 1; i < getObject().size(); i++)
+		for(int i = 1; i < getObjects().size(); i++)
 		{
-			GameObject tempObject = getObject().get(i);
+			GameObject tempObject = getObjects().get(i);
 			tempObject.render(g);
 		}
 		
-		getObject().get(0).render(g); // always renders the player last to draw them above all other objects
+		getObjects().get(0).render(g); // always renders the player last to draw them above all other objects
 	}
 	
 	public void addObject(GameObject addedObject) 
 	{
-		this.getObject().add(addedObject);
+		this.getObjects().add(addedObject);
 	}
 	
 	public void removeObject(GameObject removedObject) {
 		if(removedObject.getId() == ID.Zombie) {
 			zombiesKilled++;
 		}
-		this.getObject().remove(removedObject);
+		this.getObjects().remove(removedObject);
 	}
 
-	public LinkedList<GameObject> getObject() {
+	public LinkedList<GameObject> getObjects() {
 		return object;
 	}
 

@@ -209,9 +209,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				
 				LinkedList<NPC> NPCs = new LinkedList<NPC>();
 				
-				for(int i = 0; i < Game.handler.getObject().size(); i++) 
+				for(int i = 0; i < Game.handler.getObjects().size(); i++) 
 				{
-					GameObject tempObject = Game.handler.getObject().get(i);
+					GameObject tempObject = Game.handler.getObjects().get(i);
 					if (tempObject.getId() == ID.NPC) 
 					{
 						NPCs.add((NPC)tempObject);

@@ -126,19 +126,19 @@ public class Zombie extends GameObject{
 		// points function will try to divide by zero
 		if(!cropEating) 
 		{
-			if (this.getWorldX() == targetX && !YtileCollision && !cropSeeking)
-			{
-				doubleSpeedX = 0;
-				doubleSpeedY = speed * Math.signum(targetY - this.getWorldY());
-			}
-			else // finds closest angle to a player, will probably add another 
-			{
-				targetAngle = MathUtil.angleBetweenPoints(this.getWorldX(), this.getWorldY(), targetX, targetY);
-				
-						
-				doubleSpeedX = (speed * Math.cos(targetAngle));
-				doubleSpeedY = (speed * Math.sin(targetAngle));
-			}
+			
+			targetAngle = MathUtil.angleBetweenPoints(this.getWorldX(), this.getWorldY(), targetX, targetY);
+			
+			if((speed * Math.sin(targetAngle)) <= -0.49) {super.setDirection(1);}
+			else if((speed * Math.sin(targetAngle)) >= 0.49) {super.setDirection(0);}
+			else if((speed * Math.cos(targetAngle)) < 0) {super.setDirection(2);}
+			else if((speed * Math.cos(targetAngle)) > 0) {super.setDirection(3);}
+			
+			targetAngle = zombieCollsion(targetAngle);
+					
+			doubleSpeedX = (speed * Math.cos(targetAngle));
+			doubleSpeedY = (speed * Math.sin(targetAngle));
+			
 			speedX = (int)Math.round(doubleSpeedX);
 			speedY = (int)Math.round(doubleSpeedY);
 		}
@@ -187,10 +187,6 @@ public class Zombie extends GameObject{
 				}
 				stepTimer = 0;
 			}
-			if(doubleSpeedY <= -0.49) {super.setDirection(1);}
-			else if(doubleSpeedY >= 0.49) {super.setDirection(0);}
-			else if(doubleSpeedX < 0) {super.setDirection(2);}
-			else if(doubleSpeedX > 0) {super.setDirection(3);}
 		}
 		
 		currImage = zombieImages.get(super.getDirection())[step];
@@ -215,9 +211,26 @@ public class Zombie extends GameObject{
 			g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 			
 			//show hitbox
-			g.setColor(Color.white); g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+			g.setColor(Color.white); 
+			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 		
+	}
+	
+	public Double zombieCollsion(double angle) {
+		for(int i = 0; i < Game.handler.getObjects().size(); i++) {
+			if(Game.handler.getObjects().get(i).getId() == ID.Zombie) {
+				Zombie zom = (Zombie) Game.handler.getObjects().get(i);
+				if(zom.getWorldX() != this.getWorldX() && zom.getWorldY() != this.getWorldY()) {
+					if(this.getBounds().intersects(zom.getBounds())) {
+						Rectangle intersection = this.getBounds().intersection(zom.getBounds());
+						Double angle2 = MathUtil.angleBetweenPoints(this.getBounds().getCenterX(), this.getBounds().getCenterY(), intersection.getCenterX(), intersection.getCenterY());
+						angle = angle2+Math.PI;
+					}
+				}
+			}
+		}
+		return angle;
 	}
 	
 	public double getHealth() {

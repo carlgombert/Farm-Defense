@@ -25,7 +25,7 @@ public class Inventory
 		addItem(10, 1, 2);
 		addItem(0, 1, 3);
 		addItem(30, 5);
-		addItem(31, 5);
+		addItem(33, 5);
 		addItem(20, 5, 6);
 		addItem(50, 5);
 		addItem(51, 5);

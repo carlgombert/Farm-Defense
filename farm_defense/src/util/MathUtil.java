@@ -17,6 +17,10 @@ public class MathUtil {
 	   return Math.min(Math.max(value, min), max);
 	}
 	
+	public static Double angleBetweenPoints(double x1, double y1, double x2, double y2) {
+		return angleBetweenPoints((int)Math.round(x1), (int)Math.round(y1), (int)Math.round(x2), (int)Math.round(y2));
+	}
+	
 	/**
     * finds the angle between two coordinates
     *

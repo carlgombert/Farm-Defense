@@ -28,11 +28,13 @@ public class ItemManager {
 		itemImages[30] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_carrot.png");
 		itemImages[31] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_corn.png");
 		itemImages[32] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_cauliflower.png");
+		itemImages[33] = ImageUtil.addImage(16, 16, "resources/inventory/seeds/inventory_seeds_potato.png");
 		
 		// ids in the 40s will be grown crops
 		itemImages[40] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_carrot.png");
 		itemImages[41] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_corn.png");
 		itemImages[42] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_cauliflower.png");
+		itemImages[43] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_potato.png");
 		
 		// id 50 will be turret
 		itemImages[50] = ImageUtil.addImage(16, 16, "resources/inventory/inventory_turret.png");
@@ -53,10 +55,12 @@ public class ItemManager {
 		itemNames[30] = "Carrot Seeds";
 		itemNames[31] = "Corn Seeds";
 		itemNames[32] = "Cauliflower Seeds";
+		itemNames[33] = "Potato Seeds";
 		
 		itemNames[40] = "Carrot";
 		itemNames[41] = "Corn";
 		itemNames[42] = "Cauliflower";
+		itemNames[42] = "Potato";
 		
 		itemNames[50] = "Turret";
 		itemNames[51] = "Torch";

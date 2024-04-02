@@ -109,8 +109,8 @@ public class Turret extends GameObject{
 
 	// chooseTarget looks for any zombies within range
 	public Zombie chooseTarget() {
-		for(int i =0; i < Game.handler.getObject().size(); i++) {
-			GameObject tempObject = Game.handler.getObject().get(i);
+		for(int i =0; i < Game.handler.getObjects().size(); i++) {
+			GameObject tempObject = Game.handler.getObjects().get(i);
 			
 			if(tempObject.getId() == ID.Zombie) {
 				// if the distance between position and zombie is within range

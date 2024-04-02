@@ -157,7 +157,7 @@ public class StoreMenu {
 		if(days == 2) {
 			items[0] = ItemManager.getItem(21);
 		}
-		if(days < 3) {
+		if(days < 4) {
 			items[3] = ItemManager.getItem(30+days);
 		}
 	}
