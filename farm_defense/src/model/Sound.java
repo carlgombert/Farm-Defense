@@ -42,7 +42,7 @@ public class Sound {
 			if(!clip.isOpen()) {
 				clip.open(ais);
 			}
-		} catch (LineUnavailableException | IllegalStateException | IOException | UnsupportedAudioFileException e) {
+		} catch (LineUnavailableException | IllegalStateException | IOException | OutOfMemoryError | UnsupportedAudioFileException e) {
 			System.out.println("clip not played");
 		}
 	}

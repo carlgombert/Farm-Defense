@@ -212,6 +212,7 @@ public class Game extends Canvas implements Runnable{
      */
 	private void tick() {
 		if(gamestate == GameState.Running) {
+			
 			nightTimer++;
 			if(nightTimer % 14 == 0) {
 				timeMinutes++;
@@ -224,6 +225,7 @@ public class Game extends Canvas implements Runnable{
 				switchNight();
 			}
 			handler.tick();
+			
 		}
 	}
 	

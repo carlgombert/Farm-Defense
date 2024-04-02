@@ -40,6 +40,15 @@ public class Item
 			case 33: // potato seed
 				cost = 100;
 				break;
+			case 34: // pepper seed
+				cost = 130;
+				break;
+			case 35: // watermelon seed
+				cost = 150;
+				break;
+			case 36: // sunflower seed
+				cost = 280;
+				break;
 			case 40: // carrot
 				price = 90;
 				break;
@@ -51,6 +60,15 @@ public class Item
 				break;
 			case 43: // potato
 				price = 151;
+				break;
+			case 44: // pepper
+				price = 185;
+				break;
+			case 45: // watermelon
+				price = 208;
+				break;
+			case 46: // sunflower
+				price = 353;
 				break;
 			case 50: // turret
 				cost = 150;

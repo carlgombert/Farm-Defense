@@ -63,6 +63,21 @@ public class FarmingManager
 		crop [33].setImage1(ImageUtil.addImage(24, 24, "resources/farming/potato_stage1.png"));
 		crop [33].setImage2(ImageUtil.addImage(24, 24, "resources/farming/potato_stage2.png"));
 		crop [33].setImage3(ImageUtil.addImage(24, 24, "resources/farming/potato_stage3.png"));
+		
+		crop [34] = new Crop();
+		crop [34].setImage1(ImageUtil.addImage(24, 24, "resources/farming/pepper_stage1.png"));
+		crop [34].setImage2(ImageUtil.addImage(24, 24, "resources/farming/pepper_stage2.png"));
+		crop [34].setImage3(ImageUtil.addImage(24, 24, "resources/farming/pepper_stage3.png"));
+		
+		crop [35] = new Crop();
+		crop [35].setImage1(ImageUtil.addImage(24, 24, "resources/farming/watermelon_stage1.png"));
+		crop [35].setImage2(ImageUtil.addImage(24, 24, "resources/farming/watermelon_stage2.png"));
+		crop [35].setImage3(ImageUtil.addImage(24, 24, "resources/farming/watermelon_stage3.png"));
+		
+		crop [36] = new Crop();
+		crop [36].setImage1(ImageUtil.addImage(24, 24, "resources/farming/sunflower_stage1.png"));
+		crop [36].setImage2(ImageUtil.addImage(24, 24, "resources/farming/sunflower_stage2.png"));
+		crop [36].setImage3(ImageUtil.addImage(24, 24, "resources/farming/sunflower_stage3.png"));
 	}
 	
 	// loads the map of farmland/crops from the farmlandmap.txt file to mapFarmland[][]
