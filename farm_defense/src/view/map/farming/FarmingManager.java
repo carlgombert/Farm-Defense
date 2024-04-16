@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.net.URL;
 
 import controller.Game;
+import model.Sound;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TxtFileUtil;
@@ -191,7 +192,14 @@ public class FarmingManager
 		int changeNumber; // represents the number to change the number in the .txt file to
 		
 		// determines if a farmland tile should be added or removed based on if there is one already there
-		if (mapFarmland[col][row] == 0 && Game.buildingManager.getBuildingMap()[col][row] == 0) changeNumber = 1;
+		if (mapFarmland[col][row] == 0 && Game.buildingManager.getBuildingMap()[col][row] == 0) {
+			changeNumber = 1;
+			Sound.hoeSound();
+		}
+		else if(Game.buildingManager.getBuildingMap()[col][row] == 0) {
+			Sound.hoeSound();
+			changeNumber = 0;
+		}
 		else changeNumber = 0;
 		
 		if(mapCropStage[col][row] >= 1){ // some crop has been removed, therefor decrease crop count

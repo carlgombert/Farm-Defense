@@ -10,6 +10,7 @@ import controller.Game;
 import controller.Game.GameState;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import model.skin.Skin;
 import util.ImageUtil;
 import util.MathUtil;
@@ -132,7 +133,8 @@ public class Player extends GameObject{
 		currImage = skin.getImage(super.getDirection())[step];
 		if((speedX != 0 || speedY != 0) && !locked) {
 			stepTimer++;
-			if(stepTimer > 10) {
+			if(stepTimer > 15) {
+				Sound.stepSound();
 				if(step == 0) {
 					step = 1;
 				}

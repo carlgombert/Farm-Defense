@@ -12,6 +12,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import util.MathUtil;
+
 /**
  * The Sound class serves as an audioplayer for music and different in game events
  */
@@ -55,6 +57,17 @@ public class Sound {
 		soundFile[10] = Sound.class.getClassLoader().getResource("resources/sound/music/test_menu.wav");
 		soundFile[11] = Sound.class.getClassLoader().getResource("resources/sound/effects/wood_wall.wav");
 		soundFile[12] = Sound.class.getClassLoader().getResource("resources/sound/effects/stone_wall.wav");
+		soundFile[13] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_1.wav");
+		soundFile[14] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_2.wav");
+		soundFile[15] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_3.wav");
+		soundFile[16] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_4.wav");
+		soundFile[17] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_5.wav");
+		soundFile[18] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_6.wav");
+		soundFile[19] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_7.wav");
+		soundFile[20] = Sound.class.getClassLoader().getResource("resources/sound/effects/zombie/zombie_8.wav");
+		soundFile[21] = Sound.class.getClassLoader().getResource("resources/sound/effects/hoe_dirt.wav");
+		soundFile[22] = Sound.class.getClassLoader().getResource("resources/sound/effects/empty.wav");
+		soundFile[23] = Sound.class.getClassLoader().getResource("resources/sound/effects/footstep.wav");
 		
 		setFile(8);
 		loopedClips.put(2, clip);
@@ -65,7 +78,10 @@ public class Sound {
 		setFile(10);
 		loopedClips.put(3, clip);
 		
-		for(int i = 0; i < 13; i++) {
+		setFile(23);
+		loopedClips.put(4, clip);
+		
+		for(int i = 0; i <= 23; i++) {
 			repeatedClips[i][0] = new LinkedList<>();
 			repeatedClips[i][1] = new LinkedList<>();
 			for(int j = 0; j < 10; j++) {
@@ -96,9 +112,20 @@ public class Sound {
 	}
 	
 	public static void play(int index) {
-		loopedClips.get(index).stop();
-		loopedClips.get(index).setMicrosecondPosition(0);
-		loopedClips.get(index).start();
+		
+		// move all clips that ended from the playing queue back to the playable queue
+		while(repeatedClips[index][1].peek() != null && repeatedClips[index][1].peek().isRunning() == false) {
+			Clip temp = repeatedClips[index][1].remove();
+			temp.setMicrosecondPosition(0);
+			repeatedClips[index][0].add(temp);
+		}
+		
+		// play the top of the playable queue
+		if(repeatedClips[index][0].peek() != null) {
+			Clip temp = repeatedClips[index][0].remove();
+			temp.start();
+			repeatedClips[index][1].add(temp);
+		}
 	}
 	
 	public static void pause(int index) {
@@ -121,132 +148,67 @@ public class Sound {
 	public static void rifleSound() {
 		if(System.currentTimeMillis() - rifleTimerStart > 20) {
 			rifleTimerStart = System.currentTimeMillis();
-			while(repeatedClips[0][1].peek() != null && repeatedClips[0][1].peek().isRunning() == false) {
-				Clip temp = repeatedClips[0][1].remove();
-				temp.setMicrosecondPosition(0);
-				repeatedClips[0][0].add(temp);
-			}
-			if(repeatedClips[0][0].peek() != null) {
-				Clip temp = repeatedClips[0][0].remove();
-				temp.start();
-				repeatedClips[0][1].add(temp);
-			}
+			play(0);
 		}
 	}
 	
 	public static void burstRifleSound() {
 		if(System.currentTimeMillis() - rifleTimerStart > 20) {
 			rifleTimerStart = System.currentTimeMillis();
-			setFile(4);
-			play();
+			play(4);
 		}
 	}
 	
 	public static void pistolSound() {
-		while(repeatedClips[1][1].peek() != null && repeatedClips[1][1].peek().isRunning() == false) {
-			Clip temp = repeatedClips[1][1].remove();
-			temp.setMicrosecondPosition(0);
-			repeatedClips[1][0].add(temp);
-		}
-		if(repeatedClips[1][0].peek() != null) {
-			Clip temp = repeatedClips[1][0].remove();
-			temp.start();
-			repeatedClips[1][1].add(temp);
-		}
+		play(1);
+	}
+	
+	public static void emptySound() {
+		play(22);
+	}
+	
+	public static void zombieSound() {
+		int increment = MathUtil.randomNumber(0, 7);
+		play(13+increment);
 	}
 	
 	public static void zombieDeathSound() {
 		if(System.currentTimeMillis() - zombieTimerStart > 20) {
 			zombieTimerStart = System.currentTimeMillis();
-			while(repeatedClips[3][1].peek() != null && repeatedClips[3][1].peek().isRunning() == false) {
-				Clip temp = repeatedClips[3][1].remove();
-				temp.setMicrosecondPosition(0);
-				repeatedClips[3][0].add(temp);
-			}
-			if(repeatedClips[3][0].peek() != null) {
-				Clip temp = repeatedClips[3][0].remove();
-				temp.start();
-				repeatedClips[3][1].add(temp);
-			}
+			play(3);
 		}
 	}
 	
 	public static void reloadSound() {
-		while(repeatedClips[2][1].peek() != null && repeatedClips[2][1].peek().isRunning() == false) {
-			Clip temp = repeatedClips[2][1].remove();
-			temp.setMicrosecondPosition(0);
-			repeatedClips[2][0].add(temp);
-		}
-		if(repeatedClips[2][0].peek() != null) {
-			Clip temp = repeatedClips[2][0].remove();
-			temp.start();
-			repeatedClips[2][1].add(temp);
-		}
+		play(2);
 	}
 	
 	public static void enterStoreSound() {
-		while(repeatedClips[5][1].peek() != null && repeatedClips[5][1].peek().isRunning() == false) {
-			Clip temp = repeatedClips[5][1].remove();
-			temp.setMicrosecondPosition(0);
-			repeatedClips[5][0].add(temp);
-		}
-		if(repeatedClips[5][0].peek() != null) {
-			Clip temp = repeatedClips[5][0].remove();
-			temp.start();
-			repeatedClips[5][1].add(temp);
-		}
+		play(5);
 	}
 	
 	public static void buySound() {
-		while(repeatedClips[6][1].peek() != null && repeatedClips[6][1].peek().isRunning() == false) {
-			Clip temp = repeatedClips[6][1].remove();
-			temp.setMicrosecondPosition(0);
-			repeatedClips[6][0].add(temp);
-		}
-		if(repeatedClips[6][0].peek() != null) {
-			Clip temp = repeatedClips[6][0].remove();
-			temp.start();
-			repeatedClips[6][1].add(temp);
-		}
+		play(6);
 	}
 	
 	public static void sellSound() {
-		while(repeatedClips[7][1].peek() != null && repeatedClips[7][1].peek().isRunning() == false) {
-			Clip temp = repeatedClips[7][1].remove();
-			temp.setMicrosecondPosition(0);
-			repeatedClips[7][0].add(temp);
-		}
-		if(repeatedClips[7][0].peek() != null) {
-			Clip temp = repeatedClips[7][0].remove();
-			temp.start();
-			repeatedClips[7][1].add(temp);
-		}
+		play(7);
 	}
 	
 	public static void woodBuildSound() {
-		while(repeatedClips[11][1].peek() != null && repeatedClips[11][1].peek().isRunning() == false) {
-			Clip temp = repeatedClips[11][1].remove();
-			temp.setMicrosecondPosition(0);
-			repeatedClips[11][0].add(temp);
-		}
-		if(repeatedClips[11][0].peek() != null) {
-			Clip temp = repeatedClips[11][0].remove();
-			temp.start();
-			repeatedClips[11][1].add(temp);
-		}
+		play(11);
 	}
 	
 	public static void stoneBuildSound() {
-		while(repeatedClips[12][1].peek() != null && repeatedClips[12][1].peek().isRunning() == false) {
-			Clip temp = repeatedClips[12][1].remove();
-			temp.setMicrosecondPosition(0);
-			repeatedClips[12][0].add(temp);
-		}
-		if(repeatedClips[12][0].peek() != null) {
-			Clip temp = repeatedClips[12][0].remove();
-			temp.start();
-			repeatedClips[12][1].add(temp);
-		}
+		play(12);
+	}
+	
+	public static void hoeSound() {
+		play(21);
+	}
+	
+	public static void stepSound() {
+		play(23);
 	}
 	
 	public static void nightMusic() {

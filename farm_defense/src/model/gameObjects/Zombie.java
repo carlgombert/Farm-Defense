@@ -10,6 +10,7 @@ import java.util.HashMap;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import util.ImageUtil;
 import util.MathUtil;
 import util.TileUtil;
@@ -33,6 +34,9 @@ public class Zombie extends GameObject{
 	
 	private int eatTimer = 0;
 	
+	// sound timer holds the number of ticks until the zombie will make a random noise
+	private int soundTimer;
+	
 	private double targetAngle;
 	
 	private double speed = 1;
@@ -49,6 +53,8 @@ public class Zombie extends GameObject{
 
 	public Zombie(int x, int y, ID id) {
 		super(x, y, id);
+		
+		soundTimer = MathUtil.randomNumber(100, 5000);
 		
 		BufferedImage[] front = {ImageUtil.addImage(75, 75, "resources/zombie/front_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_2.png"), ImageUtil.addImage(75, 75, "resources/zombie/front_2.png")};
 		BufferedImage[] back = {ImageUtil.addImage(75, 75, "resources/zombie/back_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_1.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_2.png"), ImageUtil.addImage(75, 75, "resources/zombie/back_2.png")};
@@ -83,6 +89,12 @@ public class Zombie extends GameObject{
 		XtileCollision = false;
 		YtileCollision = false;
 		
+		soundTimer--;
+		
+		if(soundTimer == 0) {
+			soundTimer = MathUtil.randomNumber(100, 5000);
+			Sound.zombieSound();
+		}
 		
 		int targetX = Game.player.getWorldX();
 		int targetY = Game.player.getWorldY();
@@ -210,9 +222,7 @@ public class Zombie extends GameObject{
 			
 			g.drawImage(currImage, (int) Math.round(getScreenX()), (int) Math.round(getScreenY()), null);
 			
-			//show hitbox
-			g.setColor(Color.white); 
-			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+			
 		}
 		
 	}

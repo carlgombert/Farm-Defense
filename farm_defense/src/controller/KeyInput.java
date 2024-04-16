@@ -91,6 +91,9 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 							canShoot = false; // prevents the Game.player from being able to shoot infinitely fast by holding down the mouse button
 							Game.player.setAmmo(Game.player.getAmmo() - 1); // remove 1 from the Game.player's ammo
 						}
+						else if(canShoot == true && Game.player.getAmmo() == 0){
+							Sound.emptySound();
+						}
 					}
 					else if (Game.player.getWeaponState() == Game.player.stateBuild() && canBuild)
 					{

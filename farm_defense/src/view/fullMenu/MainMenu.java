@@ -26,9 +26,9 @@ public class MainMenu {
 	private final static Rectangle CREDITS_BUTTON = new Rectangle(Game.WIDTH/2 - 100, 2*(Game.HEIGHT/3) + 20, 200, 30);
 	private final static Rectangle HELP_BUTTON = new Rectangle(0, 0, 30, 30);
 	
-	private final static Image ICON = ImageUtil.addImage(100, 100, "resources/icon/icon.png");
+	private final static Image ICON = ImageUtil.addImage(400, 400, "resources/icon/icon.png");
 	
-	private final static Font FONT = TxtFileUtil.createFont("resources/fonts/menuFont.ttf", 24);
+	private final static Font FONT = TxtFileUtil.createFont("resources/fonts/PressStart2P.ttf", 18);
 	
 	private final static Color BACKGROUND_COLOR = new Color(230, 180, 52);
 	private final static Color BUTTON_COLOR = new Color(54, 52, 17);
@@ -62,7 +62,7 @@ public class MainMenu {
 			g.drawString("X", HELP_BUTTON.x+10, HELP_BUTTON.y+25);
 		}
 		else {
-			g.drawImage(ICON, Game.WIDTH/2 - 50, Game.HEIGHT/4 - 50, 100, 100, null);
+			g.drawImage(ICON, Game.WIDTH/2 - 150, Game.HEIGHT/3 - 150, 300, 300, null);
 			
 			g.setColor(BUTTON_COLOR);
 			g.fillRect(START_BUTTON.x, START_BUTTON.y, START_BUTTON.width, START_BUTTON.height);
@@ -74,9 +74,9 @@ public class MainMenu {
 			g.drawString("?", HELP_BUTTON.x+10, HELP_BUTTON.y+25);
 			
 			g.setColor(TEXT_COLOR);
-			g.drawString("Start", START_BUTTON.x+70, START_BUTTON.y+23);
+			g.drawString("Start", START_BUTTON.x+57, START_BUTTON.y+23);
 			
-			g.drawString("Credits", CREDITS_BUTTON.x+57, CREDITS_BUTTON.y+23);
+			g.drawString("Credits", CREDITS_BUTTON.x+40, CREDITS_BUTTON.y+23);
 		}
 
 	}
