@@ -159,7 +159,13 @@ public class FarmingManager
 				g.drawImage(farmlandImage, screenX, screenY, 48, 48, null);
 				
 				// draw crop if there is any on the farmland
-				if (mapFarmland[col][row] != 1) g.drawImage(crop[mapFarmland[col][row]].getCurrentStage(mapCropStage[col][row]), screenX, screenY, 48, 48, null);
+				try {
+					if (mapFarmland[col][row] != 1) {
+						g.drawImage(crop[mapFarmland[col][row]].getCurrentStage(mapCropStage[col][row]), screenX, screenY, 48, 48, null);
+					}
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+				}
 			}
 			
 			col++;

@@ -114,6 +114,8 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(new ZombieSpawner(2, ID.ZombieSpawner));
 		
 		new Window(WIDTH, HEIGHT, "Zombie Valley", this);
+		
+		Sound.menuMusic();
 	}
 	
 	public static void restart() {
@@ -144,6 +146,8 @@ public class Game extends Canvas implements Runnable{
 		mapHelper = new MapEditorHelper();
 		
 		handler.addObject(new ZombieSpawner(2, ID.ZombieSpawner));
+		
+		Sound.menuMusic();
 	}
 	
 
@@ -214,7 +218,7 @@ public class Game extends Canvas implements Runnable{
 		if(gamestate == GameState.Running) {
 			
 			nightTimer++;
-			if(nightTimer % 14 == 0) {
+			if(nightTimer % 10 == 0) {
 				timeMinutes++;
 			}
 			if(timeMinutes == 60) {
@@ -293,5 +297,10 @@ public class Game extends Canvas implements Runnable{
 		timeMinutes = 0;
 		timeHours = 0;
 		StoreMenu.updateItems();
+		if(night) {
+			Sound.nightMusic();			
+		} else {
+			Sound.dayMusic();
+		}
 	}
 }

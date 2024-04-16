@@ -10,6 +10,7 @@ import java.awt.Image;
 
 import controller.Game;
 import controller.Game.GameState;
+import model.Sound;
 import util.GraphicsUtil;
 import util.ImageUtil;
 import util.TxtFileUtil;
@@ -83,6 +84,7 @@ public class MainMenu {
 	public static void checkButton(int x, int y) {
 		if(START_BUTTON.contains(x, y) && !(helpScreen || creditsScreen)) {
 			Game.gamestate = GameState.Running;
+			Sound.dayMusic();
 		}
 		else if(CREDITS_BUTTON.contains(x, y) && !(helpScreen || creditsScreen)){
 			creditsScreen = true;

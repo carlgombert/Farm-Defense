@@ -155,16 +155,11 @@ public class KeyInput extends KeyAdapter implements MouseListener, MouseMotionLi
 				}
 			}
 			else {
-				if (Game.player.getWeaponState() == Game.player.stateBuild() && canBuild)
-				{
-					canBuild = false;
-					
-					Game.buildingManager.setMouseX(e.getX());
-					Game.buildingManager.setMouseY(e.getY());
-					
-					// tells buildingManager to create a building
-					Game.buildingManager.removeBuilding();
-				}
+			
+				Game.buildingManager.setMouseX(e.getX());
+				Game.buildingManager.setMouseY(e.getY());
+				
+				Game.buildingManager.removeBuilding();
 			}
 		}
 		if(Game.gamestate == GameState.MainMenu) {

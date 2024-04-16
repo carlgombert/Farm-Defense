@@ -13,6 +13,7 @@ import java.net.URL;
 import controller.Game;
 import controller.objectHandling.ID;
 import model.GameObject;
+import model.Sound;
 import model.gameObjects.Zombie;
 import util.ImageUtil;
 
@@ -295,9 +296,11 @@ public class BuildingManager
 			switch (Game.inventory.getCurrentID())
 			{
 				case 20:
+					Sound.woodBuildSound();
 					mapHealthNum[col][row] = 30;
 					break;
 				case 21:
+					Sound.stoneBuildSound();
 					mapHealthNum[col][row] = 50;
 					break;
 			}
@@ -307,6 +310,9 @@ public class BuildingManager
 				
 			// calculates what the building should be based on what the buildings are around it
 			recalculateTile(col, row, id);
+		}
+		else {
+			System.out.println(mapBuildingNum[col][row]);
 		}
 	}
 	
