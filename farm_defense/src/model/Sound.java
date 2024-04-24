@@ -68,6 +68,7 @@ public class Sound {
 		soundFile[21] = Sound.class.getClassLoader().getResource("resources/sound/effects/hoe_dirt.wav");
 		soundFile[22] = Sound.class.getClassLoader().getResource("resources/sound/effects/empty.wav");
 		soundFile[23] = Sound.class.getClassLoader().getResource("resources/sound/effects/footstep.wav");
+		soundFile[24] = Sound.class.getClassLoader().getResource("resources/sound/effects/click.wav");
 		
 		setFile(8);
 		loopedClips.put(2, clip);
@@ -81,7 +82,7 @@ public class Sound {
 		setFile(23);
 		loopedClips.put(4, clip);
 		
-		for(int i = 0; i <= 23; i++) {
+		for(int i = 0; i <= 24; i++) {
 			repeatedClips[i][0] = new LinkedList<>();
 			repeatedClips[i][1] = new LinkedList<>();
 			for(int j = 0; j < 10; j++) {
@@ -165,6 +166,10 @@ public class Sound {
 	
 	public static void emptySound() {
 		play(22);
+	}
+	
+	public static void clickSound() {
+		play(24);
 	}
 	
 	public static void zombieSound() {

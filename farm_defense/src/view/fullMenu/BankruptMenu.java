@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 
 import controller.Game;
 import controller.Game.GameState;
+import model.Sound;
 import util.ImageUtil;
 
 public class BankruptMenu {
@@ -35,6 +36,7 @@ public class BankruptMenu {
 	
 	public static void checkButton(int x, int y) {
 		if(menuButton.contains(x, y)) {
+			Sound.clickSound();
 			Game.restart();
 			Game.gamestate = GameState.MainMenu;
 		}

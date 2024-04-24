@@ -83,16 +83,20 @@ public class MainMenu {
 	
 	public static void checkButton(int x, int y) {
 		if(START_BUTTON.contains(x, y) && !(helpScreen || creditsScreen)) {
+			Sound.clickSound();
 			Game.gamestate = GameState.Running;
 			Sound.dayMusic();
 		}
 		else if(CREDITS_BUTTON.contains(x, y) && !(helpScreen || creditsScreen)){
+			Sound.clickSound();
 			creditsScreen = true;
 		}
 		else if(HELP_BUTTON.contains(x, y) && !(helpScreen || creditsScreen)) {
+			Sound.clickSound();
 			helpScreen = true;
 		}
 		else if(HELP_BUTTON.contains(x, y) && (helpScreen || creditsScreen)) {
+			Sound.clickSound();
 			helpScreen = false;
 			creditsScreen = false;
 		}

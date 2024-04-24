@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 
 import controller.Game;
 import controller.Game.GameState;
+import model.Sound;
 import model.Inventory.InventoryItem;
 import model.gameObjects.Player;
 import util.TxtFileUtil;
@@ -151,10 +152,12 @@ public class HUD {
 	
 	public boolean checkButton(int x, int y) {
 		if(PAUSE_BUTTON.contains(x, y)) {
+			Sound.clickSound();
 			Game.gamestate = GameState.Paused;
 			return true;
 		}
 		if(START_NIGHT_BUTTON.contains(x, y) && !Game.night) {
+			Sound.clickSound();
 			Game.switchNight();
 			return true;
 		}

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import controller.Game;
 import controller.Game.GameState;
+import model.Sound;
 import util.GraphicsUtil;
 import util.TxtFileUtil;
 
@@ -56,12 +57,15 @@ public class PauseMenu {
 	
 	public static void checkButton(int x, int y) {
 		if(CONTINUE_BUTTON.contains(x, y) && !helpScreen) {
+			Sound.clickSound();
 			Game.gamestate = GameState.Running;
 		}
 		else if(HELP_BUTTON.contains(x, y) && !helpScreen) {
+			Sound.clickSound();
 			helpScreen = true;
 		}
 		else if(HELP_BUTTON.contains(x, y) && helpScreen) {
+			Sound.clickSound();
 			helpScreen = false;
 		}
 	}

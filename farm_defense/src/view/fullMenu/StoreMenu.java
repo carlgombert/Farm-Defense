@@ -42,6 +42,8 @@ public class StoreMenu {
 	
 	private final static Rectangle SELL_BUTTON = new Rectangle(48*6, Game.HEIGHT-2*48-24, 48*4, 48);
 	
+	private static int turretsPurchased = 0;
+	
 	private static Item[] items = {
 			ItemManager.getItem(20),
 			ItemManager.getItem(50),
@@ -102,6 +104,7 @@ public class StoreMenu {
 	
 	public static void checkButton(int x, int y) {
 		if(EXIT_BUTTON.contains(x, y)) {
+			Sound.clickSound();
 			Game.player.setSpeedY(0);
 			Game.gamestate = GameState.Running;
 		}
@@ -168,5 +171,17 @@ public class StoreMenu {
 	
 	public static void setWall(Item wall) {
 		items[0] = wall;
+	}
+
+	public static int getTurretsPurchased() {
+		return turretsPurchased;
+	}
+
+	public static void setTurretsPurchased(int turretsPurchased) {
+		StoreMenu.turretsPurchased = turretsPurchased;
+	}
+	
+	public static void increaseTurretsPurchased(int turretsPurchased) {
+		StoreMenu.turretsPurchased += turretsPurchased;
 	}
 }

@@ -133,7 +133,7 @@ public class Player extends GameObject{
 		currImage = skin.getImage(super.getDirection())[step];
 		if((speedX != 0 || speedY != 0) && !locked) {
 			stepTimer++;
-			if(stepTimer > 15) {
+			if(stepTimer > 13) {
 				Sound.stepSound();
 				if(step == 0) {
 					step = 1;
