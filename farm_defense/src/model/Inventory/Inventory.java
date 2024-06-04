@@ -6,6 +6,7 @@ import java.util.HashMap;
 import controller.Game;
 import model.items.ItemManager;
 import util.ImageUtil;
+import view.fullMenu.StoreMenu;
 
 public class Inventory 
 {
@@ -27,7 +28,6 @@ public class Inventory
 		addItem(30, 5);
 		addItem(33, 5);
 		addItem(20, 5, 6);
-		addItem(50, 5);
 		addItem(51, 5);
 		addItem(21, 500);
 		addItem(40, 20);
@@ -80,6 +80,9 @@ public class Inventory
 	public void addItem(int ID, int count)
 	{
 		getItems().put(ID, new InventoryItem(ItemManager.getItem(ID), count));
+		if(ID == 50) {
+			StoreMenu.increaseTurretsPurchased(count);
+		}
 		// first check if should be stacked with items already in the inventory
 		for (int i = 0; i < 10; i++)
 		{

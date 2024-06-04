@@ -25,6 +25,8 @@ public class StoreMenu {
 	private final static Font FONT_LARGE = TxtFileUtil.createFont("resources/fonts/menuFont.ttf", 24);
 	private final static Font FONT_SMALL = TxtFileUtil.createFont("resources/fonts/menuFont.ttf", 14);
 	
+	private final static Image SOLD_OUT_ICON = ImageUtil.addImage(150, 150, "resources/icon/sold_out.png");
+	
 	private final static Color DARK_BROWN = new Color(127, 72, 0);
 	private final static Color BACKGROUND_COLOR = new Color(222, 160, 79);
 	
@@ -43,6 +45,7 @@ public class StoreMenu {
 	private final static Rectangle SELL_BUTTON = new Rectangle(48*6, Game.HEIGHT-2*48-24, 48*4, 48);
 	
 	private static int turretsPurchased = 0;
+	private static boolean maxTurrets = false;
 	
 	private static Item[] items = {
 			ItemManager.getItem(20),
@@ -77,6 +80,9 @@ public class StoreMenu {
 			else {
 				g.setColor(Color.WHITE);
 				g.drawImage(items[i/2].getLargerImage(), displays[i].x+24, displays[i].y+48, null);
+				if(i/2 == 1 && maxTurrets) {
+					g.drawImage(SOLD_OUT_ICON, displays[i].x+24, displays[i].y+48, null);
+				}
 				g.drawString("Cost: "+ items[i/2].getCost(), displays[i].x+24, displays[i].y+12*15);
 			}
 		}
@@ -84,9 +90,14 @@ public class StoreMenu {
 		g.setColor(DARK_BROWN);
 		
 		g.fillRect(BUY_1_BUTTON.x, BUY_1_BUTTON.y, BUY_1_BUTTON.width, BUY_1_BUTTON.height);
-		g.fillRect(BUY_2_BUTTON.x, BUY_2_BUTTON.y, BUY_2_BUTTON.width, BUY_2_BUTTON.height);
 		g.fillRect(BUY_3_BUTTON.x, BUY_3_BUTTON.y, BUY_3_BUTTON.width, BUY_3_BUTTON.height);
 		g.fillRect(BUY_4_BUTTON.x, BUY_4_BUTTON.y, BUY_4_BUTTON.width, BUY_4_BUTTON.height);
+		
+		if(maxTurrets) {
+			g.setColor(Color.LIGHT_GRAY);		
+		}
+		
+		g.fillRect(BUY_2_BUTTON.x, BUY_2_BUTTON.y, BUY_2_BUTTON.width, BUY_2_BUTTON.height);
 		
 		g.setColor(Color.red.darker());
 		g.fillRect(SELL_BUTTON.x, SELL_BUTTON.y, SELL_BUTTON.width, SELL_BUTTON.height);
@@ -115,11 +126,17 @@ public class StoreMenu {
 				Game.player.setCoins(Game.player.getCoins() -  items[0].getCost());
 			}
 		}
-		if(BUY_2_BUTTON.contains(x, y)) {
+		if(BUY_2_BUTTON.contains(x, y) && !maxTurrets) {
 			if(items[1].getCost() <= Game.player.getCoins()) {
 				Sound.buySound();
 				Game.inventory.addItem(items[1].getID(), 1);
 				Game.player.setCoins(Game.player.getCoins() -  items[1].getCost());
+				if(items[1].getID() == 50) {
+					items[1].setCost(items[1].getCost() + turretsPurchased*100);
+					if(turretsPurchased > 3) {
+						maxTurrets = true;
+					}
+				}
 			}
 		}
 		if(BUY_3_BUTTON.contains(x, y)) {
