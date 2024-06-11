@@ -18,7 +18,7 @@ public class TileManager {
 	
 	public TileManager () {
 		
-		tile = new Tile [30];
+		tile = new Tile [40];
 		
 		mapTileNum = new int[Game.MAP_COL][Game.MAP_ROW];
 		loadMap();
@@ -132,6 +132,21 @@ public class TileManager {
 		tile [25].setImage(ImageUtil.addImage(48, 48, "resources/tiles/store/window_top_right_night.png"));
 		tile [25].setCollision(true);
 		
+		tile [26] = new Tile();
+		tile [26].setImage(ImageUtil.addImage(48, 48, "resources/tiles/workbench/bench_bottom_left.png"));
+		
+		tile [27] = new Tile();
+		tile [27].setImage(ImageUtil.addImage(48, 48, "resources/tiles/workbench/bench_bottom_right.png"));
+		
+		tile [28] = new Tile();
+		tile [28].setImage(ImageUtil.addImage(48, 48, "resources/tiles/workbench/bench_top_right.png"));
+		tile [28].setCollision(true);
+		tile [28].setStore(true);
+		
+		tile [29] = new Tile();
+		tile [29].setImage(ImageUtil.addImage(48, 48, "resources/tiles/workbench/bench_top_left.png"));
+		tile [29].setCollision(true);
+		tile [29].setStore(true);
 	}
 	
 	//loads in map as txt files and reads in numbers as their specified tile type
@@ -181,7 +196,7 @@ public class TileManager {
 			int screenX = worldX - Game.player.getWorldX() + Game.player.getScreenX();
 			int screenY = worldY - Game.player.getWorldY() + Game.player.getScreenY();
 			
-			if(Game.night && tileNum >= 18) {
+			if(Game.night && tileNum >= 18 && tileNum <= 25) {
 				tileNum+=4;
 			}
 			
