@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Launcher script for Farm Defense macOS application
+# Gets the directory where the app bundle is located
+APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+RESOURCES_DIR="$APP_DIR/Contents/Resources"
+JAVA_DIR="$RESOURCES_DIR/Java"
+GAME_DIR="$RESOURCES_DIR/game"
+
+# Find Java executable
+if [ -n "$JAVA_HOME" ]; then
+    JAVA_CMD="$JAVA_HOME/bin/java"
+elif command -v java &> /dev/null; then
+    JAVA_CMD="java"
+else
+    echo "Error: Java not found. Please install Java 11 or later."
+    exit 1
+fi
+
+# Change to game directory so resources can be found
+cd "$GAME_DIR"
+
+# Launch with appropriate memory settings
+"$JAVA_CMD" -Xmx1024m -cp "$JAVA_DIR" controller.Game
+
+exit $?
